@@ -14,6 +14,6 @@ public class CsvParserTest {
         String fileName = "AMD.csv";
         CsvParser p = new CsvParser(dir + fileName);
         List<List<String>> records = p.getRecords();
-        assertEquals(fileName, p.getFileName());
+        assertEquals(dir + fileName, p.getFileName());
     }
 }
