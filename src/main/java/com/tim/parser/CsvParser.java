@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class CsvParser {
     static final String COMMA_DELIMITER = ",";
@@ -53,5 +53,26 @@ public class CsvParser {
             records.add(all.get(base + i));
         }
         return records;
+    }
+
+    public List<StockData> getLatestStockData() {
+        List<StockData> stockQuotes = new ArrayList<>();
+        List<List<String>> latests = getLastestRecords();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        latests.forEach(i -> {
+            try {
+                Date date = formatter.parse(i.get(0));
+                Float open = Float.parseFloat(i.get(1));
+                Float high = Float.parseFloat(i.get(2));
+                Float low = Float.parseFloat(i.get(3));
+                Float close = Float.parseFloat(i.get(4));
+                Float volumn = Float.parseFloat(i.get(6));
+                StockData s = new StockData(i.get(0), date, open, high, low, close, volumn);
+                stockQuotes.add(s);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return stockQuotes;
     }
 }
