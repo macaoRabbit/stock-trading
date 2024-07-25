@@ -1,7 +1,6 @@
 package com.tim.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +13,7 @@ public class CsvParserTest {
         String fileName = "AMD.csv";
         CsvParser p = new CsvParser(dir + fileName);
         List<List<String>> records = p.getRecords();
+        List<List<String>> latests = p.getLastestRecords();
         assertEquals(dir + fileName, p.getFileName());
     }
 }
