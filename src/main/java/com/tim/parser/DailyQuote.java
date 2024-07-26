@@ -2,7 +2,7 @@ package com.tim.parser;
 
 import java.util.Date;
 
-public class StockData {
+public class DailyQuote {
     private String stringDate;
     private Date date;
     private Float open;
@@ -11,7 +11,7 @@ public class StockData {
     private Float close;
     private Float volumn;
 
-    public StockData(String stringDate, Date date, Float open, Float high, Float low, Float close, Float volumn) {
+    public DailyQuote(String stringDate, Date date, Float open, Float high, Float low, Float close, Float volumn) {
         this.stringDate = stringDate;
         this.date = date;
         this.open = open;

@@ -55,8 +55,8 @@ public class CsvParser {
         return records;
     }
 
-    public List<StockData> getLatestStockData() {
-        List<StockData> stockQuotes = new ArrayList<>();
+    public List<DailyQuote> getLatestStockData() {
+        List<DailyQuote> stockQuotes = new ArrayList<>();
         List<List<String>> latests = getLastestRecords();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         latests.forEach(i -> {
@@ -67,7 +67,7 @@ public class CsvParser {
                 Float low = Float.parseFloat(i.get(3));
                 Float close = Float.parseFloat(i.get(4));
                 Float volumn = Float.parseFloat(i.get(6));
-                StockData s = new StockData(i.get(0), date, open, high, low, close, volumn);
+                DailyQuote s = new DailyQuote(i.get(0), date, open, high, low, close, volumn);
                 stockQuotes.add(s);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
