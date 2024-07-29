@@ -13,6 +13,7 @@ public class ControlTrade extends Trading {
         Float shares = seedCost/quotes.get(0).getClose();
         quotes.forEach(i -> {
             Trade t = new Trade(i.getDate(), "", i.getClose(), shares, shares * i.getClose());
+            trades.add(t);
         });
         return trades;
     }
