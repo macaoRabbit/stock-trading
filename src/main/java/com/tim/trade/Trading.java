@@ -22,6 +22,11 @@ public abstract class Trading {
         quotes = new CsvParser(dailyQuoteDataPath).getLatestStockData();
     }
 
+    public Trading(List<DailyQuote> quotes, Float seedCost) {
+        this.seedCost = seedCost;
+        this.quotes = quotes;
+    }
+
     List<Trade> execute() {
         return trades;
     }
@@ -80,6 +85,10 @@ public abstract class Trading {
 
     public void setTrades(List<Trade> trades) {
         this.trades = trades;
+    }
+
+    public void setQuotes(List<DailyQuote> quotes) {
+        this.quotes = quotes;
     }
 
     public List<DailyQuote> getQuotes() {

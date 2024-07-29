@@ -1,11 +1,17 @@
 package com.tim.trade;
 
+import com.tim.parser.DailyQuote;
+
 import java.util.List;
 
 public class ControlTrade extends Trading {
 
     public ControlTrade(String dailyQuoteDataPath, Float seedCost) {
         super(dailyQuoteDataPath, seedCost);
+    }
+
+    public ControlTrade(List<DailyQuote> quotes, Float seedCost) {
+        super(quotes, seedCost);
     }
 
     @Override
