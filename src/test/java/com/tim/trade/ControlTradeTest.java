@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ControlTradeTest {
     @Test
-    public void matchQuoteMissingDatesTest() {
+    public void matchGroupQuoteMissingDatesTest() {
         String dir = "C:\\GitHubProjects\\data\\";
         String f1 = "a1.csv";
         String f2 = "a2.csv";

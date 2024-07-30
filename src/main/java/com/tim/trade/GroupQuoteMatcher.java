@@ -23,15 +23,17 @@ public class GroupQuoteMatcher {
         List<Integer> ptrs = new ArrayList<>();
         initailziePtrs(ptrs, allQuotes);
         while(hasValidePtrForAllQuoteSeries(allQuotes, ptrs)) {
-            String maxDate = findMaxDate(allQuotes, ptrs);
-            advanceAllPtrsToMaxDateOrLarger(allQuotes, ptrs, maxDate);
+            String minMaxDate = findMaxDate(allQuotes, ptrs);
+            advanceAllPtrsToMaxDateOrLarger(allQuotes, ptrs, minMaxDate);
             if (hasValideAndEqualDatePtrForAllQuoteSeries(allQuotes, ptrs)) {
                 GroupQuote g = new GroupQuote();
                 for (int i = 0; i< allQuotes.size(); i++) {
                     g.getQuotes().add(allQuotes.get(i).get(ptrs.get(i)));
                     Integer p = ptrs.get(i);
                     p = p + 1;
+                    ptrs.set(i, p);
                 }
+                groupQuotes.add(g);
             }
         }
         return groupQuotes;
@@ -44,6 +46,9 @@ public class GroupQuoteMatcher {
         }
         String m = allQuotes.get(0).get(ptrs.get(0)).getStringDate();
         for (int i = 0; i < allQuotes.size(); i++) {
+            if (ptrs.get(i) >= allQuotes.get(i).size()) {
+                return false;
+            }
             if (!m.equalsIgnoreCase(allQuotes.get(i).get(ptrs.get(i)).getStringDate())) {
                 return false;
             }
@@ -55,8 +60,9 @@ public class GroupQuoteMatcher {
         for (int i = 0; i < allQuotes.size(); i++) {
            List<DailyQuote> quotes = allQuotes.get(i);
            Integer p = ptrs.get(i);
-           while (maxDate.compareTo(quotes.get(p).getStringDate()) < 0) {
+           while (p < quotes.size() && maxDate.compareTo(quotes.get(p).getStringDate()) > 0) {
                 p = p + 1;
+                ptrs.set(i, p);
             }
         }
     }
