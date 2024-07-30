@@ -17,16 +17,16 @@ public class GroupQuoteMatcher {
         return fileNames;
     }
 
-    List<GroupQuotes> getMatchedQuotes() {
+    List<GroupQuote> getMatchedQuotes() {
         List<List<DailyQuote>> allQuotes = getAllDailyQuotes(fileNames);
-        List<GroupQuotes> groupQuotes = new ArrayList<>();
+        List<GroupQuote> groupQuotes = new ArrayList<>();
         List<Integer> ptrs = new ArrayList<>();
         initailziePtrs(ptrs, allQuotes);
         while(hasValidePtrForAllQuoteSeries(allQuotes, ptrs)) {
             String maxDate = findMaxDate(allQuotes, ptrs);
             advanceAllPtrsToMaxDateOrLarger(allQuotes, ptrs, maxDate);
             if (hasValideAndEqualDatePtrForAllQuoteSeries(allQuotes, ptrs)) {
-                GroupQuotes g = new GroupQuotes();
+                GroupQuote g = new GroupQuote();
                 for (int i = 0; i< allQuotes.size(); i++) {
                     g.getQuotes().add(allQuotes.get(i).get(ptrs.get(i)));
                     Integer p = ptrs.get(i);

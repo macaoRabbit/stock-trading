@@ -5,18 +5,18 @@ import com.tim.parser.DailyQuote;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupQuotes {
+public class GroupQuote {
     List<DailyQuote> quotes;
 
     public List<DailyQuote> getQuotes() {
         return quotes;
     }
 
-    public GroupQuotes() {
+    public GroupQuote() {
         this.quotes = new ArrayList<>();
     }
 
-    public GroupQuotes(List<DailyQuote> quotes) {
+    public GroupQuote(List<DailyQuote> quotes) {
         this.quotes = new ArrayList<>();
         this.quotes.addAll(quotes);
     }
