@@ -4,13 +4,13 @@ import com.tim.parser.DailyQuote;
 
 import java.util.List;
 
-public class ControlTrade extends Trading {
+public class ControlTrading extends Trading {
 
-    public ControlTrade(String dailyQuoteDataPath, Float seedCost) {
+    public ControlTrading(String dailyQuoteDataPath, Float seedCost) {
         super(dailyQuoteDataPath, seedCost);
     }
 
-    public ControlTrade(List<DailyQuote> quotes, Float seedCost) {
+    public ControlTrading(List<DailyQuote> quotes, Float seedCost) {
         super(quotes, seedCost);
     }
 
