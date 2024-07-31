@@ -27,12 +27,12 @@ public abstract class Trading {
         this.quotes = quotes;
     }
 
-    List<Trade> execute() {
+    List<Trade> executeTrade() {
         return trades;
     }
 
     public void analyze() {
-        execute();
+        executeTrade();
         Trade firstTrade = trades.get(0);
         Trade lastTrade = trades.get(trades.size() - 1);
         setEndBalance(lastTrade.getCost());

@@ -15,7 +15,7 @@ public class ControlTrade extends Trading {
     }
 
     @Override
-    public List<Trade> execute() {
+    public List<Trade> executeTrade() {
         Float shares = seedCost/quotes.get(0).getClose();
         quotes.forEach(i -> {
             Trade t = new Trade(i.getDate(), "", i.getClose(), shares, shares * i.getClose());
