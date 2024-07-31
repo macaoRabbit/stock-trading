@@ -27,6 +27,9 @@ public abstract class Trading {
         this.quotes = quotes;
     }
 
+    public Trading() {
+    }
+
     List<Trade> executeTrade() {
         return trades;
     }
