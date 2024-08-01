@@ -1,5 +1,7 @@
 package com.tim.trade;
 
+import com.tim.parser.DailyQuote;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,8 +17,32 @@ public class GroupTrading extends Trading{
         return tradings;
     }
 
-    public void matchQuotes() {
+    public void initQuotesWithCsvFileForAllTradings() {
+        tradings.forEach(i -> i.initQuotesWithCsvFile());
+    }
 
+    public void matchQuotesForAllTradings() {
+        List<List<DailyQuote>> allQuotes = new ArrayList<>();
+        tradings.forEach(i -> {
+            allQuotes.add(i.getQuotes());
+        });
+        GroupQuoteMatcher gMatcher = new GroupQuoteMatcher(allQuotes);
+        List<GroupQuote> groupQuotes = gMatcher.createMatchedQuotes();
+        List<List<DailyQuote>> matchedQuotes = new ArrayList<>();
+        tradings.forEach(i -> {
+            List<DailyQuote> dailyQuotes = new ArrayList<>();
+            matchedQuotes.add(dailyQuotes);
+        });
+        groupQuotes.forEach(i -> {
+            List<DailyQuote> quotes = i.getQuotes();
+            for (int j=0; j<quotes.size(); j++) {
+                List<DailyQuote> q = matchedQuotes.get(j);
+                q.add(quotes.get(j));
+            }
+        });
+        for (int i = 0; i< tradings.size(); i++) {
+            tradings.get(i).setQuotes(matchedQuotes.get(i));
+        }
     }
 
     @Override
@@ -31,12 +57,16 @@ public class GroupTrading extends Trading{
         List<Trade> trades = this.getTrades();
         trades.add(firstTrade);
         trades.add(lastTrade);
+        this.seedCost = seedCost;
         return trades;
     }
 
     @Override
     public void analyze() {
-        tradings.forEach(i -> i.analyze());
+        tradings.forEach(i -> {
+            i.executeTrade();
+            i.analyze();
+        });
         this.executeTrade();
         super.analyze();
     }

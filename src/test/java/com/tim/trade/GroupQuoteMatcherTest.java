@@ -18,8 +18,10 @@ public class GroupQuoteMatcherTest {
         files.add(dir + f1);
         files.add(dir + f2);
         files.add(dir + f3);
-        GroupQuoteMatcher g = new GroupQuoteMatcher(files);
-        List<GroupQuote> gQuotes = g.getMatchedQuotes();
+        GroupQuoteMatcher g = new GroupQuoteMatcher();
+        g.setFileNames(files);
+        g.initAllDailyQuotesFromFiles();
+        List<GroupQuote> gQuotes = g.createMatchedQuotes();
         assertTrue(gQuotes.size() > 0);
     }
 }

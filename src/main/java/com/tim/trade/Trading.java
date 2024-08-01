@@ -30,12 +30,15 @@ public abstract class Trading {
     public Trading() {
     }
 
+    public void initQuotesWithCsvFile() {
+        quotes = new CsvParser(dailyQuoteDataPath).getLatestStockData();
+    }
+
     List<Trade> executeTrade() {
         return trades;
     }
 
     public void analyze() {
-        executeTrade();
         Trade firstTrade = trades.get(0);
         Trade lastTrade = trades.get(trades.size() - 1);
         setEndBalance(lastTrade.getCost());

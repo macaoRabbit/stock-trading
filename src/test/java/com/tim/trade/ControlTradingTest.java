@@ -11,6 +11,8 @@ public class ControlTradingTest {
         String f1 = "AMD.csv";
         Float seedCost = 1000.0f;
         ControlTrading t = new ControlTrading(dir + f1, seedCost);
+        t.initQuotesWithCsvFile();
+        t.executeTrade();
         t.analyze();
         assertTrue(t.getAnnualizedReturn() > 0);
     }

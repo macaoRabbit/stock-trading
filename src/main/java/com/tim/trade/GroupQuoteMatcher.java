@@ -8,17 +8,32 @@ import java.util.List;
 
 public class GroupQuoteMatcher {
     List<String> fileNames;
+    List<List<DailyQuote>> allQuotes;
 
-    public GroupQuoteMatcher(List<String> fileNames) {
-        this.fileNames = fileNames;
+    public GroupQuoteMatcher() {
+    }
+
+    public GroupQuoteMatcher(List<List<DailyQuote>> allQuotes) {
+        this.allQuotes = allQuotes;
     }
 
     public List<String> getFileNames() {
         return fileNames;
     }
 
-    List<GroupQuote> getMatchedQuotes() {
-        List<List<DailyQuote>> allQuotes = getAllDailyQuotes(fileNames);
+    public void setFileNames(List<String> fileNames) {
+        this.fileNames = fileNames;
+    }
+
+    public List<List<DailyQuote>> getAllQuotes() {
+        return allQuotes;
+    }
+
+    public void setAllQuotes(List<List<DailyQuote>> allQuotes) {
+        this.allQuotes = allQuotes;
+    }
+
+    List<GroupQuote> createMatchedQuotes() {
         List<GroupQuote> groupQuotes = new ArrayList<>();
         List<Integer> ptrs = new ArrayList<>();
         initailziePtrs(ptrs, allQuotes);
@@ -95,12 +110,11 @@ public class GroupQuoteMatcher {
         });
     }
 
-    private List<List<DailyQuote>> getAllDailyQuotes(List<String> fileNames) {
-        List<List<DailyQuote>> allQuotes = new ArrayList<>();
-        fileNames.forEach(i -> {
+    public void initAllDailyQuotesFromFiles() {
+        allQuotes = new ArrayList<>();
+        this.fileNames.forEach(i -> {
             List<DailyQuote> q = new CsvParser(i).getLatestStockData();
             allQuotes.add(q);
         });
-        return allQuotes;
     }
 }
