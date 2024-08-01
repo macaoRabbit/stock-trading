@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GroupTrading extends Trading{
 
-    private List<Trading> tradings = new ArrayList<>();
+    public List<Trading> tradings = new ArrayList<>();
 
     public GroupTrading() {
     }
@@ -18,7 +18,11 @@ public class GroupTrading extends Trading{
     }
 
     public void initQuotesWithCsvFileForAllTradings() {
-        tradings.forEach(i -> i.initQuotesWithCsvFile());
+        tradings.forEach(Trading::initQuotesWithCsvFile);
+    }
+
+    public void executeGroupTrade() {
+        tradings.forEach(Trading::executeTrade);
     }
 
     public void matchQuotesForAllTradings() {
@@ -67,6 +71,7 @@ public class GroupTrading extends Trading{
             i.executeTrade();
             i.analyze();
         });
+        this.executeGroupTrade();
         this.executeTrade();
         super.analyze();
     }
