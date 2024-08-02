@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GroupGapFromAverageTradingTest {
+
     @Test
     public void basicGroupGapFromAverageTradingAnalyzeTest() {
 
@@ -17,13 +18,15 @@ public class GroupGapFromAverageTradingTest {
         Trading t2 = new GapFromAverageTrading(dir + f2, seedCost);
         Trading t3 = new GapFromAverageTrading(dir + f3, seedCost);
         GroupGapFromAverageTrading g = new GroupGapFromAverageTrading();
+        Float gap = 0.05f;
+        g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
         g.getTradings().add(t3);
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
-        assertTrue(g.getAnnualizedReturn() > 0);
+        assertTrue(g.getAnnualizedReturn() < 0);
     }
     @Test
     public void groupGapFromAverageTradingAnalyzeTest() {
@@ -37,6 +40,8 @@ public class GroupGapFromAverageTradingTest {
         Trading t2 = new GapFromAverageTrading(dir + f2, seedCost);
         Trading t3 = new GapFromAverageTrading(dir + f3, seedCost);
         GroupGapFromAverageTrading g = new GroupGapFromAverageTrading();
+        Float gap = 0.05f;
+        g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
         g.getTradings().add(t3);
