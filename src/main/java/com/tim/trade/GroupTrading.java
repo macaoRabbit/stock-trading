@@ -9,12 +9,17 @@ import java.util.List;
 public class GroupTrading extends Trading{
 
     public List<Trading> tradings = new ArrayList<>();
+    public List<String> groupTradeDays = new ArrayList<>();
 
     public GroupTrading() {
     }
 
     public List<Trading> getTradings() {
         return tradings;
+    }
+
+    public List<String> getGroupTradeDays() {
+        return groupTradeDays;
     }
 
     public void initQuotesWithCsvFileForAllTradings() {

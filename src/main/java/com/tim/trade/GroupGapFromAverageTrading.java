@@ -2,6 +2,7 @@ package com.tim.trade;
 
 import com.tim.parser.DailyQuote;
 
+import java.util.Date;
 import java.util.List;
 
 public class GroupGapFromAverageTrading extends GroupTrading {
@@ -39,6 +40,8 @@ public class GroupGapFromAverageTrading extends GroupTrading {
             }
             Float avgEquity = totalEquity / equities;
             if (Math.abs(maxEquity - minEquity) > gapSize * avgEquity) {
+                String date = tradings.get(0).getQuotes().get(day).getStringDate();
+                groupTradeDays.add(date);
                 for (int equity = 0; equity < equities; equity++) {
                     Trading t = tradings.get(equity);
                     DailyQuote q =t.getQuotes().get(day);
