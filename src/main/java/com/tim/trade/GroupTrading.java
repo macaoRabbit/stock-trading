@@ -53,15 +53,17 @@ public class GroupTrading extends Trading{
     public List<Trade> executeTrade() {
         Float seedCost = (float) tradings.stream().mapToDouble(i -> i.getSeedCost()).sum();
         Float endBalance = (float) tradings.stream().mapToDouble(i -> i.getEndBalance()).sum();
-        Date startDate = tradings.get(0).getQuotes().get(0).getDate();
         int n = tradings.get(0).getQuotes().size();
-        Date endDate = tradings.get(0).getQuotes().get(n - 1).getDate();
-        Trade firstTrade = new Trade(startDate, "", 0.0f, 0.0f, seedCost);
-        Trade lastTrade = new Trade(endDate, "", 0.0f, 0.0f, endBalance);
         List<Trade> trades = this.getTrades();
-        trades.add(firstTrade);
-        trades.add(lastTrade);
+        for (int i=0; i<n; i++) {
+            Date date = tradings.get(0).getQuotes().get(i).getDate();
+            int finalI = i;
+            Float cost = (float) tradings.stream().mapToDouble(j -> j.getTrades().get(finalI).getCost()).sum();
+            Trade t = new Trade(date, "", 0.0f, 0.0f, cost);
+            trades.add(t);
+        }
         this.seedCost = seedCost;
+        this.endBalance = endBalance;
         return trades;
     }
 

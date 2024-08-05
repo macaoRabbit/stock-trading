@@ -26,7 +26,7 @@ public class GroupGapFromAverageTradingTest {
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
-        assertTrue(g.getAnnualizedReturn() < 0);
+        assertTrue(g.getAnnualizedReturn() > 0);
     }
     @Test
     public void groupGapFromAverageTradingAnalyzeTest() {
