@@ -5,7 +5,9 @@ import com.tim.parser.DailyQuote;
 import java.util.List;
 
 public class GroupGapTrading extends GroupTrading {
-    Float gapSize;
+    Float gapSize = 0.05f;
+    Integer splitRatioPower = 0;
+    Boolean isLossMajor = true;
 
     @Override
     public void executeGroupTrade() {
@@ -57,5 +59,21 @@ public class GroupGapTrading extends GroupTrading {
 
     public void setGapSize(Float gapSize) {
         this.gapSize = gapSize;
+    }
+
+    public Integer getSplitRatioPower() {
+        return splitRatioPower;
+    }
+
+    public void setSplitRatioPower(Integer splitRatioPower) {
+        this.splitRatioPower = splitRatioPower;
+    }
+
+    public Boolean getLossMajor() {
+        return isLossMajor;
+    }
+
+    public void setLossMajor(Boolean lossMajor) {
+        isLossMajor = lossMajor;
     }
 }
