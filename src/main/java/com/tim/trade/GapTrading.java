@@ -4,13 +4,13 @@ import com.tim.parser.DailyQuote;
 
 import java.util.List;
 
-public class GapFromAverageTrading extends Trading {
+public class GapTrading extends Trading {
 
-    public GapFromAverageTrading(String dailyQuoteDataPath, Float seedCost) {
+    public GapTrading(String dailyQuoteDataPath, Float seedCost) {
         super(dailyQuoteDataPath, seedCost);
     }
 
-    public GapFromAverageTrading(List<DailyQuote> quotes, Float seedCost) {
+    public GapTrading(List<DailyQuote> quotes, Float seedCost) {
         super(quotes, seedCost);
     }
 

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GroupGapFromAverageTradingTest {
+public class GroupGapTradingTest {
 
     @Test
     public void basicGroupGapFromAverageTradingAnalyzeTest() {
@@ -14,10 +14,10 @@ public class GroupGapFromAverageTradingTest {
         String f2 = "a2.csv";
         String f3 = "a3.csv";
         Float seedCost = 1000.0f;
-        Trading t1 = new GapFromAverageTrading(dir + f1, seedCost);
-        Trading t2 = new GapFromAverageTrading(dir + f2, seedCost);
-        Trading t3 = new GapFromAverageTrading(dir + f3, seedCost);
-        GroupGapFromAverageTrading g = new GroupGapFromAverageTrading();
+        Trading t1 = new GapTrading(dir + f1, seedCost);
+        Trading t2 = new GapTrading(dir + f2, seedCost);
+        Trading t3 = new GapTrading(dir + f3, seedCost);
+        GroupGapTrading g = new GroupGapTrading();
         Float gap = 0.05f;
         g.setGapSize(gap);
         g.getTradings().add(t1);
@@ -36,10 +36,10 @@ public class GroupGapFromAverageTradingTest {
         String f2 = "NOW.csv";
         String f3 = "PAYC.csv";
         Float seedCost = 1000.0f;
-        Trading t1 = new GapFromAverageTrading(dir + f1, seedCost);
-        Trading t2 = new GapFromAverageTrading(dir + f2, seedCost);
-        Trading t3 = new GapFromAverageTrading(dir + f3, seedCost);
-        GroupGapFromAverageTrading g = new GroupGapFromAverageTrading();
+        Trading t1 = new GapTrading(dir + f1, seedCost);
+        Trading t2 = new GapTrading(dir + f2, seedCost);
+        Trading t3 = new GapTrading(dir + f3, seedCost);
+        GroupGapTrading g = new GroupGapTrading();
         Float gap = 0.05f;
         g.setGapSize(gap);
         g.getTradings().add(t1);

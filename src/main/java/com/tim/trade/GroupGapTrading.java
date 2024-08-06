@@ -2,10 +2,9 @@ package com.tim.trade;
 
 import com.tim.parser.DailyQuote;
 
-import java.util.Date;
 import java.util.List;
 
-public class GroupGapFromAverageTrading extends GroupTrading {
+public class GroupGapTrading extends GroupTrading {
     Float gapSize;
 
     @Override
