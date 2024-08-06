@@ -19,10 +19,13 @@ public class GroupGapTradingTest {
         Trading t3 = new GapTrading(dir + f3, seedCost);
         GroupGapTrading g = new GroupGapTrading();
         Float gap = 0.05f;
+        Integer splitRatioPower = 0;
         g.setGapSize(gap);
+        g.setSplitRatioPower(splitRatioPower);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
         g.getTradings().add(t3);
+        g.setupSplitRatio();
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
@@ -41,10 +44,12 @@ public class GroupGapTradingTest {
         Trading t3 = new GapTrading(dir + f3, seedCost);
         GroupGapTrading g = new GroupGapTrading();
         Float gap = 0.05f;
+        Integer splitRatioPower = 0;
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
         g.getTradings().add(t3);
+        g.setupSplitRatio();
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();

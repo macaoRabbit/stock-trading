@@ -10,8 +10,13 @@ public class GroupTrading extends Trading{
 
     public List<Trading> tradings = new ArrayList<>();
     public List<String> groupTradeDays = new ArrayList<>();
+    public List<Integer> groupTradeDayIndex = new ArrayList<>();
 
     public GroupTrading() {
+    }
+
+    public List<Integer> getGroupTradeDayIndex() {
+        return groupTradeDayIndex;
     }
 
     public List<Trading> getTradings() {

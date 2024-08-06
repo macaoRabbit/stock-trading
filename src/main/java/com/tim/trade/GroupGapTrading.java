@@ -2,23 +2,28 @@ package com.tim.trade;
 
 import com.tim.parser.DailyQuote;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class GroupGapTrading extends GroupTrading {
     Float gapSize = 0.05f;
     Integer splitRatioPower = 0;
     Boolean isLossMajor = true;
+    List<Float> splitRatio = new ArrayList<>();
 
     @Override
     public void executeGroupTrade() {
+        groupTradeDayIndex.clear();
         int days = tradings.get(0).getQuotes().size();
         int equities = tradings.size();
         tradings.forEach(i -> i.getTrades().clear());
         for (int day = 0; day < days; day++) {
-            Float totalEquity = 0.0f;
-            Float minEquity = (float) Math.pow(2, 30);
-            Float maxEquity = 0.0f;
+            Float minEquityRatio = (float) Math.pow(2, 30);
+            Float maxEquityRatio = 0.0f;
+            TreeMap<Float, Trading> tradingMap = new TreeMap<>();
             for (int equity = 0; equity < equities; equity++) {
+                tradingMap.clear();
                 Trading t = tradings.get(equity);
                 DailyQuote q =t.getQuotes().get(day);
                 Float shares = 0.0f;
@@ -28,31 +33,62 @@ public class GroupGapTrading extends GroupTrading {
                     shares = t.getTrades().get(day - 1).shares;
                 }
                 Float equityAmount = shares * q.getClose();
-                totalEquity += equityAmount;
-                if (equityAmount < minEquity ) {
-                    minEquity = equityAmount;
-                }
-                if (maxEquity < equityAmount) {
-                    maxEquity = equityAmount;
-                }
                 Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount);
                 List<Trade> trades = t.getTrades();
                 trades.add(trade);
+                int lastTradeIndex = getLastTradeIndex();
+                Float equityRatio = equityAmount/trades.get(lastTradeIndex).getCost();
+                tradingMap.put(equityRatio, t);
+                if (equityRatio < minEquityRatio ) {
+                    minEquityRatio = equityRatio;
+                }
+                if (maxEquityRatio < equityRatio) {
+                    maxEquityRatio = equityRatio;
+                }
             }
-            Float avgEquity = totalEquity / equities;
-            if (Math.abs(maxEquity - minEquity) > gapSize * avgEquity) {
+            if (Math.abs(maxEquityRatio - minEquityRatio) > gapSize) {
                 String date = tradings.get(0).getQuotes().get(day).getStringDate();
                 groupTradeDays.add(date);
-                for (int equity = 0; equity < equities; equity++) {
-                    Trading t = tradings.get(equity);
+                groupTradeDayIndex.add(day);
+                int aDay = day;
+                Float totalEquity = (float) tradings.stream().mapToDouble(i -> trades.get(aDay).getCost()).sum();
+                int ratioIndex = 0;
+                for (Trading t : tradingMap.values()) {
+                    int myRatioIndex = ratioIndex;
+                    if (!getLossMajor()) {
+                        myRatioIndex = equities - ratioIndex;
+                    }
+                    Float myEquity = totalEquity * splitRatio.get(myRatioIndex);
                     DailyQuote q =t.getQuotes().get(day);
                     Trade trade = t.getTrades().get(day);
-                    trade.setShares(avgEquity/q.getClose());
-                    trade.setCost(avgEquity);
+                    trade.setShares(myEquity/q.getClose());
+                    trade.setCost(myEquity);
+                    ratioIndex++;
                 }
             }
         }
     }
+
+    private int getLastTradeIndex() {
+        int i = groupTradeDayIndex.size() - 1;
+        if (i < 0) {
+            i = 0;
+        }
+        return 0;
+    }
+
+    public void setupSplitRatio() {
+        splitRatio.clear();
+        for (int i=0; i<tradings.size(); i++) {
+           splitRatio.add((float) Math.pow(i + 1, splitRatioPower));
+        }
+        Float base = (float) splitRatio.stream().mapToDouble(i -> i.floatValue()).sum();
+        for (int i=0; i<tradings.size(); i++) {
+            Float ratio = splitRatio.get(i);
+            splitRatio.set(i, ratio/base);
+        }
+    }
+
     public Float getGapSize() {
         return gapSize;
     }
