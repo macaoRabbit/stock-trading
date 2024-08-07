@@ -51,7 +51,7 @@ public class GroupGapTrading extends GroupTrading {
                 groupTradeDays.add(date);
                 groupTradeDayIndex.add(day);
                 int aDay = day;
-                Float totalEquity = (float) tradings.stream().mapToDouble(i -> trades.get(aDay).getCost()).sum();
+                Float totalEquity = (float) tradings.stream().mapToDouble(i -> i.getTrades().get(aDay).getCost()).sum();
                 int ratioIndex = 0;
                 for (Trading t : tradingMap.values()) {
                     int myRatioIndex = ratioIndex;
@@ -74,7 +74,7 @@ public class GroupGapTrading extends GroupTrading {
         if (i < 0) {
             i = 0;
         }
-        return 0;
+        return i;
     }
 
     public void setupSplitRatio() {
