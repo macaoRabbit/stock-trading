@@ -18,12 +18,12 @@ public class GroupGapTrading extends GroupTrading {
         int days = tradings.get(0).getQuotes().size();
         int equities = tradings.size();
         tradings.forEach(i -> i.getTrades().clear());
+        TreeMap<Float, Trading> tradingMap = new TreeMap<>();
         for (int day = 0; day < days; day++) {
+            tradingMap.clear();
             Float minEquityRatio = (float) Math.pow(2, 30);
             Float maxEquityRatio = 0.0f;
-            TreeMap<Float, Trading> tradingMap = new TreeMap<>();
             for (int equity = 0; equity < equities; equity++) {
-                tradingMap.clear();
                 Trading t = tradings.get(equity);
                 DailyQuote q =t.getQuotes().get(day);
                 Float shares = 0.0f;
@@ -70,10 +70,10 @@ public class GroupGapTrading extends GroupTrading {
     }
 
     private int getLastTradeIndex() {
-        int i = groupTradeDayIndex.size() - 1;
-        if (i < 0) {
-            i = 0;
+        if (groupTradeDayIndex == null || groupTradeDayIndex.size() == 0) {
+            return 0;
         }
+        int i = groupTradeDayIndex.size() - 1;
         return groupTradeDayIndex.get(i);
     }
 
