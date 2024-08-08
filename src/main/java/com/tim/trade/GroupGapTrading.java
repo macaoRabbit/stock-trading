@@ -74,7 +74,7 @@ public class GroupGapTrading extends GroupTrading {
         if (i < 0) {
             i = 0;
         }
-        return i;
+        return groupTradeDayIndex.get(i);
     }
 
     public void setupSplitRatio() {
