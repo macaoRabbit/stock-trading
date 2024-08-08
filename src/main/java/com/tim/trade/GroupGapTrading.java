@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 public class GroupGapTrading extends GroupTrading {
     Float gapSize = 0.05f;
-    Integer splitRatioPower = 0;
+    Float splitRatioPower = 0.00f;
     Boolean isLossMajor = true;
     List<Float> splitRatio = new ArrayList<>();
 
@@ -55,10 +55,11 @@ public class GroupGapTrading extends GroupTrading {
                 int ratioIndex = 0;
                 for (Trading t : tradingMap.values()) {
                     int myRatioIndex = ratioIndex;
-                    if (!getLossMajor()) {
-                        myRatioIndex = equities - ratioIndex;
+                    if (getLossMajor()) {
+                        myRatioIndex = equities - ratioIndex - 1;
                     }
-                    Float myEquity = totalEquity * splitRatio.get(myRatioIndex);
+                    Float mySplitRatio = splitRatio.get(myRatioIndex);
+                    Float myEquity = totalEquity * mySplitRatio;
                     DailyQuote q =t.getQuotes().get(day);
                     Trade trade = t.getTrades().get(day);
                     trade.setShares(myEquity/q.getClose());
@@ -97,11 +98,11 @@ public class GroupGapTrading extends GroupTrading {
         this.gapSize = gapSize;
     }
 
-    public Integer getSplitRatioPower() {
+    public Float getSplitRatioPower() {
         return splitRatioPower;
     }
 
-    public void setSplitRatioPower(Integer splitRatioPower) {
+    public void setSplitRatioPower(Float splitRatioPower) {
         this.splitRatioPower = splitRatioPower;
     }
 
