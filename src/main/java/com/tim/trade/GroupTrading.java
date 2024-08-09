@@ -98,6 +98,7 @@ public class GroupTrading extends Trading {
     }
 
     private void reportTradingsSummary() {
+        System.out.print(" ----> ");
         for (Trading t : tradings) {
             String s = t.getDailyQuoteDataPath();
             int i = s.lastIndexOf('\\');
