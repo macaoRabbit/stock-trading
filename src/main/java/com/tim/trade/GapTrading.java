@@ -19,7 +19,7 @@ public class GapTrading extends Trading {
         trades.clear();
         Float shares = seedCost/quotes.get(0).getClose();
         quotes.forEach(i -> {
-            Trade t = new Trade(i.getDate(), "", i.getClose(), shares, shares * i.getClose());
+            Trade t = new Trade(i.getDate(), "", i.getClose(), shares, shares * i.getClose(), i.getStringDate());
             trades.add(t);
         });
         return trades;

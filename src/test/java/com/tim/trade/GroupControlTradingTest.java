@@ -23,6 +23,7 @@ public class GroupControlTradingTest {
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
+        g.report();
         assertTrue(g.getAnnualizedReturn() > 0);
     }
 }

@@ -8,13 +8,15 @@ public class Trade {
     Float sharePrice;
     Float shares;
     Float cost;
+    String stringDay;
 
-    public Trade(Date date, String symbol, Float sharePrice, Float shares, Float cost) {
+    public Trade(Date date, String symbol, Float sharePrice, Float shares, Float cost, String stringDay) {
         this.date = date;
         this.symbol = symbol;
-        this.sharePrice = sharePrice;
-        this.shares = shares;
-        this.cost = cost;
+        this.sharePrice = myRound(sharePrice);
+        this.shares = myRound(shares);
+        this.cost = myRound(cost);
+        this.stringDay = stringDay;
     }
 
     public Date getDate() {
@@ -38,7 +40,7 @@ public class Trade {
     }
 
     public void setSharePrice(Float sharePrice) {
-        this.sharePrice = sharePrice;
+        this.sharePrice = myRound(sharePrice);
     }
 
     public Float getShares() {
@@ -46,7 +48,7 @@ public class Trade {
     }
 
     public void setShares(Float shares) {
-        this.shares = shares;
+        this.shares = myRound(shares);
     }
 
     public Float getCost() {
@@ -54,6 +56,33 @@ public class Trade {
     }
 
     public void setCost(Float cost) {
-        this.cost = cost;
+        this.cost = myRound(cost);
+    }
+
+    private Float myRound(Float cost) {
+        return cost;
+    }
+
+    public String getStringDay() {
+        return stringDay;
+    }
+
+    public void setStringDay(String stringDay) {
+        this.stringDay = stringDay;
+    }
+
+    public void report() {
+        System.out.print(stringDay);
+        System.out.print(" " + symbol);
+        System.out.printf(" %7.2f", sharePrice);
+        System.out.printf(" %7.2f", shares);
+        System.out.printf(" %7.2f", cost);
+        System.out.println();
+    }
+
+    public void simpleReport() {
+        System.out.printf(" %7.2f", sharePrice);
+        System.out.printf(" %7.2f", shares);
+        System.out.printf(" %7.2f", cost);
     }
 }

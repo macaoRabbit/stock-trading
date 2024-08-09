@@ -100,4 +100,8 @@ public abstract class Trading {
     public List<DailyQuote> getQuotes() {
         return quotes;
     }
+
+    public void reportSummary() {
+        System.out.println("seedCost= " + seedCost + " endBalance= " + endBalance + " profit= " + profit + " return= " + annualizedReturn);
+    }
 }

@@ -67,10 +67,11 @@ public class GroupTrading extends Trading{
         List<Trade> trades = this.getTrades();
         for (int i=0; i<n; i++) {
             Date date = tradings.get(0).getQuotes().get(i).getDate();
+            String stringDay =tradings.get(0).getQuotes().get(i).getStringDate();
             int finalI = i;
             Float shares = (float) tradings.stream().mapToDouble(j -> j.getTrades().get(finalI).getShares()).sum();
             Float cost = (float) tradings.stream().mapToDouble(j -> j.getTrades().get(finalI).getCost()).sum();
-            Trade t = new Trade(date, "", 0.0f, shares, cost);
+            Trade t = new Trade(date, "", 0.0f, shares, cost, stringDay);
             trades.add(t);
         }
         this.seedCost = seedCost;
@@ -87,5 +88,39 @@ public class GroupTrading extends Trading{
         this.executeGroupTrade();
         this.executeTrade();
         super.analyze();
+    }
+
+    public void report() {
+        reportSummary();
+        reportTradDays();
+        reportTradings();
+        reportTradeDetails();
+    }
+
+    private void reportTradings() {
+        for (int i=0; i<tradings.get(0).getTrades().size(); i++) {
+            Trade t = tradings.get(0).getTrades().get(i);
+            System.out.print(t.stringDay + " ");
+            for (Trading trading : tradings) {
+                Trade u = trading.getTrades().get(i);
+                u.simpleReport();
+            }
+            System.out.println();
+        }
+    }
+
+    private void reportTradeDetails() {
+        for (Trade t : trades) {
+            t.report();
+        }
+    }
+
+    private void reportTradDays() {
+        String startDay = trades.get(0).getStringDay();
+        String endDay = trades.get(trades.size() - 1).getStringDay();
+        System.out.println("startDay: " + startDay + " endDay: " + endDay +  " TradeDays: " + groupTradeDays.size());
+        for (String s : groupTradeDays) {
+            System.out.println(s);
+        }
     }
 }

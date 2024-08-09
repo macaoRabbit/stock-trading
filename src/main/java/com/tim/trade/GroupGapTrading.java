@@ -33,7 +33,7 @@ public class GroupGapTrading extends GroupTrading {
                     shares = t.getTrades().get(day - 1).shares;
                 }
                 Float equityAmount = shares * q.getClose();
-                Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount);
+                Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount, q.getStringDate());
                 List<Trade> trades = t.getTrades();
                 trades.add(trade);
                 int lastTradeIndex = getLastTradeIndex();
@@ -88,6 +88,18 @@ public class GroupGapTrading extends GroupTrading {
             Float ratio = splitRatio.get(i);
             splitRatio.set(i, ratio/base);
         }
+    }
+
+    @Override
+    public void report() {
+        System.out.printf("GapSize: %7.2f", gapSize);
+        System.out.printf(" SplitRatioPoswer: %7.2f", splitRatioPower);
+        System.out.printf(" isLossMajor: %b", isLossMajor);
+        for (Float r : splitRatio) {
+            System.out.printf("%7.2f", r);
+        }
+        System.out.println();
+        super.report();
     }
 
     public Float getGapSize() {

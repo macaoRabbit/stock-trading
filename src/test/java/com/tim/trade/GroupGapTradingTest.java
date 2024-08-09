@@ -29,6 +29,7 @@ public class GroupGapTradingTest {
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
+        g.report();
         assertTrue(g.getAnnualizedReturn() > 0);
     }
 
@@ -56,6 +57,7 @@ public class GroupGapTradingTest {
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
+        g.report();
         assertTrue(g.getAnnualizedReturn() > 0);
     }
 
@@ -83,6 +85,7 @@ public class GroupGapTradingTest {
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
+        g.report();
         assertTrue(g.getAnnualizedReturn() > 0);
     }
 
@@ -108,6 +111,7 @@ public class GroupGapTradingTest {
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
+        g.report();
         assertTrue(g.getAnnualizedReturn() > 0);
     }
 }
