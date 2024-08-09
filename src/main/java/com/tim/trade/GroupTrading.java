@@ -90,6 +90,12 @@ public class GroupTrading extends Trading{
         super.analyze();
     }
 
+    @Override
+    public void reportSummary() {
+        super.reportSummary();
+        reportTradDaysSummary();
+    }
+
     public void report() {
         reportSummary();
         reportTradDays();
@@ -115,10 +121,13 @@ public class GroupTrading extends Trading{
         }
     }
 
-    private void reportTradDays() {
+    private void reportTradDaysSummary() {
         String startDay = trades.get(0).getStringDay();
         String endDay = trades.get(trades.size() - 1).getStringDay();
         System.out.println("startDay: " + startDay + " endDay: " + endDay +  " TradeDays: " + groupTradeDays.size());
+    }
+
+    private void reportTradDays() {
         for (String s : groupTradeDays) {
             System.out.println(s);
         }

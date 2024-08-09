@@ -111,7 +111,8 @@ public class GroupGapTradingTest {
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
-        g.report();
+//        g.report();
+        g.reportSummary();
         assertTrue(g.getAnnualizedReturn() > 0);
     }
 }

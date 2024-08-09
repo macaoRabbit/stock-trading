@@ -91,6 +91,18 @@ public class GroupGapTrading extends GroupTrading {
     }
 
     @Override
+    public void reportSummary() {
+        System.out.printf("GapSize: %7.2f", gapSize);
+        System.out.printf(" SplitRatioPoswer: %7.2f", splitRatioPower);
+        System.out.printf(" isLossMajor: %b", isLossMajor);
+        for (Float r : splitRatio) {
+            System.out.printf("%7.2f", r);
+        }
+        System.out.println();
+        super.reportSummary();
+    }
+
+    @Override
     public void report() {
         System.out.printf("GapSize: %7.2f", gapSize);
         System.out.printf(" SplitRatioPoswer: %7.2f", splitRatioPower);
