@@ -2,6 +2,7 @@ package com.tim.experiment;
 
 import com.tim.trade.GapTrading;
 import com.tim.trade.Trading;
+import com.tim.utility.FloatRange;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -25,7 +26,10 @@ public class FullPairTradingExperimentTest {
         tradings.add(t2);
         tradings.add(t3);
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings);
+        FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.025f);
+        FloatRange powerRange = new FloatRange(0.0f, 5.0f, 1.0f);
+
+        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
         f.run();
     }
 }

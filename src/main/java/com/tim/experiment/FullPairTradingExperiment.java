@@ -16,6 +16,12 @@ public class FullPairTradingExperiment {
         this.tradings = tradings;
     }
 
+    public FullPairTradingExperiment(List<Trading> tradings, FloatRange gapRange, FloatRange powerRange) {
+        this.tradings = tradings;
+        this.gapRange = gapRange;
+        this.powerRange = powerRange;
+    }
+
     public List<Trading> getTradings() {
         return tradings;
     }
