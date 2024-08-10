@@ -1,7 +1,6 @@
 package com.tim.experiment;
 
 import com.tim.trade.GapTrading;
-import com.tim.trade.GroupGapTrading;
 import com.tim.trade.Trading;
 import org.junit.jupiter.api.Test;
 
@@ -28,15 +27,5 @@ public class FullPairTradingExperimentTest {
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings);
         f.run();
-
-        GroupGapTrading g = new GroupGapTrading();
-        g.getTradings().add(t1);
-        g.getTradings().add(t2);
-        g.getTradings().add(t3);
-        g.initQuotesWithCsvFileForAllTradings();
-        g.matchQuotesForAllTradings();
-
-        GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, 0.2f, 5.0f);
-        e.run();
     }
 }
