@@ -27,7 +27,7 @@ public class FullPairTradingExperimentTest {
         tradings.add(t3);
 
         FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.025f);
-        FloatRange powerRange = new FloatRange(0.0f, 5.0f, 1.0f);
+        FloatRange powerRange = new FloatRange(0.0f, 6.0f, 1.0f);
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
         f.run();
