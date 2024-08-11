@@ -1,7 +1,10 @@
 package com.tim.experiment;
 
+import com.tim.result.GroupTradeResult;
 import com.tim.trade.GroupGapTrading;
 import com.tim.utility.FloatRange;
+
+import java.util.List;
 
 public class GroupGapTradingExperiment {
     GroupGapTrading g;
@@ -13,6 +16,7 @@ public class GroupGapTradingExperiment {
     Float gapIncrement = 0.025f;
     Float powerIncrement = 1.0f;
     Float controlReturn = 0.0f;
+    List<GroupTradeResult> results;
 
     public GroupGapTradingExperiment(GroupGapTrading g, Float gapLimit, Float powerLimit) {
         this.g = g;
@@ -20,7 +24,7 @@ public class GroupGapTradingExperiment {
         this.powerUpperLimit = powerLimit;
     }
 
-    public GroupGapTradingExperiment(GroupGapTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn) {
+    public GroupGapTradingExperiment(GroupGapTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn, List<GroupTradeResult> results) {
         this.g = g;
         this.gapLowerLimit = gapRange.getLower();
         this.gapUpperLimit = gapRange.getUpper();
@@ -29,6 +33,7 @@ public class GroupGapTradingExperiment {
         this.powerUpperLimit = powerRange.getUpper();
         this.powerIncrement = powerRange.getIncrement();
         this.controlReturn = controlReturn;
+        this.results = results;
         g.setControlReturn(controlReturn);
     }
 
@@ -47,6 +52,7 @@ public class GroupGapTradingExperiment {
                     g.setupSplitRatio();
                     g.analyze();
                     g.reportSummary();
+                    g.collectResult();
                     currentPower = currentPower + powerIncrement;
                 }
                 currentGap = currentGap + gapIncrement;

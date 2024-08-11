@@ -1,5 +1,6 @@
 package com.tim.experiment;
 
+import com.tim.result.GroupTradeResult;
 import com.tim.trade.GroupControlTrading;
 import com.tim.trade.GroupGapTrading;
 import com.tim.trade.Trading;
@@ -48,6 +49,7 @@ public class FullPairTradingExperiment {
     }
 
     public void run() {
+        List<GroupTradeResult> results = new ArrayList<>();
         for (int i = 0; i < tradings.size(); i++) {
             for (int j = i + 1; j < tradings.size(); j++) {
                 Trading t1 = tradings.get(i);
@@ -67,7 +69,7 @@ public class FullPairTradingExperiment {
                 g.initQuotesWithCsvFileForAllTradings();
                 g.matchQuotesForAllTradings();
 
-                GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, gapRange, powerRange, controlReturn);
+                GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, gapRange, powerRange, controlReturn, results);
                 e.run();
             }
         }

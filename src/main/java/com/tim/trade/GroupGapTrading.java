@@ -143,4 +143,7 @@ public class GroupGapTrading extends GroupTrading {
     public void setLossMajor(Boolean lossMajor) {
         isLossMajor = lossMajor;
     }
+
+    public void collectResult() {
+    }
 }
