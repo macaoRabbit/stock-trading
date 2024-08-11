@@ -15,6 +15,7 @@ public abstract class Trading {
     Float annualizedReturn;
     List<DailyQuote> quotes;
     List<Trade> trades = new ArrayList<>();
+    Float controlReturn = 0.0f;
 
     public Trading(String dailyQuoteDataPath, Float seedCost) {
         this.seedCost = seedCost;
@@ -101,7 +102,22 @@ public abstract class Trading {
         return quotes;
     }
 
+
+    public Float getControlReturn() {
+        return controlReturn;
+    }
+
+    public void setControlReturn(Float controlReturn) {
+        this.controlReturn = controlReturn;
+    }
+
+
     public void reportSummary() {
-        System.out.println("seedCost= " + seedCost + " endBalance= " + endBalance + " profit= " + profit + " return= " + annualizedReturn);
+        System.out.printf("annualizedReturn= %7.3f " , annualizedReturn);
+        System.out.printf("comparedWithControl= %7.3f " ,  (annualizedReturn - controlReturn));
+        System.out.printf("seedCost= %7.2f " , seedCost);
+        System.out.printf("endBalance= %7.2f " , endBalance);
+        System.out.printf("profit= %7.2f " , profit);
+        System.out.println();
     }
 }

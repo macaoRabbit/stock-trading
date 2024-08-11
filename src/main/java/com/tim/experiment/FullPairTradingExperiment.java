@@ -1,5 +1,6 @@
 package com.tim.experiment;
 
+import com.tim.trade.GroupControlTrading;
 import com.tim.trade.GroupGapTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
@@ -52,14 +53,21 @@ public class FullPairTradingExperiment {
                 Trading t1 = tradings.get(i);
                 Trading t2 = tradings.get(j);
 
+                GroupControlTrading c = new GroupControlTrading();
+                c.getTradings().add(t1);
+                c.getTradings().add(t2);
+                c.initQuotesWithCsvFileForAllTradings();
+                c.matchQuotesForAllTradings();
+                c.analyze();
+                Float controlReturn = c.getAnnualizedReturn();
+
                 GroupGapTrading g = new GroupGapTrading();
                 g.getTradings().add(t1);
                 g.getTradings().add(t2);
                 g.initQuotesWithCsvFileForAllTradings();
                 g.matchQuotesForAllTradings();
 
-//                GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, 0.2f, 5.0f);
-                GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, gapRange, powerRange);
+                GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, gapRange, powerRange, controlReturn);
                 e.run();
             }
         }

@@ -12,6 +12,7 @@ public class GroupGapTradingExperiment {
 
     Float gapIncrement = 0.025f;
     Float powerIncrement = 1.0f;
+    Float controlReturn = 0.0f;
 
     public GroupGapTradingExperiment(GroupGapTrading g, Float gapLimit, Float powerLimit) {
         this.g = g;
@@ -19,7 +20,7 @@ public class GroupGapTradingExperiment {
         this.powerUpperLimit = powerLimit;
     }
 
-    public GroupGapTradingExperiment(GroupGapTrading g, FloatRange gapRange, FloatRange powerRange) {
+    public GroupGapTradingExperiment(GroupGapTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn) {
         this.g = g;
         this.gapLowerLimit = gapRange.getLower();
         this.gapUpperLimit = gapRange.getUpper();
@@ -27,7 +28,8 @@ public class GroupGapTradingExperiment {
         this.powerLowerLimit = powerRange.getLower();
         this.powerUpperLimit = powerRange.getUpper();
         this.powerIncrement = powerRange.getIncrement();
-
+        this.controlReturn = controlReturn;
+        g.setControlReturn(controlReturn);
     }
 
     public void run() {
