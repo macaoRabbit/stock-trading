@@ -13,6 +13,7 @@ public class FullPairTradingExperiment {
     List<Trading> tradings = new ArrayList<>();
     FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.025f);
     FloatRange powerRange = new FloatRange(0.0f, 5.0f, 1.0f);
+    List<GroupTradeResult> results = new ArrayList<>();
 
     public FullPairTradingExperiment(List<Trading> tradings) {
         this.tradings = tradings;
@@ -48,8 +49,16 @@ public class FullPairTradingExperiment {
         this.tradings = tradings;
     }
 
-    public void run() {
-        List<GroupTradeResult> results = new ArrayList<>();
+    public List<GroupTradeResult> getResults() {
+        return results;
+    }
+
+    public void setResults(List<GroupTradeResult> results) {
+        this.results = results;
+    }
+
+    public List<GroupTradeResult> run() {
+        results.clear();
         for (int i = 0; i < tradings.size(); i++) {
             for (int j = i + 1; j < tradings.size(); j++) {
                 Trading t1 = tradings.get(i);
@@ -73,5 +82,10 @@ public class FullPairTradingExperiment {
                 e.run();
             }
         }
+        return results;
+    }
+
+    public void processResult() {
+        new GroupTradeResult().process(results);
     }
 }

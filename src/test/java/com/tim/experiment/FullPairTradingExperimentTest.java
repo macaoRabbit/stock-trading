@@ -1,5 +1,6 @@
 package com.tim.experiment;
 
+import com.tim.result.GroupTradeResult;
 import com.tim.trade.GapTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
@@ -26,10 +27,11 @@ public class FullPairTradingExperimentTest {
         tradings.add(t2);
         tradings.add(t3);
 
-        FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.025f);
-        FloatRange powerRange = new FloatRange(0.0f, 6.0f, 1.0f);
+        FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.001f);
+        FloatRange powerRange = new FloatRange(0.0f, 6.1f, 1.0f);
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
-        f.run();
+        List<GroupTradeResult> results = f.run();
+        f.processResult();
     }
 }
