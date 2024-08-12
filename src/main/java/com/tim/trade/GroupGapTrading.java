@@ -1,6 +1,9 @@
 package com.tim.trade;
 
 import com.tim.parser.DailyQuote;
+import com.tim.result.GroupTradeResult;
+import com.tim.result.GroupTradeResultItem;
+import com.tim.result.ReturnItemType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +123,26 @@ public class GroupGapTrading extends GroupTrading {
         super.report();
     }
 
+    @Override
+    public GroupTradeResult collectResult() {
+        GroupTradeResult r = super.collectResult();
+        GroupTradeResultItem i1 = new GroupTradeResultItem("gap", String.format("%7.3f ", gapSize), ReturnItemType.FloatType);
+        GroupTradeResultItem i2 = new GroupTradeResultItem("ratioPower", String.format("%7.3f ", splitRatioPower), ReturnItemType.FloatType);
+        GroupTradeResultItem i3 = new GroupTradeResultItem("lossMajor", String.format("%b ", isLossMajor), ReturnItemType.BooleanType);
+        StringBuilder s = new StringBuilder();
+        for (int i=0; i<splitRatio.size(); i++) {
+            s.append(String.format("%.2f", splitRatio.get(i)));
+            if (i<splitRatio.size() - 1) {
+                s.append("--");
+            }
+        }
+        GroupTradeResultItem i4 = new GroupTradeResultItem("ratio", s.toString(), ReturnItemType.StringType);
+        r.getResults().add(i1);
+        r.getResults().add(i2);
+        r.getResults().add(i3);
+        r.getResults().add(i4);
+        return r;
+    }
     public Float getGapSize() {
         return gapSize;
     }
@@ -144,6 +167,4 @@ public class GroupGapTrading extends GroupTrading {
         isLossMajor = lossMajor;
     }
 
-    public void collectResult() {
-    }
 }

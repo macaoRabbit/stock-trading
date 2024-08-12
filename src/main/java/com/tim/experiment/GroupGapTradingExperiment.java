@@ -4,6 +4,7 @@ import com.tim.result.GroupTradeResult;
 import com.tim.trade.GroupGapTrading;
 import com.tim.utility.FloatRange;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroupGapTradingExperiment {
@@ -16,7 +17,7 @@ public class GroupGapTradingExperiment {
     Float gapIncrement = 0.025f;
     Float powerIncrement = 1.0f;
     Float controlReturn = 0.0f;
-    List<GroupTradeResult> results;
+    List<GroupTradeResult> results = new ArrayList<>();
 
     public GroupGapTradingExperiment(GroupGapTrading g, Float gapLimit, Float powerLimit) {
         this.g = g;
@@ -52,7 +53,8 @@ public class GroupGapTradingExperiment {
                     g.setupSplitRatio();
                     g.analyze();
                     g.reportSummary();
-                    g.collectResult();
+                    GroupTradeResult r = g.collectResult();
+                    results.add(r);
                     currentPower = currentPower + powerIncrement;
                 }
                 currentGap = currentGap + gapIncrement;

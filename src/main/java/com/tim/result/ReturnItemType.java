@@ -4,5 +4,5 @@ public enum ReturnItemType {
     StringType,
     IntegerType,
     FloatType,
-    DoubleType
+    BooleanType, DoubleType
 }

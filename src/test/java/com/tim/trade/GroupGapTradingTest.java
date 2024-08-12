@@ -1,5 +1,6 @@
 package com.tim.trade;
 
+import com.tim.result.GroupTradeResult;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -86,6 +87,7 @@ public class GroupGapTradingTest {
         g.matchQuotesForAllTradings();
         g.analyze();
         g.report();
+        GroupTradeResult r = g.collectResult();
         assertTrue(g.getAnnualizedReturn() > 0);
     }
 

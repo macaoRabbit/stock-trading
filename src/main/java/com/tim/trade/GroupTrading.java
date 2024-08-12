@@ -1,12 +1,16 @@
 package com.tim.trade;
 
 import com.tim.parser.DailyQuote;
+import com.tim.result.GroupTradeResult;
+import com.tim.result.GroupTradeResultItem;
+import com.tim.result.ReturnItemType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class GroupTrading extends Trading {
+public abstract class GroupTrading extends Trading {
 
     public List<Trading> tradings = new ArrayList<>();
     public List<String> groupTradeDays = new ArrayList<>();
@@ -147,5 +151,43 @@ public class GroupTrading extends Trading {
     protected void clear() {
         groupTradeDays.clear();
         groupTradeDayIndex.clear();
+    }
+
+    @Override
+    public GroupTradeResult collectResult() {
+        GroupTradeResult r = super.collectResult();
+        String symbols = getSymbolList();
+        String startDay = trades.get(0).getStringDay();
+        String endDay = trades.get(trades.size() - 1).getStringDay();
+        System.out.println("startDay: " + startDay + " endDay: " + endDay + " TradeDays: " + groupTradeDays.size());
+        GroupTradeResultItem i1 = new GroupTradeResultItem("symbols", symbols, ReturnItemType.StringType);
+        GroupTradeResultItem i2 = new GroupTradeResultItem("startDay", startDay, ReturnItemType.StringType);
+        GroupTradeResultItem i3 = new GroupTradeResultItem("endDay", endDay, ReturnItemType.StringType);
+        GroupTradeResultItem i4 = new GroupTradeResultItem("tradeDays", String.valueOf(groupTradeDays.size()), ReturnItemType.IntegerType);
+        r.getResults().add(i1);
+        r.getResults().add(i2);
+        r.getResults().add(i3);
+        r.getResults().add(i4);
+        return r;
+    }
+
+    private String getSymbolList() {
+        List<String> symbols = new ArrayList<>();
+        for (int j=0; j<tradings.size(); j++) {
+            Trading t = tradings.get(j);
+            String s = t.getDailyQuoteDataPath();
+            int i = s.lastIndexOf('\\');
+            symbols.add(s.substring(i + 1));
+        }
+        Collections.sort(symbols);
+        StringBuilder s = new StringBuilder();
+        for (int i=0; i<symbols.size(); i++) {
+            String symbol = symbols.get(i);
+            s.append(symbol);
+            if (i< symbols.size() - 1) {
+                s.append("--");
+            }
+        }
+        return s.toString();
     }
 }

@@ -2,6 +2,9 @@ package com.tim.trade;
 
 import com.tim.parser.CsvParser;
 import com.tim.parser.DailyQuote;
+import com.tim.result.GroupTradeResult;
+import com.tim.result.GroupTradeResultItem;
+import com.tim.result.ReturnItemType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +48,8 @@ public abstract class Trading {
         setEndBalance(lastTrade.getCost());
         setProfit(lastTrade.getCost() - seedCost);
         long days = TimeUnit.DAYS.convert(lastTrade.getDate().getTime() - firstTrade.getDate().getTime(), TimeUnit.MILLISECONDS);
-        float years = (float) (1.0 * days/365);
-        double r = Math.pow(endBalance/seedCost, 1.0/years) - 1;
+        float years = (float) (1.0 * days / 365);
+        double r = Math.pow(endBalance / seedCost, 1.0 / years) - 1;
         setAnnualizedReturn((float) r);
     }
 
@@ -113,11 +116,27 @@ public abstract class Trading {
 
 
     public void reportSummary() {
-        System.out.printf("annualizedReturn= %7.3f " , annualizedReturn);
-        System.out.printf("comparedWithControl= %7.3f " ,  (annualizedReturn - controlReturn));
-        System.out.printf("seedCost= %7.2f " , seedCost);
-        System.out.printf("endBalance= %7.2f " , endBalance);
-        System.out.printf("profit= %7.2f " , profit);
+        System.out.printf("annualizedReturn= %7.3f ", annualizedReturn);
+        System.out.printf("comparedWithControl= %7.3f ", (annualizedReturn - controlReturn));
+        System.out.printf("seedCost= %7.2f ", seedCost);
+        System.out.printf("endBalance= %7.2f ", endBalance);
+        System.out.printf("profit= %7.2f ", profit);
         System.out.println();
+    }
+
+    public GroupTradeResult collectResult() {
+        GroupTradeResult r =  new GroupTradeResult();
+        GroupTradeResultItem i1 = new GroupTradeResultItem("annualizedReturn", String.format("%7.3f ", annualizedReturn), ReturnItemType.FloatType);
+        GroupTradeResultItem i2 = new GroupTradeResultItem("excessReturn", String.format("%7.3f ", (annualizedReturn - controlReturn)), ReturnItemType.FloatType);
+        GroupTradeResultItem i3 = new GroupTradeResultItem("seedCost", String.format("%7.2f ", seedCost), ReturnItemType.FloatType);
+        GroupTradeResultItem i4 = new GroupTradeResultItem("endBalance", String.format("%7.2f ", endBalance), ReturnItemType.FloatType);
+        GroupTradeResultItem i5 = new GroupTradeResultItem("profit", String.format("%7.2f ", profit), ReturnItemType.FloatType);
+
+        r.getResults().add(i1);
+        r.getResults().add(i2);
+        r.getResults().add(i3);
+        r.getResults().add(i4);
+        r.getResults().add(i5);
+        return r;
     }
 }
