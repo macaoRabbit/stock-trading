@@ -14,6 +14,8 @@ public class GroupGapTrading extends GroupTrading {
     Float splitRatioPower = 0.00f;
     Boolean isLossMajor = true;
     List<Float> splitRatio = new ArrayList<>();
+    Float currentGap = 0.0f;
+    Float gapDiff = 0.0f;
 
     @Override
     public void executeGroupTrade() {
@@ -49,7 +51,9 @@ public class GroupGapTrading extends GroupTrading {
                     maxEquityRatio = equityRatio;
                 }
             }
-            if (Math.abs(maxEquityRatio - minEquityRatio) > gapSize) {
+            currentGap = Math.abs(maxEquityRatio - minEquityRatio);
+            gapDiff = currentGap - gapSize;
+            if (currentGap > gapSize) {
                 String date = tradings.get(0).getQuotes().get(day).getStringDate();
                 groupTradeDays.add(date);
                 groupTradeDayIndex.add(day);
@@ -101,26 +105,26 @@ public class GroupGapTrading extends GroupTrading {
 
     @Override
     public void reportSummary() {
-        System.out.printf("GapSize: %7.3f", gapSize);
-        System.out.printf(" SplitRatioPoswer: %7.2f", splitRatioPower);
-        System.out.printf(" isLossMajor: %b", isLossMajor);
-        for (Float r : splitRatio) {
-            System.out.printf("%7.2f", r);
-        }
-        System.out.println();
+        reportDetails();
         super.reportSummary();
     }
 
     @Override
     public void report() {
+        reportDetails();
+        super.report();
+    }
+
+    private void reportDetails() {
         System.out.printf("GapSize: %7.3f", gapSize);
         System.out.printf(" SplitRatioPoswer: %7.2f", splitRatioPower);
         System.out.printf(" isLossMajor: %b", isLossMajor);
         for (Float r : splitRatio) {
             System.out.printf("%7.2f", r);
         }
+        System.out.printf(" currentGap: %7.3f", currentGap);
+        System.out.printf(" gapDiff: %7.3f", gapDiff);
         System.out.println();
-        super.report();
     }
 
     @Override
@@ -137,10 +141,14 @@ public class GroupGapTrading extends GroupTrading {
             }
         }
         GroupTradeResultItem i4 = new GroupTradeResultItem("ratio", s.toString(), ReturnItemType.StringType);
+        GroupTradeResultItem i5 = new GroupTradeResultItem("currentGap", String.format("%7.3f ", currentGap), ReturnItemType.FloatType);
+        GroupTradeResultItem i6 = new GroupTradeResultItem("gapDiff", String.format("%7.3f ", gapDiff), ReturnItemType.FloatType);
         r.getResults().add(i1);
         r.getResults().add(i2);
         r.getResults().add(i3);
         r.getResults().add(i4);
+        r.getResults().add(i5);
+        r.getResults().add(i6);
         return r;
     }
     public Float getGapSize() {
@@ -167,4 +175,27 @@ public class GroupGapTrading extends GroupTrading {
         isLossMajor = lossMajor;
     }
 
+    public List<Float> getSplitRatio() {
+        return splitRatio;
+    }
+
+    public void setSplitRatio(List<Float> splitRatio) {
+        this.splitRatio = splitRatio;
+    }
+
+    public Float getCurrentGap() {
+        return currentGap;
+    }
+
+    public void setCurrentGap(Float currentGap) {
+        this.currentGap = currentGap;
+    }
+
+    public Float getGapDiff() {
+        return gapDiff;
+    }
+
+    public void setGapDiff(Float gapDiff) {
+        this.gapDiff = gapDiff;
+    }
 }

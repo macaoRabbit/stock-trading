@@ -21,6 +21,10 @@ public class FullPairTradingExperimentTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
+        int recordCount = 300;
+        t1.setRecordLimit(recordCount);
+        t2.setRecordLimit(recordCount);
+        t3.setRecordLimit(recordCount);
 
         List<Trading> tradings = new ArrayList<>();
         tradings.add(t1);

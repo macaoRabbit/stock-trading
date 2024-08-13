@@ -19,11 +19,12 @@ public abstract class Trading {
     List<DailyQuote> quotes;
     List<Trade> trades = new ArrayList<>();
     Float controlReturn = 0.0f;
+    Integer recordLimit = 0;
 
     public Trading(String dailyQuoteDataPath, Float seedCost) {
         this.seedCost = seedCost;
         this.dailyQuoteDataPath = dailyQuoteDataPath;
-        quotes = new CsvParser(dailyQuoteDataPath).getLatestStockData();
+        initQuotesWithCsvFile();
     }
 
     public Trading(List<DailyQuote> quotes, Float seedCost) {
@@ -35,7 +36,11 @@ public abstract class Trading {
     }
 
     public void initQuotesWithCsvFile() {
-        quotes = new CsvParser(dailyQuoteDataPath).getLatestStockData();
+        CsvParser parser = new CsvParser(dailyQuoteDataPath);
+        if (recordLimit > 0) {
+            parser.setRecordLimit(recordLimit);
+        }
+        quotes = parser.getLatestStockData();
     }
 
     List<Trade> executeTrade() {
@@ -114,6 +119,13 @@ public abstract class Trading {
         this.controlReturn = controlReturn;
     }
 
+    public Integer getRecordLimit() {
+        return recordLimit;
+    }
+
+    public void setRecordLimit(Integer recordLimit) {
+        this.recordLimit = recordLimit;
+    }
 
     public void reportSummary() {
         System.out.printf("annualizedReturn= %7.3f ", annualizedReturn);

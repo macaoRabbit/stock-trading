@@ -103,6 +103,9 @@ public class GroupGapTradingTest {
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
         GroupGapTrading g = new GroupGapTrading();
+        t1.setRecordLimit(5);
+        t2.setRecordLimit(5);
+        t3.setRecordLimit(5);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
         g.getTradings().add(t3);
@@ -114,7 +117,7 @@ public class GroupGapTradingTest {
         g.setGapSize(gap);
         g.setupSplitRatio();
         g.analyze();
-//        g.report();
+        g.report();
         g.reportSummary();
         assertTrue(g.getAnnualizedReturn() > 0);
     }

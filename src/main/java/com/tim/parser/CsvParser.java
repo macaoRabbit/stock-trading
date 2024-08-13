@@ -10,7 +10,7 @@ import java.util.*;
 
 public class CsvParser {
     static final String COMMA_DELIMITER = ",";
-    static final Integer LASTEST_RECORDS = 1300;
+    Integer recordLimit = 1300;
     String fileName;
 
     public CsvParser(String fileName) {
@@ -23,6 +23,14 @@ public class CsvParser {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public Integer getRecordLimit() {
+        return recordLimit;
+    }
+
+    public void setRecordLimit(Integer recordLimit) {
+        this.recordLimit = recordLimit;
     }
 
     public List<List<String>> getRecords() {
@@ -43,13 +51,13 @@ public class CsvParser {
 
     public List<List<String>> getLastestRecords() {
         List<List<String>> all = getRecords();
-        if (all.size() <= LASTEST_RECORDS + 1) {
+        if (all.size() <= recordLimit + 1) {
             all.remove(0);
             return all;
         }
         List<List<String>> records = new ArrayList<>();
-        int base = all.size() - LASTEST_RECORDS;
-        for (int i = 0; i< LASTEST_RECORDS; i++) {
+        int base = all.size() - recordLimit;
+        for (int i = 0; i< recordLimit; i++) {
             records.add(all.get(base + i));
         }
         return records;
