@@ -31,7 +31,7 @@ public class GroupTradeResult {
 
     void printValues() {
         for (GroupTradeResultItem i : results) {
-            System.out.print(i.getValue() + " ");
+            System.out.print(i.getValue() + "  ");
         }
         System.out.println();
     }
@@ -45,6 +45,23 @@ public class GroupTradeResult {
         }
         for (GroupTradeResult r : m.descendingMap().values()) {
             r.printValues();
+        }
+    }
+
+    public void setLimit(List<GroupTradeResult> results, Integer resultLimit) {
+        TreeMap<Float, GroupTradeResult> m = new TreeMap();
+        for (GroupTradeResult r : results) {
+            m.put(Float.parseFloat(r.getResults().get(0).getValue()), r);
+        }
+        results.clear();
+        int count = 0;
+        for (GroupTradeResult r : m.descendingMap().values()) {
+            if (count < resultLimit) {
+                results.add(r);
+                count++;
+            } else {
+                break;
+            }
         }
     }
 }

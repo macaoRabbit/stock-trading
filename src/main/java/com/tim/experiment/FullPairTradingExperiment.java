@@ -14,6 +14,7 @@ public class FullPairTradingExperiment {
     FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.025f);
     FloatRange powerRange = new FloatRange(0.0f, 5.0f, 1.0f);
     List<GroupTradeResult> results = new ArrayList<>();
+    Integer resultLimit = 1000;
 
     public FullPairTradingExperiment(List<Trading> tradings) {
         this.tradings = tradings;
@@ -24,7 +25,42 @@ public class FullPairTradingExperiment {
         this.gapRange = gapRange;
         this.powerRange = powerRange;
     }
+    public List<GroupTradeResult> run() {
+        results.clear();
+        for (int i = 0; i < tradings.size(); i++) {
+            for (int j = i + 1; j < tradings.size(); j++) {
+                Trading t1 = tradings.get(i);
+                Trading t2 = tradings.get(j);
 
+                GroupControlTrading c = new GroupControlTrading();
+                c.getTradings().add(t1);
+                c.getTradings().add(t2);
+                c.initQuotesWithCsvFileForAllTradings();
+                c.matchQuotesForAllTradings();
+                c.analyze();
+                Float controlReturn = c.getAnnualizedReturn();
+
+                GroupGapTrading g = new GroupGapTrading();
+                g.getTradings().add(t1);
+                g.getTradings().add(t2);
+                g.initQuotesWithCsvFileForAllTradings();
+                g.matchQuotesForAllTradings();
+
+                GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, gapRange, powerRange, controlReturn, results);
+                e.run();
+                enforceResultLimit();
+            }
+        }
+        return results;
+    }
+
+    private void enforceResultLimit() {
+        new GroupTradeResult().setLimit(results, resultLimit);
+    }
+
+    public void processResult() {
+        new GroupTradeResult().process(results);
+    }
     public List<Trading> getTradings() {
         return tradings;
     }
@@ -57,35 +93,11 @@ public class FullPairTradingExperiment {
         this.results = results;
     }
 
-    public List<GroupTradeResult> run() {
-        results.clear();
-        for (int i = 0; i < tradings.size(); i++) {
-            for (int j = i + 1; j < tradings.size(); j++) {
-                Trading t1 = tradings.get(i);
-                Trading t2 = tradings.get(j);
-
-                GroupControlTrading c = new GroupControlTrading();
-                c.getTradings().add(t1);
-                c.getTradings().add(t2);
-                c.initQuotesWithCsvFileForAllTradings();
-                c.matchQuotesForAllTradings();
-                c.analyze();
-                Float controlReturn = c.getAnnualizedReturn();
-
-                GroupGapTrading g = new GroupGapTrading();
-                g.getTradings().add(t1);
-                g.getTradings().add(t2);
-                g.initQuotesWithCsvFileForAllTradings();
-                g.matchQuotesForAllTradings();
-
-                GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, gapRange, powerRange, controlReturn, results);
-                e.run();
-            }
-        }
-        return results;
+    public Integer getResultLimit() {
+        return resultLimit;
     }
 
-    public void processResult() {
-        new GroupTradeResult().process(results);
+    public void setResultLimit(Integer resultLimit) {
+        this.resultLimit = resultLimit;
     }
 }

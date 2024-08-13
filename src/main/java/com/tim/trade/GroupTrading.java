@@ -163,7 +163,7 @@ public abstract class GroupTrading extends Trading {
         GroupTradeResultItem i1 = new GroupTradeResultItem("symbols", symbols, ReturnItemType.StringType);
         GroupTradeResultItem i2 = new GroupTradeResultItem("startDay", startDay, ReturnItemType.StringType);
         GroupTradeResultItem i3 = new GroupTradeResultItem("endDay", endDay, ReturnItemType.StringType);
-        GroupTradeResultItem i4 = new GroupTradeResultItem("tradeDays", String.valueOf(groupTradeDays.size()), ReturnItemType.IntegerType);
+        GroupTradeResultItem i4 = new GroupTradeResultItem("tradeDays", String.format("%5d", groupTradeDays.size()), ReturnItemType.IntegerType);
         r.getResults().add(i1);
         r.getResults().add(i2);
         r.getResults().add(i3);
@@ -173,7 +173,7 @@ public abstract class GroupTrading extends Trading {
 
     private String getSymbolList() {
         List<String> symbols = new ArrayList<>();
-        for (int j=0; j<tradings.size(); j++) {
+        for (int j = 0; j < tradings.size(); j++) {
             Trading t = tradings.get(j);
             String s = t.getDailyQuoteDataPath();
             int i = s.lastIndexOf('\\');
@@ -181,10 +181,11 @@ public abstract class GroupTrading extends Trading {
         }
         Collections.sort(symbols);
         StringBuilder s = new StringBuilder();
-        for (int i=0; i<symbols.size(); i++) {
+        for (int i = 0; i < symbols.size(); i++) {
             String symbol = symbols.get(i);
-            s.append(symbol);
-            if (i< symbols.size() - 1) {
+            int index = symbol.indexOf("csv");
+            s.append(symbol.substring(0, index - 1));
+            if (i < symbols.size() - 1) {
                 s.append("--");
             }
         }
