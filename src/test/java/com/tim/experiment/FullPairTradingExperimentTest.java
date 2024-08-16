@@ -14,6 +14,8 @@ public class FullPairTradingExperimentTest {
     public void groupGapTradingExperimentTest() {
 
         String dir = "C:\\GitHubProjects\\data\\";
+        String resultDir = "C:\\GitHubProjects\\result\\";
+        String resultFile = "iSharesETF.csv";
         String f1 = "AMD.csv";
         String f2 = "NOW.csv";
         String f3 = "PAYC.csv";
@@ -38,5 +40,6 @@ public class FullPairTradingExperimentTest {
         f.setResultLimit(50);
         List<GroupTradeResult> results = f.run();
         f.processResult();
+        f.saveResult(resultDir +  resultFile);
     }
 }

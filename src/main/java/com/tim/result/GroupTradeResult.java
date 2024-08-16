@@ -1,5 +1,7 @@
 package com.tim.result;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -36,6 +38,29 @@ public class GroupTradeResult {
         System.out.println();
     }
 
+    private String getCsvVaules() {
+        return getCsvItem(true);
+    }
+
+    private String getCsvItem(boolean isValue) {
+        StringBuffer s = new StringBuffer();
+        for (int i=0; i< results.size(); i++) {
+            if (isValue) {
+                s.append(results.get(i).getValue());
+            } else {
+                s.append(results.get(i).getName());
+            }
+            if (i < results.size() - 1) {
+                s.append(",");
+            }
+        }
+        return s.toString();
+    }
+
+    private String getCsvNames() {
+        return getCsvItem(false);
+    }
+
     public void process(List<GroupTradeResult> resultList) {
         System.out.println("====================================================================================");
         resultList.get(0).printNames();
@@ -64,4 +89,30 @@ public class GroupTradeResult {
             }
         }
     }
+
+    public void save(List<GroupTradeResult> results, String saveFile) {
+        try {
+            FileWriter file = new FileWriter(saveFile);
+            BufferedWriter output = new BufferedWriter(file);
+
+            String name = results.get(0).getCsvNames();
+            output.write(name);
+            output.newLine();
+            TreeMap<Float, GroupTradeResult> m = new TreeMap();
+            for (GroupTradeResult r : results) {
+                m.put(Float.parseFloat(r.getResults().get(0).getValue()), r);
+            }
+            for (GroupTradeResult r : m.descendingMap().values()) {
+                String value = r.getCsvVaules();
+                output.write(value);
+                output.newLine();
+            }
+            output.close();
+        }
+
+        catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
 }

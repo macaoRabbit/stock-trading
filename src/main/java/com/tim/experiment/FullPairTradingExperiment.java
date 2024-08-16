@@ -100,4 +100,8 @@ public class FullPairTradingExperiment {
     public void setResultLimit(Integer resultLimit) {
         this.resultLimit = resultLimit;
     }
+
+    public void saveResult(String saveFile) {
+        new GroupTradeResult().save(results, saveFile);
+    }
 }
