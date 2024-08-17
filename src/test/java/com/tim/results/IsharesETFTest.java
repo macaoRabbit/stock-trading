@@ -21,8 +21,8 @@ public class IsharesETFTest {
         int recordCount = 1300;
         List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount);
 
-        FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.001f);
-        FloatRange powerRange = new FloatRange(0.0f, 6.1f, 1.0f);
+        FloatRange gapRange = new FloatRange(0.0f, 0.11f, 0.02f);
+        FloatRange powerRange = new FloatRange(0.0f, 4.1f, 2.0f);
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
         f.setResultLimit(200000);
