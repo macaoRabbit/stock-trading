@@ -25,7 +25,7 @@ public class IsharesETFTest {
         FloatRange powerRange = new FloatRange(0.0f, 6.1f, 1.0f);
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
-        f.setResultLimit(10000);
+        f.setResultLimit(200000);
         List<GroupTradeResult> results = f.run();
         f.processResult();
         f.saveResult(resultDir +  resultFile);

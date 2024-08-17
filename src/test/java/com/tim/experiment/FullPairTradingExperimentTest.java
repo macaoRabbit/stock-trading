@@ -37,7 +37,7 @@ public class FullPairTradingExperimentTest {
         FloatRange powerRange = new FloatRange(0.0f, 6.1f, 1.0f);
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
-        f.setResultLimit(50);
+        f.setResultLimit(5000);
         List<GroupTradeResult> results = f.run();
         f.processResult();
         f.saveResult(resultDir +  resultFile);
