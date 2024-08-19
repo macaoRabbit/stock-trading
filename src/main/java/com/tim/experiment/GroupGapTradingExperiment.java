@@ -52,7 +52,7 @@ public class GroupGapTradingExperiment {
                     g.setSplitRatioPower(currentPower);
                     g.setupSplitRatio();
                     g.analyze();
-                    g.reportSummary();
+//                  g.reportSummary();
                     GroupTradeResult r = g.collectResult();
                     results.add(r);
                     currentPower = currentPower + powerIncrement;

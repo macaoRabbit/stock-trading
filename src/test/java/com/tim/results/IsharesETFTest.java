@@ -16,7 +16,7 @@ public class IsharesETFTest {
         String dir = "C:\\GitHubProjects\\data\\";
         String resultDir = "C:\\GitHubProjects\\result\\";
         String resultFile = "iSharesETF.csv";
-        String symbols = "QQQ,XLK,IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
+        String symbols = "VHT,QQQ,XLK,IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
         Float seedCost = 1000.0f;
         int recordCount = 1300;
         List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount);
@@ -27,7 +27,7 @@ public class IsharesETFTest {
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
         f.setResultLimit(200000);
         List<GroupTradeResult> results = f.run();
-        f.processResult();
+//        f.processResult();
         f.saveResult(resultDir +  resultFile);
     }
 }

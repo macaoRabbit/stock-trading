@@ -159,7 +159,6 @@ public abstract class GroupTrading extends Trading {
         String symbols = getSymbolList();
         String startDay = trades.get(0).getStringDay();
         String endDay = trades.get(trades.size() - 1).getStringDay();
-        System.out.println("startDay: " + startDay + " endDay: " + endDay + " TradeDays: " + groupTradeDays.size());
         GroupTradeResultItem i1 = new GroupTradeResultItem("symbols", symbols, ReturnItemType.StringType);
         GroupTradeResultItem i2 = new GroupTradeResultItem("startDay", startDay, ReturnItemType.StringType);
         GroupTradeResultItem i3 = new GroupTradeResultItem("endDay", endDay, ReturnItemType.StringType);
