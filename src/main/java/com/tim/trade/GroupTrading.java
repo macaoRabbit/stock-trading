@@ -170,7 +170,7 @@ public abstract class GroupTrading extends Trading {
         return r;
     }
 
-    private String getSymbolList() {
+    public String getSymbolList() {
         List<String> symbols = new ArrayList<>();
         for (int j = 0; j < tradings.size(); j++) {
             Trading t = tradings.get(j);

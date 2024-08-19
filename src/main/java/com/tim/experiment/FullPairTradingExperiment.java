@@ -49,6 +49,7 @@ public class FullPairTradingExperiment {
                 GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, gapRange, powerRange, controlReturn, results);
                 e.run();
                 enforceResultLimit();
+                System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));
             }
         }
         return results;

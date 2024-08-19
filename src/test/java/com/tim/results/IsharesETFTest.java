@@ -1,7 +1,6 @@
 package com.tim.results;
 
 import com.tim.experiment.FullPairTradingExperiment;
-import com.tim.result.GroupTradeResult;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
 import com.tim.utility.TradingHelper;
@@ -26,8 +25,7 @@ public class IsharesETFTest {
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
         f.setResultLimit(200000);
-        List<GroupTradeResult> results = f.run();
-//        f.processResult();
+        f.run();
         f.saveResult(resultDir +  resultFile);
     }
 }
