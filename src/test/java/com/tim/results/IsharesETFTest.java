@@ -14,8 +14,10 @@ public class IsharesETFTest {
 
         String dir = "C:\\GitHubProjects\\data\\";
         String resultDir = "C:\\GitHubProjects\\result\\";
-        String resultFile = "iSharesETF.csv";
         String symbols = "VHT,QQQ,XLK,IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
+
+        String resultFile = "iSharesETF.csv";
+
         Float seedCost = 1000.0f;
         int recordCount = 1300;
         List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount);

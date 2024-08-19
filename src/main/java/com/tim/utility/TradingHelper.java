@@ -12,10 +12,14 @@ public class TradingHelper {
         List<Trading> tradings = new ArrayList<>();
         String[] s = symbols.split(",");
         for (String symbol : s) {
-            String fileName = dir + symbol + FILE_TYPE;
-            Trading t = new GapTrading(fileName, seedCost);
-            t.setRecordLimit(recordCount);
-            tradings.add(t);
+            String fileName = dir + symbol.trim() + FILE_TYPE;
+            try {
+                Trading t = new GapTrading(fileName, seedCost);
+                t.setRecordLimit(recordCount);
+                tradings.add(t);
+            } catch (Exception e) {
+                System.out.println("Error in processing file: " + fileName);
+            }
         }
         return tradings;
     }
