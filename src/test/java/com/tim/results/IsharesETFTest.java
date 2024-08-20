@@ -20,7 +20,8 @@ public class IsharesETFTest {
 
         Float seedCost = 1000.0f;
         int recordCount = 1300;
-        List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount);
+        int minRecordCount = 300;
+        List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount, minRecordCount);
 
         FloatRange gapRange = new FloatRange(0.0f, 0.11f, 0.02f);
         FloatRange powerRange = new FloatRange(0.0f, 4.1f, 2.0f);

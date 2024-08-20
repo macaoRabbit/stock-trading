@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TradingHelper {
     static final String FILE_TYPE = ".csv";
-    public static List<Trading> generate(String dir, String symbols, Float seedCost, int recordCount) {
+    public static List<Trading> generate(String dir, String symbols, Float seedCost, int recordCount, int minRecordCount) {
         List<Trading> tradings = new ArrayList<>();
         String[] s = symbols.split(",");
         for (String symbol : s) {
@@ -16,7 +16,9 @@ public class TradingHelper {
             try {
                 Trading t = new GapTrading(fileName, seedCost);
                 t.setRecordLimit(recordCount);
-                tradings.add(t);
+                if (t.getQuotes().size() >= minRecordCount) {
+                    tradings.add(t);
+                }
             } catch (Exception e) {
                 System.out.println("Error in processing file: " + fileName);
             }

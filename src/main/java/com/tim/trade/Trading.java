@@ -138,11 +138,11 @@ public abstract class Trading {
 
     public GroupTradeResult collectResult() {
         GroupTradeResult r =  new GroupTradeResult();
-        GroupTradeResultItem i1 = new GroupTradeResultItem("annualizedReturn", String.format("%7.3f ", annualizedReturn), ReturnItemType.FloatType);
-        GroupTradeResultItem i2 = new GroupTradeResultItem("excessReturn", String.format("%7.3f ", (annualizedReturn - controlReturn)), ReturnItemType.FloatType);
-        GroupTradeResultItem i3 = new GroupTradeResultItem("seedCost", String.format("%7.2f ", seedCost), ReturnItemType.FloatType);
-        GroupTradeResultItem i4 = new GroupTradeResultItem("endBalance", String.format("%7.2f ", endBalance), ReturnItemType.FloatType);
-        GroupTradeResultItem i5 = new GroupTradeResultItem("profit", String.format("%7.2f ", profit), ReturnItemType.FloatType);
+        GroupTradeResultItem i1 = new GroupTradeResultItem("annualizedReturn", String.format("%7.3f", annualizedReturn), ReturnItemType.FloatType);
+        GroupTradeResultItem i2 = new GroupTradeResultItem("excessReturn", String.format("%7.3f", (annualizedReturn - controlReturn)), ReturnItemType.FloatType);
+        GroupTradeResultItem i3 = new GroupTradeResultItem("seedCost", String.format("%9.2f", seedCost), ReturnItemType.FloatType);
+        GroupTradeResultItem i4 = new GroupTradeResultItem("endBalance", String.format("%9.2f", endBalance), ReturnItemType.FloatType);
+        GroupTradeResultItem i5 = new GroupTradeResultItem("profit", String.format("%9.2f", profit), ReturnItemType.FloatType);
 
         r.getResults().add(i1);
         r.getResults().add(i2);

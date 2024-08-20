@@ -160,8 +160,8 @@ public abstract class GroupTrading extends Trading {
         String startDay = trades.get(0).getStringDay();
         String endDay = trades.get(trades.size() - 1).getStringDay();
         GroupTradeResultItem i1 = new GroupTradeResultItem("symbols", symbols, ReturnItemType.StringType);
-        GroupTradeResultItem i2 = new GroupTradeResultItem("startDay", startDay, ReturnItemType.StringType);
-        GroupTradeResultItem i3 = new GroupTradeResultItem("endDay", endDay, ReturnItemType.StringType);
+        GroupTradeResultItem i2 = new GroupTradeResultItem("startDay", " " + startDay, ReturnItemType.StringType);
+        GroupTradeResultItem i3 = new GroupTradeResultItem("endDay", " " + endDay, ReturnItemType.StringType);
         GroupTradeResultItem i4 = new GroupTradeResultItem("tradeDays", String.format("%5d", groupTradeDays.size()), ReturnItemType.IntegerType);
         r.getResults().add(i1);
         r.getResults().add(i2);
@@ -188,6 +188,6 @@ public abstract class GroupTrading extends Trading {
                 s.append("--");
             }
         }
-        return s.toString();
+        return String.format("%12s", s.toString());
     }
 }

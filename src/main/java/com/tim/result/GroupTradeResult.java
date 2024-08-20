@@ -89,6 +89,9 @@ public class GroupTradeResult {
     }
 
     public void setLimit(List<GroupTradeResult> results, Integer resultLimit) {
+        if (results.size() < resultLimit * 2) {
+            return;
+        }
         List<GroupTradeResult> l = getSortedResults(results);
         results.clear();
         int count = 0;

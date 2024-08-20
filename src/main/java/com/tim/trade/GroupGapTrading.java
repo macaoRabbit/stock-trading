@@ -130,9 +130,9 @@ public class GroupGapTrading extends GroupTrading {
     @Override
     public GroupTradeResult collectResult() {
         GroupTradeResult r = super.collectResult();
-        GroupTradeResultItem i1 = new GroupTradeResultItem("gap", String.format("%7.3f ", gapSize), ReturnItemType.FloatType);
-        GroupTradeResultItem i2 = new GroupTradeResultItem("ratioPower", String.format("%7.3f ", splitRatioPower), ReturnItemType.FloatType);
-        GroupTradeResultItem i3 = new GroupTradeResultItem("lossMajor", String.format("%b ", isLossMajor), ReturnItemType.BooleanType);
+        GroupTradeResultItem i1 = new GroupTradeResultItem("gap", String.format("%6.3f", gapSize), ReturnItemType.FloatType);
+        GroupTradeResultItem i2 = new GroupTradeResultItem("ratioPower", String.format("%5.1f", splitRatioPower), ReturnItemType.FloatType);
+        GroupTradeResultItem i3 = new GroupTradeResultItem("lossMajor", String.format("%6b", isLossMajor), ReturnItemType.BooleanType);
         StringBuilder s = new StringBuilder();
         for (int i=0; i<splitRatio.size(); i++) {
             s.append(String.format("%.2f", splitRatio.get(i)));
@@ -141,8 +141,8 @@ public class GroupGapTrading extends GroupTrading {
             }
         }
         GroupTradeResultItem i4 = new GroupTradeResultItem("ratio", s.toString(), ReturnItemType.StringType);
-        GroupTradeResultItem i5 = new GroupTradeResultItem("currentGap", String.format("%7.3f ", currentGap), ReturnItemType.FloatType);
-        GroupTradeResultItem i6 = new GroupTradeResultItem("gapDiff", String.format("%7.3f ", gapDiff), ReturnItemType.FloatType);
+        GroupTradeResultItem i5 = new GroupTradeResultItem("currentGap", String.format("%7.3f", currentGap), ReturnItemType.FloatType);
+        GroupTradeResultItem i6 = new GroupTradeResultItem("gapDiff", String.format("%7.3f", gapDiff), ReturnItemType.FloatType);
         r.getResults().add(i1);
         r.getResults().add(i2);
         r.getResults().add(i3);

@@ -14,7 +14,8 @@ public class TradingHelperTest {
         String symbols = "a1,a2,a3";
         Float seedCost = 1000.0f;
         int recordCount = 300;
-        List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount);
+        int minRecordCount = 0;
+        List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount, minRecordCount);
         assertTrue(tradings.size() == 3);
     }
 }
