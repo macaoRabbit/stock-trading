@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GroupGapTradingTest {
+public class GroupGapRatioTradingTest {
 
     @Test
     public void AverageSplitGroupGapTradingAnalyzeTest() {
@@ -18,7 +18,7 @@ public class GroupGapTradingTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
-        GroupGapTrading g = new GroupGapTrading();
+        GroupGapRatioTrading g = new GroupGapRatioTrading();
         Float gap = 0.05f;
         Float splitRatioPower = 0.0f;
         g.setGapSize(gap);
@@ -44,7 +44,7 @@ public class GroupGapTradingTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
-        GroupGapTrading g = new GroupGapTrading();
+        GroupGapRatioTrading g = new GroupGapRatioTrading();
         Float gap = 0.05f;
         Float splitRatioPower = 2.0f;
         boolean isLossMajor = true;
@@ -72,7 +72,7 @@ public class GroupGapTradingTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
-        GroupGapTrading g = new GroupGapTrading();
+        GroupGapRatioTrading g = new GroupGapRatioTrading();
         Float gap = 0.05f;
         Float splitRatioPower = 2.0f;
         boolean isLossMajor = false;
@@ -102,7 +102,7 @@ public class GroupGapTradingTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
-        GroupGapTrading g = new GroupGapTrading();
+        GroupGapRatioTrading g = new GroupGapRatioTrading();
         t1.setRecordLimit(5);
         t2.setRecordLimit(5);
         t3.setRecordLimit(5);

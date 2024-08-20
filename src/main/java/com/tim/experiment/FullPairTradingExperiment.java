@@ -2,7 +2,7 @@ package com.tim.experiment;
 
 import com.tim.result.GroupTradeResult;
 import com.tim.trade.GroupControlTrading;
-import com.tim.trade.GroupGapTrading;
+import com.tim.trade.GroupGapRatioTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
 
@@ -40,13 +40,13 @@ public class FullPairTradingExperiment {
                 c.analyze();
                 Float controlReturn = c.getAnnualizedReturn();
 
-                GroupGapTrading g = new GroupGapTrading();
+                GroupGapRatioTrading g = new GroupGapRatioTrading();
                 g.getTradings().add(t1);
                 g.getTradings().add(t2);
                 g.initQuotesWithCsvFileForAllTradings();
                 g.matchQuotesForAllTradings();
 
-                GroupGapTradingExperiment e = new GroupGapTradingExperiment(g, gapRange, powerRange, controlReturn, results);
+                GroupGapRatioTradingExperiment e = new GroupGapRatioTradingExperiment(g, gapRange, powerRange, controlReturn, results);
                 e.run();
                 enforceResultLimit();
                 System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));

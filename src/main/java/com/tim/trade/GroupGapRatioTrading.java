@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class GroupGapTrading extends GroupTrading {
+public class GroupGapRatioTrading extends GroupTrading {
     Float gapSize = 0.05f;
     Float splitRatioPower = 0.00f;
     Boolean isLossMajor = true;

@@ -1,14 +1,14 @@
 package com.tim.experiment;
 
 import com.tim.result.GroupTradeResult;
-import com.tim.trade.GroupGapTrading;
+import com.tim.trade.GroupGapRatioTrading;
 import com.tim.utility.FloatRange;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupGapTradingExperiment {
-    GroupGapTrading g;
+public class GroupGapRatioTradingExperiment {
+    GroupGapRatioTrading g;
     Float gapLowerLimit = 0.0f;
     Float powerLowerLimit = 0.0f;
     Float gapUpperLimit = 0.0f;
@@ -19,13 +19,13 @@ public class GroupGapTradingExperiment {
     Float controlReturn = 0.0f;
     List<GroupTradeResult> results = new ArrayList<>();
 
-    public GroupGapTradingExperiment(GroupGapTrading g, Float gapLimit, Float powerLimit) {
+    public GroupGapRatioTradingExperiment(GroupGapRatioTrading g, Float gapLimit, Float powerLimit) {
         this.g = g;
         this.gapUpperLimit = gapLimit;
         this.powerUpperLimit = powerLimit;
     }
 
-    public GroupGapTradingExperiment(GroupGapTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn, List<GroupTradeResult> results) {
+    public GroupGapRatioTradingExperiment(GroupGapRatioTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn, List<GroupTradeResult> results) {
         this.g = g;
         this.gapLowerLimit = gapRange.getLower();
         this.gapUpperLimit = gapRange.getUpper();
