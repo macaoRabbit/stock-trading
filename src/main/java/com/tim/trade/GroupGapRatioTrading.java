@@ -26,55 +26,69 @@ public class GroupGapRatioTrading extends GroupTrading {
         TreeMap<Float, Trading> tradingMap = new TreeMap<>();
         for (int day = 0; day < days; day++) {
             tradingMap.clear();
-            Float minEquityRatio = (float) Math.pow(2, 30);
-            Float maxEquityRatio = 0.0f;
-            for (int equity = 0; equity < equities; equity++) {
-                Trading t = tradings.get(equity);
-                DailyQuote q =t.getQuotes().get(day);
-                Float shares = 0.0f;
-                if (day == 0) {
-                    shares = t.getSeedCost()/q.getClose();
-                } else {
-                    shares = t.getTrades().get(day - 1).shares;
-                }
-                Float equityAmount = shares * q.getClose();
-                Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount, q.getStringDate());
-                List<Trade> trades = t.getTrades();
-                trades.add(trade);
-                int lastTradeIndex = getLastTradeIndex();
-                Float equityRatio = equityAmount/trades.get(lastTradeIndex).getCost();
-                tradingMap.put(equityRatio, t);
-                if (equityRatio < minEquityRatio ) {
-                    minEquityRatio = equityRatio;
-                }
-                if (maxEquityRatio < equityRatio) {
-                    maxEquityRatio = equityRatio;
-                }
-            }
-            currentGap = Math.abs(maxEquityRatio - minEquityRatio);
+            currentGap = findEquityGap(equities, day, tradingMap);
             gapDiff = currentGap - gapSize;
             if (currentGap > gapSize) {
-                String date = tradings.get(0).getQuotes().get(day).getStringDate();
-                groupTradeDays.add(date);
-                groupTradeDayIndex.add(day);
-                int aDay = day;
-                Float totalEquity = (float) tradings.stream().mapToDouble(i -> i.getTrades().get(aDay).getCost()).sum();
-                int ratioIndex = 0;
-                for (Trading t : tradingMap.values()) {
-                    int myRatioIndex = ratioIndex;
-                    if (getLossMajor()) {
-                        myRatioIndex = equities - ratioIndex - 1;
-                    }
-                    Float mySplitRatio = splitRatio.get(myRatioIndex);
-                    Float myEquity = totalEquity * mySplitRatio;
-                    DailyQuote q =t.getQuotes().get(day);
-                    Trade trade = t.getTrades().get(day);
-                    trade.setShares(myEquity/q.getClose());
-                    trade.setCost(myEquity);
-                    ratioIndex++;
-                }
+                List<Float> mySplitRatioList = getCurrentSplitRatio();
+                splitRatioEquityAllocation(day, tradingMap, equities, mySplitRatioList);
             }
         }
+    }
+
+    public List<Float> getCurrentSplitRatio() {
+        return getSplitRatio();
+    }
+
+    public void splitRatioEquityAllocation(int day, TreeMap<Float, Trading> tradingMap, int equities, List<Float> mySplitRatioList) {
+        String date = tradings.get(0).getQuotes().get(day).getStringDate();
+        groupTradeDays.add(date);
+        groupTradeDayIndex.add(day);
+        int aDay = day;
+        Float totalEquity = (float) tradings.stream().mapToDouble(i -> i.getTrades().get(aDay).getCost()).sum();
+        int ratioIndex = 0;
+        for (Trading t : tradingMap.values()) {
+            int myRatioIndex = ratioIndex;
+            if (getLossMajor()) {
+                myRatioIndex = equities - ratioIndex - 1;
+            }
+            Float mySplitRatio = mySplitRatioList.get(myRatioIndex);
+            Float myEquity = totalEquity * mySplitRatio;
+            DailyQuote q =t.getQuotes().get(day);
+            Trade trade = t.getTrades().get(day);
+            trade.setShares(myEquity/q.getClose());
+            trade.setCost(myEquity);
+            ratioIndex++;
+        }
+    }
+
+    public Float findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap) {
+        Float minEquityRatio = (float) Math.pow(2, 30);
+        Float maxEquityRatio = 0.0f;
+        for (int equity = 0; equity < equities; equity++) {
+            Trading t = tradings.get(equity);
+            DailyQuote q =t.getQuotes().get(day);
+            Float shares = 0.0f;
+            if (day == 0) {
+                shares = t.getSeedCost()/q.getClose();
+            } else {
+                shares = t.getTrades().get(day - 1).shares;
+            }
+            Float equityAmount = shares * q.getClose();
+            Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount, q.getStringDate());
+            List<Trade> trades = t.getTrades();
+            trades.add(trade);
+            int lastTradeIndex = getLastTradeIndex();
+            Float equityRatio = equityAmount/trades.get(lastTradeIndex).getCost();
+            tradingMap.put(equityRatio, t);
+            if (equityRatio < minEquityRatio) {
+                minEquityRatio = equityRatio;
+            }
+            if (maxEquityRatio < equityRatio) {
+                maxEquityRatio = equityRatio;
+            }
+        }
+        Float currentGap = Math.abs(maxEquityRatio - minEquityRatio);
+        return currentGap;
     }
 
     private int getLastTradeIndex() {
