@@ -7,6 +7,7 @@ import com.tim.result.ReturnItemType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.TreeMap;
 
 public class GroupGapRatioTrading extends GroupTrading {
@@ -16,6 +17,7 @@ public class GroupGapRatioTrading extends GroupTrading {
     List<Float> splitRatio = new ArrayList<>();
     Float currentGap = 0.0f;
     Float gapDiff = 0.0f;
+    final static Float VERY_SMALL_FLOAT = 0.00001f;
 
     @Override
     public void executeGroupTrade() {
@@ -26,7 +28,7 @@ public class GroupGapRatioTrading extends GroupTrading {
         TreeMap<Float, Trading> tradingMap = new TreeMap<>();
         for (int day = 0; day < days; day++) {
             tradingMap.clear();
-            currentGap = findEquityGap(equities, day, tradingMap);
+            currentGap = findEquityGap(equities, day, tradingMap, isLossMajor);
             gapDiff = currentGap - gapSize;
             if (currentGap > gapSize) {
                 List<Float> mySplitRatioList = getCurrentSplitRatio();
@@ -61,7 +63,7 @@ public class GroupGapRatioTrading extends GroupTrading {
         }
     }
 
-    public Float findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap) {
+    public Float findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor) {
         Float minEquityRatio = (float) Math.pow(2, 30);
         Float maxEquityRatio = 0.0f;
         for (int equity = 0; equity < equities; equity++) {
@@ -79,6 +81,9 @@ public class GroupGapRatioTrading extends GroupTrading {
             trades.add(trade);
             int lastTradeIndex = getLastTradeIndex();
             Float equityRatio = equityAmount/trades.get(lastTradeIndex).getCost();
+            if (tradingMap.containsKey(equityRatio)) {
+                equityRatio = equityRatio + VERY_SMALL_FLOAT * (new Random()).nextFloat();
+            }
             tradingMap.put(equityRatio, t);
             if (equityRatio < minEquityRatio) {
                 minEquityRatio = equityRatio;
@@ -91,7 +96,7 @@ public class GroupGapRatioTrading extends GroupTrading {
         return currentGap;
     }
 
-    private int getLastTradeIndex() {
+    public int getLastTradeIndex() {
         if (groupTradeDayIndex == null || groupTradeDayIndex.size() == 0) {
             return 0;
         }

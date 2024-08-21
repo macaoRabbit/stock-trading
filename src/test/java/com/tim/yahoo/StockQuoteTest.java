@@ -1,5 +1,6 @@
 package com.tim.yahoo;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StockQuoteTest {
     @Test
+    @Ignore
     public void congtrolTradeAnalyzeTest() {
         try {
             Stock stock = YahooFinance.get("INTC");
