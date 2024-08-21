@@ -47,6 +47,10 @@ public abstract class Trading {
         return trades;
     }
 
+    public boolean isZeroShare(Float shares) {
+        return shares.intValue() == 0 ? true : false;
+    }
+
     public void analyze() {
         Trade firstTrade = trades.get(0);
         Trade lastTrade = trades.get(trades.size() - 1);

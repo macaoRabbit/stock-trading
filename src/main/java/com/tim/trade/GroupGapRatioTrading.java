@@ -4,6 +4,7 @@ import com.tim.parser.DailyQuote;
 import com.tim.result.GroupTradeResult;
 import com.tim.result.GroupTradeResultItem;
 import com.tim.result.ReturnItemType;
+import com.tim.utility.GapDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,16 +29,20 @@ public class GroupGapRatioTrading extends GroupTrading {
         TreeMap<Float, Trading> tradingMap = new TreeMap<>();
         for (int day = 0; day < days; day++) {
             tradingMap.clear();
-            currentGap = findEquityGap(equities, day, tradingMap, isLossMajor);
-            gapDiff = currentGap - gapSize;
+            GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor);
+            gapDiff = gapDetails.getGap() - gapSize;
             if (currentGap > gapSize) {
-                List<Float> mySplitRatioList = getCurrentSplitRatio();
-                splitRatioEquityAllocation(day, tradingMap, equities, mySplitRatioList);
+                equityReallocation(gapDetails, day, tradingMap, equities, isLossMajor);
             }
         }
     }
 
-    public List<Float> getCurrentSplitRatio() {
+    public void equityReallocation(GapDetails gapDetails, int day, TreeMap<Float, Trading> tradingMap, int equities, Boolean isLossMajor) {
+        List<Float> mySplitRatioList = getCurrentSplitRatio(gapDetails);
+        splitRatioEquityAllocation(day, tradingMap, equities, mySplitRatioList);
+    }
+
+    public List<Float> getCurrentSplitRatio(GapDetails gapDetails) {
         return getSplitRatio();
     }
 
@@ -63,7 +68,7 @@ public class GroupGapRatioTrading extends GroupTrading {
         }
     }
 
-    public Float findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor) {
+    public GapDetails findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor) {
         Float minEquityRatio = (float) Math.pow(2, 30);
         Float maxEquityRatio = 0.0f;
         for (int equity = 0; equity < equities; equity++) {
@@ -92,8 +97,9 @@ public class GroupGapRatioTrading extends GroupTrading {
                 maxEquityRatio = equityRatio;
             }
         }
-        Float currentGap = Math.abs(maxEquityRatio - minEquityRatio);
-        return currentGap;
+        Float thisGap = Math.abs(maxEquityRatio - minEquityRatio);
+        GapDetails g = new GapDetails(thisGap, 0, 0);
+        return g;
     }
 
     public int getLastTradeIndex() {
