@@ -8,7 +8,6 @@ import com.tim.utility.GapDetails;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.TreeMap;
 
 public class GroupGapRatioTrading extends GroupTrading {
@@ -30,7 +29,7 @@ public class GroupGapRatioTrading extends GroupTrading {
             tradingMap.clear();
             GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor);
             gapDiff = gapDetails.getGap() - gapSize;
-            if (currentGap > gapSize) {
+            if (gapDetails.getGap() > gapSize) {
                 equityReallocation(gapDetails, day, tradingMap, equities, isLossMajor);
             }
         }
@@ -59,9 +58,9 @@ public class GroupGapRatioTrading extends GroupTrading {
             }
             Float mySplitRatio = mySplitRatioList.get(myRatioIndex);
             Float myEquity = totalEquity * mySplitRatio;
-            DailyQuote q =t.getQuotes().get(day);
+            DailyQuote q = t.getQuotes().get(day);
             Trade trade = t.getTrades().get(day);
-            trade.setShares(myEquity/q.getClose());
+            trade.setShares(myEquity / q.getClose());
             trade.setCost(myEquity);
             ratioIndex++;
         }
@@ -72,10 +71,10 @@ public class GroupGapRatioTrading extends GroupTrading {
         Float maxEquityRatio = 0.0f;
         for (int equity = 0; equity < equities; equity++) {
             Trading t = tradings.get(equity);
-            DailyQuote q =t.getQuotes().get(day);
+            DailyQuote q = t.getQuotes().get(day);
             Float shares = 0.0f;
             if (day == 0) {
-                shares = t.getSeedCost()/q.getClose();
+                shares = t.getSeedCost() / q.getClose();
             } else {
                 shares = t.getTrades().get(day - 1).shares;
             }
@@ -84,7 +83,7 @@ public class GroupGapRatioTrading extends GroupTrading {
             List<Trade> trades = t.getTrades();
             trades.add(trade);
             int lastTradeIndex = getLastTradeIndex();
-            Float equityRatio = equityAmount/trades.get(lastTradeIndex).getCost();
+            Float equityRatio = equityAmount / trades.get(lastTradeIndex).getCost();
             if (tradingMap.containsKey(equityRatio)) {
                 equityRatio = addSmallAmount(equityRatio);
             }
@@ -111,13 +110,13 @@ public class GroupGapRatioTrading extends GroupTrading {
 
     public void setupSplitRatio() {
         splitRatio.clear();
-        for (int i=0; i<tradings.size(); i++) {
-           splitRatio.add((float) Math.pow(i + 1, splitRatioPower));
+        for (int i = 0; i < tradings.size(); i++) {
+            splitRatio.add((float) Math.pow(i + 1, splitRatioPower));
         }
         Float base = (float) splitRatio.stream().mapToDouble(i -> i.floatValue()).sum();
-        for (int i=0; i<tradings.size(); i++) {
+        for (int i = 0; i < tradings.size(); i++) {
             Float ratio = splitRatio.get(i);
-            splitRatio.set(i, ratio/base);
+            splitRatio.set(i, ratio / base);
         }
     }
 
@@ -158,9 +157,9 @@ public class GroupGapRatioTrading extends GroupTrading {
         GroupTradeResultItem i2 = new GroupTradeResultItem("ratioPower", String.format("%5.1f", splitRatioPower), ReturnItemType.FloatType);
         GroupTradeResultItem i3 = new GroupTradeResultItem("lossMajor", String.format("%6b", isLossMajor), ReturnItemType.BooleanType);
         StringBuilder s = new StringBuilder();
-        for (int i=0; i<splitRatio.size(); i++) {
+        for (int i = 0; i < splitRatio.size(); i++) {
             s.append(String.format("%.2f", splitRatio.get(i)));
-            if (i<splitRatio.size() - 1) {
+            if (i < splitRatio.size() - 1) {
                 s.append("--");
             }
         }
@@ -175,6 +174,7 @@ public class GroupGapRatioTrading extends GroupTrading {
         r.getResults().add(i6);
         return r;
     }
+
     public Float getGapSize() {
         return gapSize;
     }
