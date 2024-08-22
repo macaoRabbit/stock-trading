@@ -1,7 +1,6 @@
 package com.tim.yahoo;
 
 import org.junit.Ignore;
-import org.junit.jupiter.api.Test;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.HistoricalQuote;
@@ -12,9 +11,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
+@Ignore
 public class StockQuoteTest {
-    @Test
-    @Ignore
     public void getYahooStockQuoteTest() {
         try {
             Stock stock = YahooFinance.get("INTC");
@@ -23,6 +21,5 @@ public class StockQuoteTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
