@@ -3,6 +3,7 @@ package com.tim.trade;
 import com.tim.result.GroupTradeResult;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GroupGapRatioTradingTest {
@@ -32,6 +33,7 @@ public class GroupGapRatioTradingTest {
         g.analyze();
         g.report();
         assertTrue(g.getAnnualizedReturn() > 0);
+        assertEquals(g.getAnnualizedReturn(),  0.282, 0.01);
     }
 
     @Test
@@ -60,6 +62,7 @@ public class GroupGapRatioTradingTest {
         g.analyze();
         g.report();
         assertTrue(g.getAnnualizedReturn() > 0);
+        assertEquals(g.getAnnualizedReturn(),  0.233, 0.01);
     }
 
     @Test
@@ -89,6 +92,7 @@ public class GroupGapRatioTradingTest {
         g.report();
         GroupTradeResult r = g.collectResult();
         assertTrue(g.getAnnualizedReturn() > 0);
+        assertEquals(g.getAnnualizedReturn(),  0.329, 0.01);
     }
 
     @Test

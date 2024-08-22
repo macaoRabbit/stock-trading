@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class FullPairTradingExperimentTest {
     @Test
     public void groupGapTradingExperimentTest() {
@@ -41,5 +43,6 @@ public class FullPairTradingExperimentTest {
         List<GroupTradeResult> results = f.run();
         f.processResult();
         f.saveResult(resultDir +  resultFile);
+        assertEquals(results.size(),8400);
     }
 }
