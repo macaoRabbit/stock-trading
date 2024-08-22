@@ -5,16 +5,14 @@ import com.tim.result.GroupTradeResult;
 import com.tim.result.GroupTradeResultItem;
 import com.tim.result.ReturnItemType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public abstract class GroupTrading extends Trading {
 
     public List<Trading> tradings = new ArrayList<>();
     public List<String> groupTradeDays = new ArrayList<>();
     public List<Integer> groupTradeDayIndex = new ArrayList<>();
+    final static Float VERY_SMALL_FLOAT = 0.00001f;
 
     public GroupTrading() {
     }
@@ -33,6 +31,10 @@ public abstract class GroupTrading extends Trading {
 
     public void initQuotesWithCsvFileForAllTradings() {
         tradings.forEach(Trading::initQuotesWithCsvFile);
+    }
+
+    public Float addSmallAmount(Float f) {
+        return (float) (f + VERY_SMALL_FLOAT * ((new Random()).nextFloat() - 0.5));
     }
 
     public void executeGroupTrade() {

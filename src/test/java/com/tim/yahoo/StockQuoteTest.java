@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class StockQuoteTest {
     @Test
     @Ignore
-    public void congtrolTradeAnalyzeTest() {
+    public void getYahooStockQuoteTest() {
         try {
             Stock stock = YahooFinance.get("INTC");
             List<HistoricalQuote> quotes = stock.getHistory();

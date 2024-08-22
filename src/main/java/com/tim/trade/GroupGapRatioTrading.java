@@ -18,7 +18,6 @@ public class GroupGapRatioTrading extends GroupTrading {
     List<Float> splitRatio = new ArrayList<>();
     Float currentGap = 0.0f;
     Float gapDiff = 0.0f;
-    final static Float VERY_SMALL_FLOAT = 0.00001f;
 
     @Override
     public void executeGroupTrade() {
@@ -87,7 +86,7 @@ public class GroupGapRatioTrading extends GroupTrading {
             int lastTradeIndex = getLastTradeIndex();
             Float equityRatio = equityAmount/trades.get(lastTradeIndex).getCost();
             if (tradingMap.containsKey(equityRatio)) {
-                equityRatio = equityRatio + VERY_SMALL_FLOAT * (new Random()).nextFloat();
+                equityRatio = addSmallAmount(equityRatio);
             }
             tradingMap.put(equityRatio, t);
             if (equityRatio < minEquityRatio) {

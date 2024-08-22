@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 public class IsharesETFTest {
-    @Test
-    public void iSharesETFExperimentTest() {
+    public static void main(String[] args) {
 
         String dir = "C:\\GitHubProjects\\data\\";
         String resultDir = "C:\\GitHubProjects\\result\\";
