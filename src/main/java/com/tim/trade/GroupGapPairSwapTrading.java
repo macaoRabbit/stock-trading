@@ -9,7 +9,7 @@ import java.util.TreeMap;
 public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
     @Override
     public GapDetails findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor) {
-        Float minEquityRatio = (float) Math.pow(2, 30);
+        Float minEquityRatio = (float) Math.pow(2, 20);
         Float maxEquityRatio = 0.0f;
         Float myGap = 0.0f;
         Integer minIndex = 0;
@@ -55,8 +55,8 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
                     maxIndex = equity;
                 }
             }
-            myGap = maxEquityRatio - minEquityRatio;
         }
+        myGap = maxEquityRatio - minEquityRatio;
         GapDetails g = new GapDetails(myGap, minIndex, maxIndex);
         return g;
     }
@@ -68,7 +68,7 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
         if (isLossMajor) {
             swapTrade(maxTrade, minTrade);
         } else {
-            swapTrade(maxTrade, minTrade);
+            swapTrade(minTrade, maxTrade);
         }
     }
 
