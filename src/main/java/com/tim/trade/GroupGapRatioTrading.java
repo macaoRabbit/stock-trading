@@ -30,6 +30,7 @@ public class GroupGapRatioTrading extends GroupTrading {
             GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor);
             gapDiff = gapDetails.getGap() - gapSize;
             if (gapDetails.getGap() > gapSize) {
+                addTradDay(day);
                 equityReallocation(gapDetails, day, tradingMap, equities, isLossMajor);
             }
         }
@@ -45,9 +46,6 @@ public class GroupGapRatioTrading extends GroupTrading {
     }
 
     public void splitRatioEquityAllocation(int day, TreeMap<Float, Trading> tradingMap, int equities, List<Float> mySplitRatioList) {
-        String date = tradings.get(0).getQuotes().get(day).getStringDate();
-        groupTradeDays.add(date);
-        groupTradeDayIndex.add(day);
         int aDay = day;
         Float totalEquity = (float) tradings.stream().mapToDouble(i -> i.getTrades().get(aDay).getCost()).sum();
         int ratioIndex = 0;
@@ -64,6 +62,12 @@ public class GroupGapRatioTrading extends GroupTrading {
             trade.setCost(myEquity);
             ratioIndex++;
         }
+    }
+
+    private void addTradDay(int day) {
+        String date = tradings.get(0).getQuotes().get(day).getStringDate();
+        groupTradeDays.add(date);
+        groupTradeDayIndex.add(day);
     }
 
     public GapDetails findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor) {
@@ -106,6 +110,10 @@ public class GroupGapRatioTrading extends GroupTrading {
         }
         int i = groupTradeDayIndex.size() - 1;
         return groupTradeDayIndex.get(i);
+    }
+
+    public void setupSplitRatio(List<Float> splitRatios) {
+        this.splitRatio = splitRatios;
     }
 
     public void setupSplitRatio() {
