@@ -4,7 +4,6 @@ import com.tim.parser.DailyQuote;
 import com.tim.utility.GapDetails;
 
 import java.util.List;
-import java.util.Random;
 import java.util.TreeMap;
 
 public class GroupGapPairSwapTrading extends GroupGapRatioTrading {

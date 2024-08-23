@@ -11,7 +11,7 @@ public class GroupGapRatioTradingTest {
     @Test
     public void AverageSplitGroupGapTradingAnalyzeTest() {
 
-        String dir = "C:\\GitHubProjects\\data\\";
+        String dir = "C:\\GitHubProjects\\testData\\";
         String f1 = "a1.csv";
         String f2 = "a2.csv";
         String f3 = "a3.csv";
@@ -38,7 +38,7 @@ public class GroupGapRatioTradingTest {
 
     @Test
     public void LossMajorSplitGroupGapTradingAnalyzeTest() {
-        String dir = "C:\\GitHubProjects\\data\\";
+        String dir = "C:\\GitHubProjects\\testData\\";
         String f1 = "a1.csv";
         String f2 = "a2.csv";
         String f3 = "a3.csv";
@@ -67,7 +67,7 @@ public class GroupGapRatioTradingTest {
 
     @Test
     public void GainMajorSplitGroupGapTradingAnalyzeTest() {
-        String dir = "C:\\GitHubProjects\\data\\";
+        String dir = "C:\\GitHubProjects\\testData\\";
         String f1 = "a1.csv";
         String f2 = "a2.csv";
         String f3 = "a3.csv";

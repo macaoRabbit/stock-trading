@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TradingHelperTest {
     @Test
     public void generateTradingTest() {
-        String dir = "C:\\GitHubProjects\\data\\";
+        String dir = "C:\\GitHubProjects\\testData\\";
         String symbols = "a1,a2,a3";
         Float seedCost = 1000.0f;
         int recordCount = 300;

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GroupTradingTest {
     @Test
     public void groupTradingAnalyzeTest() {
-        String dir = "C:\\GitHubProjects\\data\\";
+        String dir = "C:\\GitHubProjects\\testData\\";
         String f1 = "a1.csv";
         String f2 = "a2.csv";
         String f3 = "a3.csv";
