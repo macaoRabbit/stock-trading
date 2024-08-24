@@ -100,7 +100,7 @@ public class GroupGapRatioTrading extends GroupTrading {
             }
         }
         Float thisGap = Math.abs(maxEquityRatio - minEquityRatio);
-        GapDetails g = new GapDetails(thisGap, 0, 0);
+        GapDetails g = new GapDetails(thisGap, null, null);
         return g;
     }
 

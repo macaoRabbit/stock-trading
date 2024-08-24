@@ -1,37 +1,35 @@
 package com.tim.utility;
 
+import java.util.List;
+
 public class GapDetails {
     Float gap;
-    Integer minIndex;
-    Integer maxIndex;
+    List<IndexRatio> mins;
+    List<IndexRatio> maxs;
 
     public Float getGap() {
         return gap;
     }
 
-    public void setGap(Float gap) {
+    public List<IndexRatio> getMins() {
+        return mins;
+    }
+
+    public void setMins(List<IndexRatio> mins) {
+        this.mins = mins;
+    }
+
+    public List<IndexRatio> getMaxs() {
+        return maxs;
+    }
+
+    public void setMaxs(List<IndexRatio> maxs) {
+        this.maxs = maxs;
+    }
+
+    public GapDetails(Float gap, List<IndexRatio> minIndex, List<IndexRatio> maxIndex) {
         this.gap = gap;
-    }
-
-    public Integer getMinIndex() {
-        return minIndex;
-    }
-
-    public void setMinIndex(Integer minIndex) {
-        this.minIndex = minIndex;
-    }
-
-    public Integer getMaxIndex() {
-        return maxIndex;
-    }
-
-    public void setMaxIndex(Integer maxIndex) {
-        this.maxIndex = maxIndex;
-    }
-
-    public GapDetails(Float gap, Integer minIndex, Integer maxIndex) {
-        this.gap = gap;
-        this.minIndex = minIndex;
-        this.maxIndex = maxIndex;
+        this.mins = minIndex;
+        this.maxs = maxIndex;
     }
 }
