@@ -81,17 +81,25 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
         this.getLossMajor();
         int i = 0;
         int j = toTrades.size() - 1;
-        Float diff = fromTrades.get(i).getRatio() - toTrades.get(j).getRatio();
-        if (!this.getLossMajor()) {
-            diff = -1.0f * diff;
-        }
-        while (i < fromTrades.size() && j >= 0 && diff > myGap) {
+        while (isGapLargeEnough(i, fromTrades, j, toTrades, myGap)) {
             Trade fromTrade = tradings.get(fromTrades.get(i).getIndex()).getTrades().get(day);
             Trade toTrade = tradings.get(toTrades.get(j).getIndex()).getTrades().get(day);
             swapTrade(fromTrade, toTrade);
             i++;
             j--;
         }
+    }
+
+    private boolean isGapLargeEnough(int i, List<IndexRatio> fromTrades, int j, List<IndexRatio> toTrades, Float myGap) {
+        return i < fromTrades.size() && j >= 0 && findGapDiff(fromTrades, i, toTrades, j) > myGap;
+    }
+
+    private Float findGapDiff(List<IndexRatio> fromTrades, int i, List<IndexRatio> toTrades, int j) {
+        Float diff = fromTrades.get(i).getRatio() - toTrades.get(j).getRatio();
+        if (!this.getLossMajor()) {
+            diff = -1.0f * diff;
+        }
+        return diff;
     }
 
     private List<IndexRatio> sortTrades(List<IndexRatio> tTrades) {
