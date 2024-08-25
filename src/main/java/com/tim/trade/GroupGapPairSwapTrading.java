@@ -41,22 +41,30 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
             tradingMap.put(equityRatio, t);
             IndexRatio r = new IndexRatio(equity, equityRatio);
             if (isLossMajor) {
-                if (isZeroShare(shares) && equityRatio < minEquityRatio) {
-                    minEquityRatio = equityRatio;
+                if (isZeroShare(shares)) {
                     mins.add(r);
+                    if (equityRatio < minEquityRatio) {
+                        minEquityRatio = equityRatio;
+                    }
                 }
-                if (!isZeroShare(shares) && maxEquityRatio < equityRatio) {
-                    maxEquityRatio = equityRatio;
+                if (!isZeroShare(shares)) {
                     maxs.add(r);
+                    if (maxEquityRatio < equityRatio) {
+                        maxEquityRatio = equityRatio;
+                    }
                 }
             } else {
-                if (!isZeroShare(shares) && equityRatio < minEquityRatio) {
-                    minEquityRatio = equityRatio;
+                if (!isZeroShare(shares)) {
                     mins.add(r);
+                    if (equityRatio < minEquityRatio) {
+                        minEquityRatio = equityRatio;
+                    }
                 }
-                if (isZeroShare(shares) && maxEquityRatio < equityRatio) {
-                    maxEquityRatio = equityRatio;
+                if (isZeroShare(shares)) {
                     maxs.add(r);
+                    if (maxEquityRatio < equityRatio) {
+                        maxEquityRatio = equityRatio;
+                    }
                 }
             }
         }
@@ -65,8 +73,10 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
         return g;
     }
 
+
     @Override
-    public void equityReallocation(GapDetails gapDetails, int day, TreeMap<Float, Trading> tradingMap, int equities, Boolean isLossMajor) {
+    public void equityReallocation(GapDetails gapDetails, int day, TreeMap<Float, Trading> tradingMap,
+                                   int equities, Boolean isLossMajor) {
         if (isLossMajor) {
             swapTrades(day, gapDetails.getMaxs(), gapDetails.getMins());
         } else {
@@ -90,7 +100,8 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
         }
     }
 
-    private boolean isGapLargeEnough(int i, List<IndexRatio> fromTrades, int j, List<IndexRatio> toTrades, Float myGap) {
+    private boolean isGapLargeEnough(int i, List<IndexRatio> fromTrades, int j, List<
+            IndexRatio> toTrades, Float myGap) {
         return i < fromTrades.size() && j >= 0 && findGapDiff(fromTrades, i, toTrades, j) > myGap;
     }
 
