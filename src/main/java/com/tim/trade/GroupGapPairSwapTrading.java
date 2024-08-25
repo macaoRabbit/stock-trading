@@ -86,23 +86,41 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
 
     private void swapTrades(int day, List<IndexRatio> fTrades, List<IndexRatio> tTrades) {
         Float myGap = this.getGapSize();
-        List<IndexRatio> fromTrades = sortTrades(fTrades);
-        List<IndexRatio> toTrades = sortTrades(tTrades);
-        this.getLossMajor();
+        List<IndexRatio> fromTrades = sortTrades(fTrades, this.getLossMajor());
+        List<IndexRatio> toTrades = sortTrades(tTrades, true);
         int i = 0;
         int j = toTrades.size() - 1;
-        while (isGapLargeEnough(i, fromTrades, j, toTrades, myGap)) {
-            Trade fromTrade = tradings.get(fromTrades.get(i).getIndex()).getTrades().get(day);
-            Trade toTrade = tradings.get(toTrades.get(j).getIndex()).getTrades().get(day);
-            swapTrade(fromTrade, toTrade);
-            i++;
-            j--;
+        if (this.getLossMajor()) {
+            while (i < fromTrades.size() && j >= 0 && findGapDiff(fromTrades, i, toTrades, j) > myGap) {
+                doSwap(day, fromTrades, i, toTrades, j);
+                i++;
+                j--;
+            }
+        } else {
+            j = 0;
+            while (i < fromTrades.size() && j < toTrades.size() && findGapDiff(fromTrades, i, toTrades, j) > myGap) {
+                doSwap(day, fromTrades, i, toTrades, j);
+                i++;
+                j++;
+            }
         }
     }
 
-    private boolean isGapLargeEnough(int i, List<IndexRatio> fromTrades, int j, List<
-            IndexRatio> toTrades, Float myGap) {
-        return i < fromTrades.size() && j >= 0 && findGapDiff(fromTrades, i, toTrades, j) > myGap;
+    private void doSwap(int day, List<IndexRatio> fromTrades, int i, List<IndexRatio> toTrades, int j) {
+        Trade fromTrade = tradings.get(fromTrades.get(i).getIndex()).getTrades().get(day);
+        Trade toTrade = tradings.get(toTrades.get(j).getIndex()).getTrades().get(day);
+        swapTrade(fromTrade, toTrade);
+    }
+
+    private List<IndexRatio> sortTrades(List<IndexRatio> tTrades, Boolean reverseOrder) {
+        TreeMap<Float, IndexRatio> m = new TreeMap<>();
+        tTrades.forEach(t -> {
+            m.put(t.getRatio(), t);
+        });
+        if (reverseOrder) {
+           return m.descendingMap().values().stream().collect(Collectors.toList());
+        }
+        return m.values().stream().collect(Collectors.toList());
     }
 
     private Float findGapDiff(List<IndexRatio> fromTrades, int i, List<IndexRatio> toTrades, int j) {
@@ -111,14 +129,6 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
             diff = -1.0f * diff;
         }
         return diff;
-    }
-
-    private List<IndexRatio> sortTrades(List<IndexRatio> tTrades) {
-        TreeMap<Float, IndexRatio> m = new TreeMap<>();
-        tTrades.forEach(t -> {
-            m.put(t.getRatio(), t);
-        });
-        return m.values().stream().collect(Collectors.toList());
     }
 
     private void swapTrade(Trade fromTrade, Trade toTrade) {
