@@ -15,15 +15,17 @@ public class FullPairTradingExperiment {
     FloatRange powerRange = new FloatRange(0.0f, 5.0f, 1.0f);
     List<GroupTradeResult> results = new ArrayList<>();
     Integer resultLimit = 1000;
+    boolean isLossMajor = true;
 
     public FullPairTradingExperiment(List<Trading> tradings) {
         this.tradings = tradings;
     }
 
-    public FullPairTradingExperiment(List<Trading> tradings, FloatRange gapRange, FloatRange powerRange) {
+    public FullPairTradingExperiment(List<Trading> tradings, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
         this.tradings = tradings;
         this.gapRange = gapRange;
         this.powerRange = powerRange;
+        this.isLossMajor = isLossMajor;
     }
     public List<GroupTradeResult> run() {
         results.clear();
@@ -46,7 +48,7 @@ public class FullPairTradingExperiment {
                 g.initQuotesWithCsvFileForAllTradings();
                 g.matchQuotesForAllTradings();
 
-                GroupGapRatioTradingExperiment e = new GroupGapRatioTradingExperiment(g, gapRange, powerRange, controlReturn, results);
+                GroupGapRatioTradingExperiment e = new GroupGapRatioTradingExperiment(g, gapRange, powerRange, controlReturn, results, isLossMajor);
                 e.run();
                 enforceResultLimit();
                 System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));

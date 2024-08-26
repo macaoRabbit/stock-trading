@@ -37,12 +37,13 @@ public class FullPairTradingExperimentTest {
 
         FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.001f);
         FloatRange powerRange = new FloatRange(0.0f, 6.1f, 1.0f);
+        boolean isLossMajor = true;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
+        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(5000);
         List<GroupTradeResult> results = f.run();
         f.processResult();
         f.saveResult(resultDir +  resultFile);
-        assertEquals(results.size(),8400);
+        assertEquals(results.size(),4200);
     }
 }

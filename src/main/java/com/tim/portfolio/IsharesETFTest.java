@@ -23,8 +23,9 @@ public class IsharesETFTest {
 
         FloatRange gapRange = new FloatRange(0.025f, 0.11f, 0.025f);
         FloatRange powerRange = new FloatRange(0.0f, 4.1f, 4.0f);
+        boolean isLossMajor = true;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange);
+        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(200000);
         f.run();
         f.saveResult(resultDir +  resultFile);

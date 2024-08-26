@@ -17,6 +17,7 @@ public class GroupGapRatioTradingExperiment {
     Float gapIncrement = 0.025f;
     Float powerIncrement = 1.0f;
     Float controlReturn = 0.0f;
+    boolean isLossMajor = true;
     List<GroupTradeResult> results = new ArrayList<>();
 
     public GroupGapRatioTradingExperiment(GroupGapRatioTrading g, Float gapLimit, Float powerLimit) {
@@ -25,7 +26,7 @@ public class GroupGapRatioTradingExperiment {
         this.powerUpperLimit = powerLimit;
     }
 
-    public GroupGapRatioTradingExperiment(GroupGapRatioTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn, List<GroupTradeResult> results) {
+    public GroupGapRatioTradingExperiment(GroupGapRatioTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn, List<GroupTradeResult> results, boolean isLossMajor) {
         this.g = g;
         this.gapLowerLimit = gapRange.getLower();
         this.gapUpperLimit = gapRange.getUpper();
@@ -35,35 +36,27 @@ public class GroupGapRatioTradingExperiment {
         this.powerIncrement = powerRange.getIncrement();
         this.controlReturn = controlReturn;
         this.results = results;
+        this.isLossMajor = isLossMajor;
         g.setControlReturn(controlReturn);
     }
 
     public void run() {
-        boolean isLossMajor = true;
-
-        do {
-            Float currentGap = gapLowerLimit;
-            while (currentGap < gapUpperLimit) {
-                Float currentPower = powerLowerLimit;
-                while (currentPower < powerUpperLimit) {
-                    g.clear();
-                    g.setLossMajor(isLossMajor);
-                    g.setGapSize(currentGap);
-                    g.setSplitRatioPower(currentPower);
-                    g.setupSplitRatio();
-                    g.analyze();
+        Float currentGap = gapLowerLimit;
+        while (currentGap < gapUpperLimit) {
+            Float currentPower = powerLowerLimit;
+            while (currentPower < powerUpperLimit) {
+                g.clear();
+                g.setLossMajor(isLossMajor);
+                g.setGapSize(currentGap);
+                g.setSplitRatioPower(currentPower);
+                g.setupSplitRatio();
+                g.analyze();
 //                  g.reportSummary();
-                    GroupTradeResult r = g.collectResult();
-                    results.add(r);
-                    currentPower = currentPower + powerIncrement;
-                }
-                currentGap = currentGap + gapIncrement;
+                GroupTradeResult r = g.collectResult();
+                results.add(r);
+                currentPower = currentPower + powerIncrement;
             }
-            if (isLossMajor) {
-                isLossMajor = false;
-            } else {
-                isLossMajor = true;
-            }
-        } while (isLossMajor == false);
+            currentGap = currentGap + gapIncrement;
+        }
     }
 }
