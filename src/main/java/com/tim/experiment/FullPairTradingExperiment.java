@@ -5,6 +5,7 @@ import com.tim.trade.GroupControlTrading;
 import com.tim.trade.GroupGapRatioTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
+import com.tim.utility.TradingAlogirthm;
 import com.tim.utility.TradingHelper;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class FullPairTradingExperiment {
         this.isLossMajor = isLossMajor;
     }
 
-    public List<GroupTradeResult> run() {
+    public List<GroupTradeResult> run(TradingAlogirthm tradingAlogirthm) {
         results.clear();
         for (int i = 0; i < tradings.size(); i++) {
             for (int j = i + 1; j < tradings.size(); j++) {
@@ -52,7 +53,7 @@ public class FullPairTradingExperiment {
                 c.analyze();
                 Float controlReturn = c.getAnnualizedReturn();
 
-                GroupGapRatioTrading g = new GroupGapRatioTrading();
+                GroupGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
                 g.getTradings().add(t1);
                 g.getTradings().add(t2);
                 g.initQuotesWithCsvFileForAllTradings();

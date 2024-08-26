@@ -4,6 +4,7 @@ import com.tim.result.GroupTradeResult;
 import com.tim.trade.GapTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
+import com.tim.utility.TradingAlogirthm;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class FullPairTradingExperimentTest {
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(5000);
-        List<GroupTradeResult> results = f.run();
+        List<GroupTradeResult> results = f.run(TradingAlogirthm.RATIO_SPLIT);
         f.processResult();
         f.saveResult(resultDir +  resultFile);
         assertEquals(results.size(),4200);

@@ -3,6 +3,7 @@ package com.tim.portfolio;
 import com.tim.experiment.FullPairTradingExperiment;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
+import com.tim.utility.TradingAlogirthm;
 import com.tim.utility.TradingHelper;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class SP500Test {
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(100000);
-        f.run();
+        f.run(TradingAlogirthm.RATIO_SPLIT);
         f.saveResult(resultDir +  resultFile);
     }
 }

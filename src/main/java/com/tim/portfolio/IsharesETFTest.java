@@ -2,6 +2,7 @@ package com.tim.portfolio;
 
 import com.tim.experiment.FullPairTradingExperiment;
 import com.tim.utility.FloatRange;
+import com.tim.utility.TradingAlogirthm;
 import com.tim.utility.TradingHelper;
 
 public class IsharesETFTest {
@@ -29,7 +30,7 @@ public class IsharesETFTest {
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(200000);
-        f.run();
+        f.run(TradingAlogirthm.RATIO_SPLIT);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
     }
 
@@ -41,7 +42,7 @@ public class IsharesETFTest {
 
         FullPairTradingExperiment f = new FullPairTradingExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(200000);
-        f.run();
+        f.run(TradingAlogirthm.RATIO_SPLIT);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
     }
 }
