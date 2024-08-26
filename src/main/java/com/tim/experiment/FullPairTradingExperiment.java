@@ -5,6 +5,7 @@ import com.tim.trade.GroupControlTrading;
 import com.tim.trade.GroupGapRatioTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
+import com.tim.utility.TradingHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,15 @@ public class FullPairTradingExperiment {
         this.powerRange = powerRange;
         this.isLossMajor = isLossMajor;
     }
+
+    public FullPairTradingExperiment(String dir, String symbols, Float seedCost, int recordCount, int minRecordCount, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
+        List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount, minRecordCount);
+        this.tradings = tradings;
+        this.gapRange = gapRange;
+        this.powerRange = powerRange;
+        this.isLossMajor = isLossMajor;
+    }
+
     public List<GroupTradeResult> run() {
         results.clear();
         for (int i = 0; i < tradings.size(); i++) {

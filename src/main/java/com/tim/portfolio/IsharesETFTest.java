@@ -1,33 +1,47 @@
 package com.tim.portfolio;
 
 import com.tim.experiment.FullPairTradingExperiment;
-import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
 import com.tim.utility.TradingHelper;
 
-import java.util.List;
-
 public class IsharesETFTest {
+    static String dir = "C:\\GitHubProjects\\data\\";
+    static String resultDir = "C:\\GitHubProjects\\result\\";
+    static String symbols = "VHT,QQQ,XLK,IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
+
+    static String resultFile = "iSharesETF";
+    static String fileAppendix = TradingHelper.FILE_TYPE;
+
+    static Float seedCost = 1000.0f;
+    static int recordCount = 1300;
+    static int minRecordCount = 300;
+
     public static void main(String[] args) {
+        equalSplitLossMajorTrue();
+        equalSplitLossMajorfalse();
+    }
 
-        String dir = "C:\\GitHubProjects\\data\\";
-        String resultDir = "C:\\GitHubProjects\\result\\";
-        String symbols = "VHT,QQQ,XLK,IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
-
-        String resultFile = "iSharesETF.csv";
-
-        Float seedCost = 1000.0f;
-        int recordCount = 1300;
-        int minRecordCount = 300;
-        List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount, minRecordCount);
-
+    private static void equalSplitLossMajorTrue() {
         FloatRange gapRange = new FloatRange(0.025f, 0.11f, 0.025f);
-        FloatRange powerRange = new FloatRange(0.0f, 4.1f, 4.0f);
+        FloatRange powerRange = new FloatRange(0.0f, 1.1f, 4.0f);
         boolean isLossMajor = true;
+        String runType = "_equalSplit_" + isLossMajor;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange, isLossMajor);
+        FullPairTradingExperiment f = new FullPairTradingExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(200000);
         f.run();
-        f.saveResult(resultDir +  resultFile);
+        f.saveResult(resultDir +  resultFile + runType + fileAppendix);
+    }
+
+    private static void equalSplitLossMajorfalse() {
+        FloatRange gapRange = new FloatRange(0.025f, 0.11f, 0.025f);
+        FloatRange powerRange = new FloatRange(0.0f, 1.1f, 4.0f);
+        boolean isLossMajor = false;
+        String runType = "_equalSplit_" + isLossMajor;
+
+        FullPairTradingExperiment f = new FullPairTradingExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        f.setResultLimit(200000);
+        f.run();
+        f.saveResult(resultDir +  resultFile + runType + fileAppendix);
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TradingHelper {
-    static final String FILE_TYPE = ".csv";
+    public static final String FILE_TYPE = ".csv";
     public static List<Trading> generate(String dir, String symbols, Float seedCost, int recordCount, int minRecordCount) {
         List<Trading> tradings = new ArrayList<>();
         String[] s = symbols.split(",");
