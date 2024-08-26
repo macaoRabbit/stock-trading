@@ -18,6 +18,7 @@ public class FullPairTradingExperiment {
     List<GroupTradeResult> results = new ArrayList<>();
     Integer resultLimit = 1000;
     boolean isLossMajor = true;
+    Float seedCost = 0.0f;
 
     public FullPairTradingExperiment(List<Trading> tradings) {
         this.tradings = tradings;
@@ -36,6 +37,7 @@ public class FullPairTradingExperiment {
         this.gapRange = gapRange;
         this.powerRange = powerRange;
         this.isLossMajor = isLossMajor;
+        this.seedCost = seedCost;
     }
 
     public List<GroupTradeResult> run(TradingAlogirthm tradingAlogirthm) {
@@ -48,6 +50,7 @@ public class FullPairTradingExperiment {
                 GroupControlTrading c = new GroupControlTrading();
                 c.getTradings().add(t1);
                 c.getTradings().add(t2);
+                TradingAlogirthm.manageSeedCost(c.getTradings(), TradingAlogirthm.CONTROL, seedCost);
                 c.initQuotesWithCsvFileForAllTradings();
                 c.matchQuotesForAllTradings();
                 c.analyze();
@@ -56,6 +59,8 @@ public class FullPairTradingExperiment {
                 GroupGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
                 g.getTradings().add(t1);
                 g.getTradings().add(t2);
+                TradingAlogirthm.manageSeedCost(g.getTradings(), tradingAlogirthm, seedCost);
+
                 g.initQuotesWithCsvFileForAllTradings();
                 g.matchQuotesForAllTradings();
 
@@ -117,5 +122,21 @@ public class FullPairTradingExperiment {
 
     public void saveResult(String saveFile) {
         new GroupTradeResult().save(results, saveFile);
+    }
+
+    public boolean isLossMajor() {
+        return isLossMajor;
+    }
+
+    public void setLossMajor(boolean lossMajor) {
+        isLossMajor = lossMajor;
+    }
+
+    public Float getSeedCost() {
+        return seedCost;
+    }
+
+    public void setSeedCost(Float seedCost) {
+        this.seedCost = seedCost;
     }
 }

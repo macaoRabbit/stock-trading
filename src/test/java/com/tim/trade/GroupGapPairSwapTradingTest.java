@@ -145,4 +145,31 @@ public class GroupGapPairSwapTradingTest {
         assertTrue(g.getAnnualizedReturn() < 0);
         assertEquals(-0.08257763832807541, g.getAnnualizedReturn(), 0.01);
     }
+
+    @Test
+    public void manualTest() {
+
+        String dir = "C:\\GitHubProjects\\data\\";
+        String f1 = "QQQ.csv";
+        String f2 = "IVV.csv";
+        Float seedCost = 1000.0f;
+        int recordCount = 1300;
+        Trading t1 = new GapTrading(dir + f1, seedCost);
+        Trading t2 = new GapTrading(dir + f2, 0.0f);
+        t1.setRecordLimit(recordCount);
+        t2.setRecordLimit(recordCount);
+        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        Float gap = 0.05f;
+        g.setLossMajor(true);
+        g.setGapSize(gap);
+        g.getTradings().add(t1);
+        g.getTradings().add(t2);
+        g.initQuotesWithCsvFileForAllTradings();
+        g.matchQuotesForAllTradings();
+        g.analyze();
+        g.report();
+//        assertEquals(g.getGroupTradeDays().size(), 4);
+//        assertTrue(g.getAnnualizedReturn() < 0);
+//        assertEquals(-0.08257763832807541, g.getAnnualizedReturn(), 0.01);
+    }
 }
