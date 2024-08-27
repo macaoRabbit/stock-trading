@@ -8,7 +8,7 @@ import com.tim.utility.TradingHelper;
 
 import java.util.List;
 
-public class SP500Test {
+public class SP500RatioSplitTest {
     public static void main(String[] args) {
 
         String dir = "C:\\GitHubProjects\\data\\";
