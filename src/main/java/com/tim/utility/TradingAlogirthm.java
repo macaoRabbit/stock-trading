@@ -44,4 +44,24 @@ public enum TradingAlogirthm {
                 break;
         }
     }
+
+    public static void manageSeedCost(int index, List<Trading> tradings, TradingAlogirthm tradingAlogirthm, Float seedCost) {
+        switch (tradingAlogirthm) {
+            case CONTROL:
+            case RATIO_SPLIT:
+                manageSeedCost(tradings, tradingAlogirthm, seedCost);
+                break;
+            case PAIR_SWAP:
+                Trading t = tradings.get(0);
+                for (int i = 0; i<tradings.size(); i++) {
+                    t = tradings.get(i);
+                    if (i == index) {
+                        t.setSeedCost(seedCost);
+                    } else {
+                        t.setSeedCost(0.0f);
+                    }
+                }
+                break;
+        }
+    }
 }

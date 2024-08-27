@@ -44,12 +44,14 @@ public class FullPairTradingExperiment {
         results.clear();
         for (int i = 0; i < tradings.size(); i++) {
             for (int j = i + 1; j < tradings.size(); j++) {
+                List<Trading> thisTradingGroup = new ArrayList<>();
                 Trading t1 = tradings.get(i);
                 Trading t2 = tradings.get(j);
+                thisTradingGroup.add(t1);
+                thisTradingGroup.add(t2);
 
                 GroupControlTrading c = new GroupControlTrading();
-                c.getTradings().add(t1);
-                c.getTradings().add(t2);
+                c.getTradings().addAll(thisTradingGroup);
                 TradingAlogirthm.manageSeedCost(c.getTradings(), TradingAlogirthm.CONTROL, seedCost);
                 c.initQuotesWithCsvFileForAllTradings();
                 c.matchQuotesForAllTradings();
@@ -57,20 +59,36 @@ public class FullPairTradingExperiment {
                 Float controlReturn = c.getAnnualizedReturn();
 
                 GroupGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
-                g.getTradings().add(t1);
-                g.getTradings().add(t2);
-                TradingAlogirthm.manageSeedCost(g.getTradings(), tradingAlogirthm, seedCost);
-
-                g.initQuotesWithCsvFileForAllTradings();
-                g.matchQuotesForAllTradings();
-
-                GroupGapRatioTradingExperiment e = new GroupGapRatioTradingExperiment(g, gapRange, powerRange, controlReturn, results, isLossMajor);
-                e.run();
+                runExperiment(tradingAlogirthm, g, thisTradingGroup, controlReturn);
                 enforceResultLimit();
                 System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));
             }
         }
         return results;
+    }
+
+    private void runExperiment(TradingAlogirthm tradingAlogirthm, GroupGapRatioTrading g, List<Trading> thisTradingGroup, Float controlReturn) {
+        g.getTradings().addAll(thisTradingGroup);
+        switch (tradingAlogirthm) {
+            case RATIO_SPLIT:
+                TradingAlogirthm.manageSeedCost(g.getTradings(), tradingAlogirthm, seedCost);
+                runNow(g, controlReturn);
+                break;
+            case PAIR_SWAP:
+                for (int index = 0; index < thisTradingGroup.size(); index++) {
+                    TradingAlogirthm.manageSeedCost(index, g.getTradings(), tradingAlogirthm, seedCost);
+                    runNow(g, controlReturn);
+                }
+                break;
+        }
+    }
+
+    private void runNow(GroupGapRatioTrading g, Float controlReturn) {
+        g.initQuotesWithCsvFileForAllTradings();
+        g.matchQuotesForAllTradings();
+
+        GroupGapRatioTradingExperiment e = new GroupGapRatioTradingExperiment(g, gapRange, powerRange, controlReturn, results, isLossMajor);
+        e.run();
     }
 
     private void enforceResultLimit() {

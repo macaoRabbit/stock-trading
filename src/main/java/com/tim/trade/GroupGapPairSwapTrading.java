@@ -1,6 +1,9 @@
 package com.tim.trade;
 
 import com.tim.parser.DailyQuote;
+import com.tim.result.GroupTradeResult;
+import com.tim.result.GroupTradeResultItem;
+import com.tim.result.ReturnItemType;
 import com.tim.utility.GapDetails;
 import com.tim.utility.IndexRatio;
 
@@ -138,5 +141,20 @@ public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
         Float sharePrice = toTrade.getCost();
         toTrade.setShares(equityAmount / sharePrice);
         toTrade.setCost(equityAmount);
+    }
+
+    @Override
+    public GroupTradeResult collectResult() {
+        GroupTradeResult r = super.collectResult();
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < tradings.size(); i++) {
+            s.append(String.format("%6.0f", tradings.get(i).getSeedCost()));
+            if (i < splitRatio.size() - 1) {
+                s.append("--");
+            }
+        }
+        GroupTradeResultItem i1 = new GroupTradeResultItem("seedCostList", s.toString(), ReturnItemType.StringType);
+        r.getResults().add(i1);
+        return r;
     }
 }
