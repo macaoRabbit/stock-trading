@@ -1,6 +1,6 @@
 package com.tim.portfolio;
 
-import com.tim.experiment.FullPairTradingExperiment;
+import com.tim.experiment.FullPairExperiment;
 import com.tim.utility.FloatRange;
 import com.tim.utility.TradingAlogirthm;
 import com.tim.utility.TradingHelper;
@@ -30,7 +30,7 @@ public class IsharesETFTest {
         boolean isLossMajor = true;
         String runType = "_equalSplit_" + isLossMajor;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(200000);
         f.run(TradingAlogirthm.RATIO_SPLIT);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
@@ -42,7 +42,7 @@ public class IsharesETFTest {
         boolean isLossMajor = false;
         String runType = "_equalSplit_" + isLossMajor;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(200000);
         f.run(TradingAlogirthm.RATIO_SPLIT);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
@@ -54,7 +54,7 @@ public class IsharesETFTest {
         boolean isLossMajor = true;
         String runType = "_pairswap_" + isLossMajor;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(200000);
         f.run(TradingAlogirthm.PAIR_SWAP);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
@@ -66,7 +66,7 @@ public class IsharesETFTest {
         boolean isLossMajor = false;
         String runType = "_pairswap_" + isLossMajor;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(200000);
         f.run(TradingAlogirthm.PAIR_SWAP);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);

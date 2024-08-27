@@ -11,7 +11,7 @@ import com.tim.utility.TradingHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FullPairTradingExperiment {
+public class FullPairExperiment {
     List<Trading> tradings = new ArrayList<>();
     FloatRange gapRange = new FloatRange(0.0f, 0.2f, 0.025f);
     FloatRange powerRange = new FloatRange(0.0f, 5.0f, 1.0f);
@@ -20,18 +20,18 @@ public class FullPairTradingExperiment {
     boolean isLossMajor = true;
     Float seedCost = 0.0f;
 
-    public FullPairTradingExperiment(List<Trading> tradings) {
+    public FullPairExperiment(List<Trading> tradings) {
         this.tradings = tradings;
     }
 
-    public FullPairTradingExperiment(List<Trading> tradings, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
+    public FullPairExperiment(List<Trading> tradings, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
         this.tradings = tradings;
         this.gapRange = gapRange;
         this.powerRange = powerRange;
         this.isLossMajor = isLossMajor;
     }
 
-    public FullPairTradingExperiment(String dir, String symbols, Float seedCost, int recordCount, int minRecordCount, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
+    public FullPairExperiment(String dir, String symbols, Float seedCost, int recordCount, int minRecordCount, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
         List<Trading> tradings = TradingHelper.generate(dir, symbols, seedCost, recordCount, minRecordCount);
         this.tradings = tradings;
         this.gapRange = gapRange;

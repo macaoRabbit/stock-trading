@@ -12,9 +12,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class FullPairTradingExperimentTest {
+public class FullPairExperimentTest {
     @Test
-    public void groupGapTradingExperimentTest() {
+    public void groupGapExperimentTest() {
 
         String dir = "C:\\GitHubProjects\\data\\";
         String resultDir = "C:\\GitHubProjects\\result\\";
@@ -40,7 +40,7 @@ public class FullPairTradingExperimentTest {
         FloatRange powerRange = new FloatRange(0.0f, 6.1f, 1.0f);
         boolean isLossMajor = true;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = new FullPairExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(5000);
         List<GroupTradeResult> results = f.run(TradingAlogirthm.RATIO_SPLIT);
         f.processResult();

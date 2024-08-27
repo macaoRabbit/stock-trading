@@ -1,6 +1,6 @@
 package com.tim.portfolio;
 
-import com.tim.experiment.FullPairTradingExperiment;
+import com.tim.experiment.FullPairExperiment;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
 import com.tim.utility.TradingAlogirthm;
@@ -27,7 +27,7 @@ public class SP500Test {
         FloatRange powerRange = new FloatRange(0.0f, 4.1f, 4.0f);
         boolean isLossMajor = true;
 
-        FullPairTradingExperiment f = new FullPairTradingExperiment(tradings, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = new FullPairExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(100000);
         f.run(TradingAlogirthm.RATIO_SPLIT);
         f.saveResult(resultDir +  resultFile);
