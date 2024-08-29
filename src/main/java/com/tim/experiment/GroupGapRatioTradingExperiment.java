@@ -52,8 +52,10 @@ public class GroupGapRatioTradingExperiment {
                 g.setupSplitRatio();
                 g.analyze();
 //                  g.reportSummary();
-                GroupTradeResult r = g.collectResult();
-                results.add(r);
+                if (g.getGroupTradeDays().size() > 0) {
+                    GroupTradeResult r = g.collectResult();
+                    results.add(r);
+                }
                 currentPower = currentPower + powerIncrement;
             }
             currentGap = currentGap + gapIncrement;
