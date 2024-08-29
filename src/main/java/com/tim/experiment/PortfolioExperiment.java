@@ -28,6 +28,7 @@ public class PortfolioExperiment {
 
     public static void run () {
         Instant start = Instant.now();
+        runControl();
         equalSplitLossMajorTrue();
         equalSplitLossMajorfalse();
         pairswapLossMajorTrue();
@@ -35,6 +36,18 @@ public class PortfolioExperiment {
         Instant end = Instant.now();
         long timeElapsed = Duration.between(start, end).toSeconds();
         System.out.printf("finished in %d seconds\n", timeElapsed);
+    }
+
+    private static void runControl() {
+        FloatRange gapRange = null;
+        FloatRange powerRange = null;
+        boolean isLossMajor = true;
+        String runType = "_control";
+
+        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        f.setResultLimit(resultLimit);
+        f.runControl();
+        f.saveResult(resultDir +  resultFile + runType + fileAppendix);
     }
 
     private static void equalSplitLossMajorTrue() {

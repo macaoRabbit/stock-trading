@@ -1,6 +1,9 @@
 package com.tim.trade;
 
 import com.tim.parser.DailyQuote;
+import com.tim.result.GroupTradeResult;
+import com.tim.result.GroupTradeResultItem;
+import com.tim.result.ReturnItemType;
 
 import java.util.List;
 
@@ -10,8 +13,16 @@ public class ControlTrading extends Trading {
         super(dailyQuoteDataPath, seedCost);
     }
 
-    public ControlTrading(List<DailyQuote> quotes, Float seedCost) {
-        super(quotes, seedCost);
+    public ControlTrading(List<DailyQuote> quotes, String dailyQuoteDataPath, Float seedCost) {
+        super(quotes, dailyQuoteDataPath, seedCost);
+    }
+
+    @Override
+    public GroupTradeResult collectResult() {
+        GroupTradeResult r = super.collectResult();
+        GroupTradeResultItem i1 = new GroupTradeResultItem("symbol", String.format("%6s", getSymbol()), ReturnItemType.StringType);
+        r.getResults().add(i1);
+        return r;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.tim.experiment;
 
 import com.tim.result.GroupTradeResult;
+import com.tim.trade.ControlTrading;
 import com.tim.trade.GroupControlTrading;
 import com.tim.trade.GroupGapRatioTrading;
 import com.tim.trade.Trading;
@@ -77,10 +78,33 @@ public class FullPairExperiment {
             case PAIR_SWAP:
                 for (int index = 0; index < thisTradingGroup.size(); index++) {
                     TradingAlogirthm.manageSeedCost(index, g.getTradings(), tradingAlogirthm, seedCost);
-                    runNow(g, controlReturn);
+                    Float thisControlReturn = getThisControlReturn(g, index);
+                    runNow(g, thisControlReturn);
                 }
                 break;
         }
+    }
+
+
+    public void runControl() {
+        results.clear();
+        for (int i = 0; i < tradings.size(); i++) {
+            Trading t = tradings.get(i);
+            ControlTrading c = new ControlTrading(t.getQuotes(), t.getDailyQuoteDataPath(), t.getSeedCost());
+            c.executeTrade();
+            c.analyze();
+            GroupTradeResult r = c.collectResult();
+            results.add(r);
+        }
+    }
+
+    private static Float getThisControlReturn(GroupGapRatioTrading g, int index) {
+        Trading t = g.getTradings().get(index);
+        ControlTrading c = new ControlTrading(t.getQuotes(), t.getDailyQuoteDataPath(), t.getSeedCost());
+        c.executeTrade();
+        c.analyze();
+        Float thisControlReturn = c.getAnnualizedReturn();
+        return thisControlReturn;
     }
 
     private void runNow(GroupGapRatioTrading g, Float controlReturn) {

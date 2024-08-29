@@ -35,6 +35,12 @@ public abstract class Trading {
     public Trading() {
     }
 
+    public Trading(List<DailyQuote> quotes, String dailyQuoteDataPath, Float seedCost) {
+        this.seedCost = seedCost;
+        this.quotes = quotes;
+        this.dailyQuoteDataPath = dailyQuoteDataPath;
+    }
+
     public void initQuotesWithCsvFile() {
         CsvParser parser = new CsvParser(dailyQuoteDataPath);
         if (recordLimit > 0) {
@@ -43,7 +49,7 @@ public abstract class Trading {
         quotes = parser.getLatestStockData();
     }
 
-    List<Trade> executeTrade() {
+    public List<Trade> executeTrade() {
         return trades;
     }
 
@@ -154,5 +160,13 @@ public abstract class Trading {
         r.getResults().add(i4);
         r.getResults().add(i5);
         return r;
+    }
+
+    public String getSymbol() {
+        String s = getDailyQuoteDataPath();
+        int i = s.lastIndexOf('\\');
+        s = s.substring(i + 1);
+        i = s.indexOf("csv");
+        return s.substring(0, i - 1);
     }
 }
