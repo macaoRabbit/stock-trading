@@ -106,6 +106,10 @@ public class GroupTradeResult {
     }
 
     public void save(List<GroupTradeResult> results, String saveFile) {
+        save(results, saveFile, true);
+    }
+
+    public void save(List<GroupTradeResult> results, String saveFile, boolean sortResults) {
         try {
             FileWriter file = new FileWriter(saveFile);
             BufferedWriter output = new BufferedWriter(file);
@@ -113,7 +117,10 @@ public class GroupTradeResult {
             String name = results.get(0).getCsvNames();
             output.write(name);
             output.newLine();
-            List<GroupTradeResult> l = getSortedResults(results);
+            List<GroupTradeResult> l = results;
+            if (sortResults) {
+                l = getSortedResults(results);
+            }
             for (GroupTradeResult r : l) {
                 String value = r.getCsvVaules();
                 output.write(value);
@@ -121,7 +128,6 @@ public class GroupTradeResult {
             }
             output.close();
         }
-
         catch (Exception e) {
             e.getStackTrace();
         }
