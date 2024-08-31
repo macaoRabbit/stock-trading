@@ -98,7 +98,7 @@ public class FullPairExperiment {
         }
     }
 
-    private static Float getThisControlReturn(GroupGapRatioTrading g, int index) {
+    public static Float getThisControlReturn(GroupGapRatioTrading g, int index) {
         Trading t = g.getTradings().get(index);
         ControlTrading c = new ControlTrading(t.getQuotes(), t.getDailyQuoteDataPath(), t.getSeedCost());
         c.executeTrade();
