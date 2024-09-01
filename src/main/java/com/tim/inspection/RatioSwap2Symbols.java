@@ -19,8 +19,8 @@ public class RatioSwap2Symbols {
     static String fileAppendix = TradingHelper.FILE_TYPE;
 
     public static void main(String[] args) {
-        String f1 = "AMD.csv";
-        String f2 = "LLY.csv";
+        String f1 = "IVV.csv";
+        String f2 = "XLK.csv";
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, 0.0f);
         Trading t2 = new GapTrading(dir + f2, seedCost);
