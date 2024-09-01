@@ -15,6 +15,7 @@ public class RatioSwap2Symbols {
     static String resultDir = "C:\\GitHubProjects\\result\\";
 
     static String resultFile = "ration_swap_result_";
+    static String date = "_2024_08_31";
     static String fileAppendix = TradingHelper.FILE_TYPE;
 
     public static void main(String[] args) {
@@ -37,12 +38,22 @@ public class RatioSwap2Symbols {
         g.report();
         List<GroupTradeResult> results = new ArrayList<>();
         results.add(g.collectResult());
-        String saveFile = resultDir + resultFile + g.getSymbolList().trim() + fileAppendix;
-        creatResults(g, results);
+        creatSymbolList(g, results);
+        creatDailyResults(g, results);
+        String saveFile = resultDir + resultFile + g.getSymbolList().trim() + date + fileAppendix;
         new GroupTradeResult().save(results, saveFile, false);
     }
 
-    private static void creatResults(GroupGapRatioTrading g, List<GroupTradeResult> results) {
+    private static void creatSymbolList(GroupGapPairSwapTrading g, List<GroupTradeResult> results) {
+        GroupTradeResult r = new GroupTradeResult();
+        for (Trading t : g.getTradings()) {
+            GroupTradeResultItem d = new GroupTradeResultItem("symbols", String.format("%12s", t.getSymbol()), ReturnItemType.StringType);
+            r.getResults().add(d);
+        }
+        results.add(r);
+    }
+
+    private static void creatDailyResults(GroupGapRatioTrading g, List<GroupTradeResult> results) {
         int days = g.getTradings().get(0).getTrades().size();
         for (int i=0; i<days; i++) {
             Float sum = 0.0f;
