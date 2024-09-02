@@ -20,6 +20,7 @@ public class FullPairExperiment {
     Integer resultLimit = 1000;
     boolean isLossMajor = true;
     Float seedCost = 0.0f;
+    boolean collect0TradeDayResults = false;
 
     public FullPairExperiment(List<Trading> tradings) {
         this.tradings = tradings;
@@ -112,6 +113,7 @@ public class FullPairExperiment {
         g.matchQuotesForAllTradings();
 
         GroupGapRatioTradingExperiment e = new GroupGapRatioTradingExperiment(g, gapRange, powerRange, controlReturn, results, isLossMajor);
+        e.setCollect0TradeDayResults(collect0TradeDayResults);
         e.run();
     }
 
@@ -180,5 +182,9 @@ public class FullPairExperiment {
 
     public void setSeedCost(Float seedCost) {
         this.seedCost = seedCost;
+    }
+
+    public void setCollect0TradeDayResults(boolean collect0TradeDayResults) {
+        this.collect0TradeDayResults = collect0TradeDayResults;
     }
 }

@@ -19,6 +19,7 @@ public class PortfolioExperiment {
     static int recordCount = 1300;
     static int minRecordCount = 300;
     static int resultLimit = 5000;
+    static boolean collect0TradeDayResults = false;
 
     public static void setSymbolsFileName(String symbols, String resultFile, int resultLimit) {
         PortfolioExperiment.symbols = symbols;
@@ -58,6 +59,7 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.RATIO_SPLIT);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
     }
@@ -70,6 +72,7 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.RATIO_SPLIT);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
     }
@@ -82,6 +85,7 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.PAIR_SWAP);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
     }
@@ -94,7 +98,12 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.PAIR_SWAP);
         f.saveResult(resultDir +  resultFile + runType + fileAppendix);
+    }
+
+    public static void setCollect0TradeDayResults(boolean collect0TradeDayResults) {
+        PortfolioExperiment.collect0TradeDayResults = collect0TradeDayResults;
     }
 }

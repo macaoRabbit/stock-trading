@@ -19,6 +19,7 @@ public class GroupGapRatioTradingExperiment {
     Float controlReturn = 0.0f;
     boolean isLossMajor = true;
     List<GroupTradeResult> results = new ArrayList<>();
+    boolean collect0TradeDayResults = false;
 
     public GroupGapRatioTradingExperiment(GroupGapRatioTrading g, Float gapLimit, Float powerLimit) {
         this.g = g;
@@ -52,13 +53,19 @@ public class GroupGapRatioTradingExperiment {
                 g.setupSplitRatio();
                 g.analyze();
 //                  g.reportSummary();
+                GroupTradeResult r = g.collectResult();
                 if (g.getGroupTradeDays().size() > 0) {
-                    GroupTradeResult r = g.collectResult();
+                    results.add(r);
+                } else if (collect0TradeDayResults) {
                     results.add(r);
                 }
                 currentPower = currentPower + powerIncrement;
             }
             currentGap = currentGap + gapIncrement;
         }
+    }
+
+    public void setCollect0TradeDayResults(boolean collect0TradeDayResults) {
+        this.collect0TradeDayResults = collect0TradeDayResults;
     }
 }

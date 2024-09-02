@@ -14,7 +14,7 @@ public class RatioSwap2Symbols {
     static String dir = "C:\\GitHubProjects\\data\\";
     static String resultDir = "C:\\GitHubProjects\\result\\";
 
-    static String resultFile = "ration_swap_result_";
+    static String resultFile = "ration_swap_result_2_";
     static String date = "_2024_08_31";
     static String fileAppendix = TradingHelper.FILE_TYPE;
 
@@ -22,15 +22,15 @@ public class RatioSwap2Symbols {
         String f1 = "IVV.csv";
         String f2 = "XLK.csv";
         Float seedCost = 1000.0f;
-        Trading t1 = new GapTrading(dir + f1, 0.0f);
-        Trading t2 = new GapTrading(dir + f2, seedCost);
+        Trading t1 = new GapTrading(dir + f1, seedCost);
+        Trading t2 = new GapTrading(dir + f2, 0.0f);
         GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(false);
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
-        Float controlReturn = FullPairExperiment.getThisControlReturn(g, 1);
+        Float controlReturn = FullPairExperiment.getThisControlReturn(g, 0);
         g.setControlReturn(controlReturn);
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
