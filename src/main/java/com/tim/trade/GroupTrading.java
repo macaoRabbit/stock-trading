@@ -76,8 +76,9 @@ public abstract class GroupTrading extends Trading {
             String stringDay = tradings.get(0).getQuotes().get(i).getStringDate();
             int finalI = i;
             Float shares = (float) tradings.stream().mapToDouble(j -> j.getTrades().get(finalI).getShares()).sum();
-            Float cost = (float) tradings.stream().mapToDouble(j -> j.getTrades().get(finalI).getCost()).sum();
-            Trade t = new Trade(date, "", 0.0f, shares, cost, stringDay);
+            Float cost = (float) tradings.stream().mapToDouble(j -> j.getTrades().get(finalI).getShares() * j.getTrades().get(finalI).getSharePrice()).sum();
+            Float sharePrice = shares > 0.0f && cost > 0.0f? cost/shares : 0.0f;
+            Trade t = new Trade(date, this.getSymbolList(), sharePrice, shares, cost, stringDay);
             trades.add(t);
         }
         this.seedCost = seedCost;
