@@ -23,15 +23,28 @@ public class PairSwap2Symbols {
 
     public static void main(String[] args) {
         Float seedCost = 1000.0f;
+
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, 0.0f);
-        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        String num = "_1_";
+        int index = 0;
         Float gap = 0.05f;
+        run(t1, t2, num, index, gap);
+
+        t1 = new GapTrading(dir + f1, 0.0f);
+        t2 = new GapTrading(dir + f2, seedCost);
+        num = "_2_";
+        index = 1;
+        run(t1, t2, num, index, gap);
+    }
+
+    private static void run(Trading t1, Trading t2, String num, int index, Float gap) {
+        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
         g.setLossMajor(true);
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
-        Float controlReturn = FullPairExperiment.getThisControlReturn(g, 0);
+        Float controlReturn = FullPairExperiment.getThisControlReturn(g, index);
         g.setControlReturn(controlReturn);
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
@@ -41,7 +54,7 @@ public class PairSwap2Symbols {
         results.add(g.collectResult());
         creatSymbolList(g, results);
         creatDailyResults(g, results);
-        String saveFile = resultDir + resultFile + g.getSymbolList().trim() + date + fileAppendix;
+        String saveFile = resultDir + resultFile + g.getSymbolList().trim() + num +  date + fileAppendix;
         new GroupTradeResult().save(results, saveFile, false);
     }
 
