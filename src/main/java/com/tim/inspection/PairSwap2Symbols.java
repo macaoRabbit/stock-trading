@@ -7,26 +7,27 @@ import com.tim.result.ReturnItemType;
 import com.tim.trade.*;
 import com.tim.utility.TradingHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class RatioSwap2Symbols {
+public class PairSwap2Symbols {
     static String dir = "C:\\GitHubProjects\\data\\";
     static String resultDir = "C:\\GitHubProjects\\result\\";
-
-    static String resultFile = "ration_swap_result_2_";
-    static String date = "_2024_08_31";
+    static String resultFile = "pair_swap_";
+    static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     static String fileAppendix = TradingHelper.FILE_TYPE;
+    static String f1 = "IJS" + fileAppendix;
+    static String f2 = "VHT" + fileAppendix;
 
     public static void main(String[] args) {
-        String f1 = "IVV.csv";
-        String f2 = "XLK.csv";
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, 0.0f);
         GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
         Float gap = 0.05f;
-        g.setLossMajor(false);
+        g.setLossMajor(true);
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
