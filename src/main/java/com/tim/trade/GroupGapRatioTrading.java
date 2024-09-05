@@ -17,6 +17,7 @@ public class GroupGapRatioTrading extends GroupTrading {
     List<Float> splitRatio = new ArrayList<>();
     Float currentGap = 0.0f;
     Float gapDiff = 0.0f;
+    List<GapDetails> dailyGaps = new ArrayList<>();
 
     @Override
     public void executeGroupTrade() {
@@ -26,8 +27,10 @@ public class GroupGapRatioTrading extends GroupTrading {
         tradings.forEach(i -> i.getTrades().clear());
         TreeMap<Float, Trading> tradingMap = new TreeMap<>();
         for (int day = 0; day < days; day++) {
+            String stringDay = tradings.get(0).getQuotes().get(day).getStringDate();
             tradingMap.clear();
             GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor);
+            dailyGaps.add(gapDetails);
             gapDiff = gapDetails.getGap() - gapSize;
             if (gapDetails.getGap() > gapSize) {
                 addTradDay(day);
@@ -230,4 +233,14 @@ public class GroupGapRatioTrading extends GroupTrading {
     public void setGapDiff(Float gapDiff) {
         this.gapDiff = gapDiff;
     }
+
+    public List<GapDetails> getDailyGaps() {
+        return dailyGaps;
+    }
+
+    public void setDailyGaps(List<GapDetails> dailyGaps) {
+        this.dailyGaps = dailyGaps;
+    }
+
+
 }

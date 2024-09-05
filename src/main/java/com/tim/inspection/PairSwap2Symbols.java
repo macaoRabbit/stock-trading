@@ -78,30 +78,38 @@ public class PairSwap2Symbols {
     private static void creatDailyResults(GroupGapRatioTrading g, List<GroupTradeResult> results) {
         int days = g.getTradings().get(0).getTrades().size();
         for (int i=0; i<days; i++) {
-            Float cEquity = 0.0f;
-            Float gEquity = 0.0f;
             GroupTradeResult r = new GroupTradeResult();
-            String date = g.getTradings().get(0).getTrades().get(i).getStringDay();
-            GroupTradeResultItem d = new GroupTradeResultItem("date", String.format("%12s", date), ReturnItemType.StringType);
-            r.getResults().add(d);
-            for (Trading t : g.getTradings()) {
-                Trade trade = t.getTrades().get(i);
-                Float controlShares = t.getTrades().get(0).getShares();
-                GroupTradeResultItem i1 = new GroupTradeResultItem(t.getSymbol() + "_price", String.format("%7.2f", trade.getSharePrice()), ReturnItemType.FloatType);
-                GroupTradeResultItem i2 = new GroupTradeResultItem(t.getSymbol() + "_shares", String.format("%7.2f", trade.getShares()), ReturnItemType.FloatType);
-                Float equity = trade.getSharePrice() * trade.getShares();
-                GroupTradeResultItem i3 = new GroupTradeResultItem(t.getSymbol() + "_equity", String.format("%9.2f", equity), ReturnItemType.FloatType);
-                r.getResults().add(i1);
-                r.getResults().add(i2);
-                r.getResults().add(i3);
-                gEquity = gEquity + equity;
-                cEquity = cEquity + trade.getSharePrice() * controlShares;
-            }
-            GroupTradeResultItem i1 = new GroupTradeResultItem("cEquity", String.format("%9.2f", cEquity), ReturnItemType.FloatType);
-            GroupTradeResultItem i2 = new GroupTradeResultItem("gEquity", String.format("%9.2f", gEquity), ReturnItemType.FloatType);
-            r.getResults().add(i1);
-            r.getResults().add(i2);
+            addDate(g, i, r);
+            addSharesAndEquity(g, i, r);
             results.add(r);
         }
+    }
+
+    private static void addSharesAndEquity(GroupGapRatioTrading g, int i, GroupTradeResult r) {
+        Float cEquity = 0.0f;
+        Float gEquity = 0.0f;
+        for (Trading t : g.getTradings()) {
+            Trade trade = t.getTrades().get(i);
+            Float controlShares = t.getTrades().get(0).getShares();
+            GroupTradeResultItem i1 = new GroupTradeResultItem(t.getSymbol() + "_price", String.format("%7.2f", trade.getSharePrice()), ReturnItemType.FloatType);
+            GroupTradeResultItem i2 = new GroupTradeResultItem(t.getSymbol() + "_shares", String.format("%7.2f", trade.getShares()), ReturnItemType.FloatType);
+            Float equity = trade.getSharePrice() * trade.getShares();
+            GroupTradeResultItem i3 = new GroupTradeResultItem(t.getSymbol() + "_equity", String.format("%9.2f", equity), ReturnItemType.FloatType);
+            r.getResults().add(i1);
+            r.getResults().add(i2);
+            r.getResults().add(i3);
+            gEquity = gEquity + equity;
+            cEquity = cEquity + trade.getSharePrice() * controlShares;
+        }
+        GroupTradeResultItem i1 = new GroupTradeResultItem("cEquity", String.format("%9.2f", cEquity), ReturnItemType.FloatType);
+        GroupTradeResultItem i2 = new GroupTradeResultItem("gEquity", String.format("%9.2f", gEquity), ReturnItemType.FloatType);
+        r.getResults().add(i1);
+        r.getResults().add(i2);
+    }
+
+    private static void addDate(GroupGapRatioTrading g, int i, GroupTradeResult r) {
+        String date = g.getTradings().get(0).getTrades().get(i).getStringDay();
+        GroupTradeResultItem d = new GroupTradeResultItem("date", String.format("%12s", date), ReturnItemType.StringType);
+        r.getResults().add(d);
     }
 }
