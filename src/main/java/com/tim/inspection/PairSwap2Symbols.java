@@ -20,6 +20,7 @@ public class PairSwap2Symbols {
     static String fileAppendix = TradingHelper.FILE_TYPE;
     static String f1 = "IJS" + fileAppendix;
     static String f2 = "VHT" + fileAppendix;
+    static boolean includeSummary = true;
 
     public static void main(String[] args) {
         Float seedCost = 1000.0f;
@@ -28,9 +29,9 @@ public class PairSwap2Symbols {
         Trading t2 = new GapTrading(dir + f2, 0.0f);
         String num = "_1_";
         int index = 0;
-        Float gap = 0.075f;
+        Float gap = 0.05f;
         boolean lossMajor = true;
-        boolean includeSummary = true;
+        includeSummary = false;
         run(t1, t2, num, index, gap, lossMajor, includeSummary);
 
         t1 = new GapTrading(dir + f1, 0.0f);
@@ -38,7 +39,7 @@ public class PairSwap2Symbols {
         num = "_2_";
         index = 1;
         lossMajor = true;
-        gap = 0.05f;
+        gap = 0.075f;
         includeSummary = false;
         run(t1, t2, num, index, gap, lossMajor, includeSummary);
     }
