@@ -5,12 +5,14 @@ import com.tim.result.GroupTradeResult;
 import com.tim.result.GroupTradeResultItem;
 import com.tim.result.ReturnItemType;
 import com.tim.trade.*;
+import com.tim.utility.GapDetails;
 import com.tim.utility.TradingHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.OptionalDouble;
 
 public class PairSwap2Symbols {
     static String dir = "C:\\GitHubProjects\\data\\";
@@ -81,6 +83,7 @@ public class PairSwap2Symbols {
             GroupTradeResult r = new GroupTradeResult();
             addDate(g, i, r);
             addSharesAndEquity(g, i, r);
+            addGapDetails(g, i, r);
             results.add(r);
         }
     }
@@ -111,5 +114,17 @@ public class PairSwap2Symbols {
         String date = g.getTradings().get(0).getTrades().get(i).getStringDay();
         GroupTradeResultItem d = new GroupTradeResultItem("date", String.format("%12s", date), ReturnItemType.StringType);
         r.getResults().add(d);
+    }
+
+    private static void addGapDetails(GroupGapRatioTrading g, int i, GroupTradeResult r) {
+        GapDetails d = g.getDailyGaps().get(i);
+        OptionalDouble min = d.getMins().stream().mapToDouble(x -> x.getRatio()).min();
+        OptionalDouble max = d.getMaxs().stream().mapToDouble(x -> x.getRatio()).max();
+        GroupTradeResultItem i1 = new GroupTradeResultItem("gap", String.format("%9.3f", d.getGap()), ReturnItemType.FloatType);
+        GroupTradeResultItem i2 = new GroupTradeResultItem("min", String.format("%9.3f", min.getAsDouble()), ReturnItemType.FloatType);
+        GroupTradeResultItem i3 = new GroupTradeResultItem("max", String.format("%9.3f", max.getAsDouble()), ReturnItemType.FloatType);
+        r.getResults().add(i1);
+        r.getResults().add(i2);
+        r.getResults().add(i3);
     }
 }
