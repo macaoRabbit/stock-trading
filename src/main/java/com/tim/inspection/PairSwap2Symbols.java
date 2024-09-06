@@ -17,15 +17,19 @@ import java.util.OptionalDouble;
 public class PairSwap2Symbols {
     static String dir = "C:\\GitHubProjects\\data\\";
     static String resultDir = "C:\\GitHubProjects\\result\\";
+    static String stockList = "CEG,LLY";
+//    static String stockList = "IJS,VHT";
     static String resultFile = "pair_swap_";
     static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     static String fileAppendix = TradingHelper.FILE_TYPE;
-    static String f1 = "IJS" + fileAppendix;
-    static String f2 = "VHT" + fileAppendix;
     static boolean includeSummary = true;
 
     public static void main(String[] args) {
         Float seedCost = 1000.0f;
+        String stocks[] = stockList.split(",");
+
+        String f1 = stocks[0].trim() + fileAppendix;
+        String f2 = stocks[1].trim() + fileAppendix;
 
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, 0.0f);
