@@ -28,7 +28,6 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
         tradings.forEach(i -> i.getTrades().clear());
         TreeMap<Float, Trading> tradingMap = new TreeMap<>();
         for (int day = 0; day < days; day++) {
-            String stringDay = tradings.get(0).getQuotes().get(day).getStringDate();
             tradingMap.clear();
             GapDetails gapDetails = findMaxGapDetails(equities, day, tradingMap);
             dailyGaps.add(gapDetails);
