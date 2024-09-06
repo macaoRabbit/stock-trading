@@ -17,12 +17,13 @@ import java.util.OptionalDouble;
 public class PairSwap2Symbols {
     static String dir = "C:\\GitHubProjects\\data\\";
     static String resultDir = "C:\\GitHubProjects\\result\\";
-    static String stockList = "CEG,LLY";
-//    static String stockList = "IJS,VHT";
+//    static String stockList = "CEG,LLY";
+    static String stockList = "IJS,VHT";
     static String resultFile = "pair_swap_";
     static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     static String fileAppendix = TradingHelper.FILE_TYPE;
     static boolean includeSummary = true;
+    static boolean anyDayGap = true;
 
     public static void main(String[] args) {
         Float seedCost = 1000.0f;
@@ -37,8 +38,8 @@ public class PairSwap2Symbols {
         int index = 0;
         Float gap = 0.05f;
         boolean lossMajor = true;
-        includeSummary = false;
-        run(t1, t2, num, index, gap, lossMajor, includeSummary);
+        includeSummary = true;
+        run(t1, t2, num, index, gap, lossMajor, includeSummary, anyDayGap);
 
         t1 = new GapTrading(dir + f1, 0.0f);
         t2 = new GapTrading(dir + f2, seedCost);
@@ -46,14 +47,15 @@ public class PairSwap2Symbols {
         index = 1;
         lossMajor = true;
         gap = 0.075f;
-        includeSummary = false;
-        run(t1, t2, num, index, gap, lossMajor, includeSummary);
+        includeSummary = true;
+        run(t1, t2, num, index, gap, lossMajor, includeSummary, anyDayGap);
     }
 
-    private static void run(Trading t1, Trading t2, String num, int index, Float gap, boolean lossMajor, boolean includeSummary) {
+    private static void run(Trading t1, Trading t2, String num, int index, Float gap, boolean lossMajor, boolean includeSummary, boolean anyDayGap) {
         GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         g.setLossMajor(lossMajor);
         g.setGapSize(gap);
+        g.setAnyDayGap(anyDayGap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
         Float controlReturn = FullPairExperiment.getThisControlReturn(g, index);

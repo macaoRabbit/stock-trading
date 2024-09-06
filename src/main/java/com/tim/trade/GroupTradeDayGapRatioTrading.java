@@ -18,6 +18,7 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
     Float currentGap = 0.0f;
     Float gapDiff = 0.0f;
     List<GapDetails> dailyGaps = new ArrayList<>();
+    boolean anyDayGap = false;
 
     @Override
     public void executeGroupTrade() {
@@ -29,8 +30,7 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
         for (int day = 0; day < days; day++) {
             String stringDay = tradings.get(0).getQuotes().get(day).getStringDate();
             tradingMap.clear();
-            int lastTradeIndex = getLastTradeIndex();
-            GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor, lastTradeIndex);
+            GapDetails gapDetails = findMaxGapDetails(equities, day, tradingMap);
             dailyGaps.add(gapDetails);
             gapDiff = gapDetails.getGap() - gapSize;
             if (gapDetails.getGap() > gapSize) {
@@ -38,6 +38,24 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
                 equityReallocation(gapDetails, day, tradingMap, equities, isLossMajor);
             }
         }
+    }
+
+    private GapDetails findMaxGapDetails(int equities, int day, TreeMap<Float, Trading> tradingMap) {
+        int lastTradeIndex = getLastTradeIndex();
+        Float maxGap = (float) (-1.0f * Math.pow(2, 20));
+        GapDetails maxGapDetails = null;
+        int tradeIndexUpperLimit = lastTradeIndex;
+        if (anyDayGap && day > 0) {
+            tradeIndexUpperLimit = day - 1;
+        }
+        for (int tradeIndex = lastTradeIndex; tradeIndex <= tradeIndexUpperLimit; tradeIndex++) {
+        GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor, tradeIndex);
+        if (gapDetails.getGap() > maxGap) {
+            maxGapDetails = gapDetails;
+            maxGap = maxGapDetails.getGap();
+        }
+        }
+        return maxGapDetails;
     }
 
     public void equityReallocation(GapDetails gapDetails, int day, TreeMap<Float, Trading> tradingMap, int equities, Boolean isLossMajor) {
@@ -242,5 +260,11 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
         this.dailyGaps = dailyGaps;
     }
 
+    public boolean isAnyDayGap() {
+        return anyDayGap;
+    }
 
+    public void setAnyDayGap(boolean anyDayGap) {
+        this.anyDayGap = anyDayGap;
+    }
 }
