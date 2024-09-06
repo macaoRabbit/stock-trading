@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class GroupTradeDayGapPairSwapTrading extends GroupTradeDayGapRatioTrading {
     @Override
-    public GapDetails findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor, int lastTradeIndex) {
+    public GapDetails findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor, int gapDay) {
         Float minEquityRatio = (float) Math.pow(2, 20);
         Float maxEquityRatio = 0.0f;
         Float myGap = 0.0f;
@@ -36,7 +36,7 @@ public class GroupTradeDayGapPairSwapTrading extends GroupTradeDayGapRatioTradin
             Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount, q.getStringDate());
             List<Trade> trades = t.getTrades();
             trades.add(trade);
-            Float equityRatio = equityAmount / trades.get(lastTradeIndex).getCost();
+            Float equityRatio = equityAmount / trades.get(gapDay).getCost();
             if (tradingMap.containsKey(equityRatio)) {
                 equityRatio = addSmallAmount(equityRatio);
             }
