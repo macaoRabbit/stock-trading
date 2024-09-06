@@ -29,7 +29,8 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
         for (int day = 0; day < days; day++) {
             String stringDay = tradings.get(0).getQuotes().get(day).getStringDate();
             tradingMap.clear();
-            GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor);
+            int lastTradeIndex = getLastTradeIndex();
+            GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor, lastTradeIndex);
             dailyGaps.add(gapDetails);
             gapDiff = gapDetails.getGap() - gapSize;
             if (gapDetails.getGap() > gapSize) {
@@ -73,7 +74,7 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
         groupTradeDayIndex.add(day);
     }
 
-    public GapDetails findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor) {
+    public GapDetails findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor, int lastTradeIndex) {
         Float minEquityRatio = (float) Math.pow(2, 30);
         Float maxEquityRatio = 0.0f;
         for (int equity = 0; equity < equities; equity++) {
@@ -89,7 +90,6 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
             Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount, q.getStringDate());
             List<Trade> trades = t.getTrades();
             trades.add(trade);
-            int lastTradeIndex = getLastTradeIndex();
             Float equityRatio = equityAmount / trades.get(lastTradeIndex).getCost();
             if (tradingMap.containsKey(equityRatio)) {
                 equityRatio = addSmallAmount(equityRatio);
