@@ -121,7 +121,7 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
             }
         }
         Float thisGap = Math.abs(maxEquityRatio - minEquityRatio);
-        GapDetails g = new GapDetails(thisGap, null, null);
+        GapDetails g = new GapDetails(thisGap, null, null, tradings.get(0).getTrades().get(gapDay).getStringDay(), day - gapDay + 1);
         return g;
     }
 

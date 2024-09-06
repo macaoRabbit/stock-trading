@@ -6,6 +6,8 @@ public class GapDetails {
     Float gap;
     List<IndexRatio> mins;
     List<IndexRatio> maxs;
+    String gapDay;
+    Integer duration;
 
     public Float getGap() {
         return gap;
@@ -27,9 +29,19 @@ public class GapDetails {
         this.maxs = maxs;
     }
 
-    public GapDetails(Float gap, List<IndexRatio> minIndex, List<IndexRatio> maxIndex) {
+    public String getGapDay() {
+        return gapDay;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public GapDetails(Float gap, List<IndexRatio> minIndex, List<IndexRatio> maxIndex, String gapDay, Integer duration) {
         this.gap = gap;
         this.mins = minIndex;
         this.maxs = maxIndex;
+        this.gapDay = gapDay;
+        this.duration = duration;
     }
 }

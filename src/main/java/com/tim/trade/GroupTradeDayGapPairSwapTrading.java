@@ -71,7 +71,7 @@ public class GroupTradeDayGapPairSwapTrading extends GroupTradeDayGapRatioTradin
             }
         }
         myGap = maxEquityRatio - minEquityRatio;
-        GapDetails g = new GapDetails(myGap, mins, maxs);
+        GapDetails g = new GapDetails(myGap, mins, maxs, tradings.get(0).getTrades().get(gapDay).getStringDay(), day - gapDay + 1);
         return g;
     }
 
