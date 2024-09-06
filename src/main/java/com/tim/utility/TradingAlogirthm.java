@@ -1,7 +1,7 @@
 package com.tim.utility;
 
-import com.tim.trade.GroupGapPairSwapTrading;
-import com.tim.trade.GroupGapRatioTrading;
+import com.tim.trade.GroupTradeDayGapPairSwapTrading;
+import com.tim.trade.GroupTradeDayGapRatioTrading;
 import com.tim.trade.Trading;
 
 import java.util.List;
@@ -11,14 +11,14 @@ public enum TradingAlogirthm {
     PAIR_SWAP,
     CONTROL;
 
-    public static GroupGapRatioTrading getAlgorithm(TradingAlogirthm tradingAlogirthm) {
-        GroupGapRatioTrading g = null;
+    public static GroupTradeDayGapRatioTrading getAlgorithm(TradingAlogirthm tradingAlogirthm) {
+        GroupTradeDayGapRatioTrading g = null;
         switch (tradingAlogirthm) {
             case RATIO_SPLIT:
-                g = new GroupGapRatioTrading();
+                g = new GroupTradeDayGapRatioTrading();
                 break;
             case PAIR_SWAP:
-                g = new GroupGapPairSwapTrading();
+                g = new GroupTradeDayGapPairSwapTrading();
                 break;
         }
         return g;

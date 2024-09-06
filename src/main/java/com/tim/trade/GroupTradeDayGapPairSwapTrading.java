@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class GroupGapPairSwapTrading extends GroupGapRatioTrading {
+public class GroupTradeDayGapPairSwapTrading extends GroupTradeDayGapRatioTrading {
     @Override
     public GapDetails findEquityGap(int equities, int day, TreeMap<Float, Trading> tradingMap, Boolean isLossMajor) {
         Float minEquityRatio = (float) Math.pow(2, 20);

@@ -1,14 +1,14 @@
 package com.tim.experiment;
 
 import com.tim.result.GroupTradeResult;
-import com.tim.trade.GroupGapRatioTrading;
+import com.tim.trade.GroupTradeDayGapRatioTrading;
 import com.tim.utility.FloatRange;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupGapRatioTradingExperiment {
-    GroupGapRatioTrading g;
+public class GroupTradeDayGapRatioTradingExperiment {
+    GroupTradeDayGapRatioTrading g;
     Float gapLowerLimit = 0.0f;
     Float powerLowerLimit = 0.0f;
     Float gapUpperLimit = 0.0f;
@@ -21,13 +21,13 @@ public class GroupGapRatioTradingExperiment {
     List<GroupTradeResult> results = new ArrayList<>();
     boolean collect0TradeDayResults = false;
 
-    public GroupGapRatioTradingExperiment(GroupGapRatioTrading g, Float gapLimit, Float powerLimit) {
+    public GroupTradeDayGapRatioTradingExperiment(GroupTradeDayGapRatioTrading g, Float gapLimit, Float powerLimit) {
         this.g = g;
         this.gapUpperLimit = gapLimit;
         this.powerUpperLimit = powerLimit;
     }
 
-    public GroupGapRatioTradingExperiment(GroupGapRatioTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn, List<GroupTradeResult> results, boolean isLossMajor) {
+    public GroupTradeDayGapRatioTradingExperiment(GroupTradeDayGapRatioTrading g, FloatRange gapRange, FloatRange powerRange, Float controlReturn, List<GroupTradeResult> results, boolean isLossMajor) {
         this.g = g;
         this.gapLowerLimit = gapRange.getLower();
         this.gapUpperLimit = gapRange.getUpper();

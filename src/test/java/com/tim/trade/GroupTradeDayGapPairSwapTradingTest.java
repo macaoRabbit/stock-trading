@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GroupGapPairSwapTradingTest {
+public class GroupTradeDayGapPairSwapTradingTest {
     @Test
     public void groupGapPairSwapTradingAnalyzeTest() {
 
@@ -18,7 +18,7 @@ public class GroupGapPairSwapTradingTest {
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, 0.0f);
-        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         List<Float> splitRatios = new ArrayList<>();
         splitRatios.add(1.0f);
@@ -46,7 +46,7 @@ public class GroupGapPairSwapTradingTest {
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, 0.0f);
-        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         List<Float> splitRatios = new ArrayList<>();
         splitRatios.add(1.0f);
@@ -74,7 +74,7 @@ public class GroupGapPairSwapTradingTest {
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, 0.0f);
-        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(false);
         g.setGapSize(gap);
@@ -100,7 +100,7 @@ public class GroupGapPairSwapTradingTest {
         Trading t1 = new GapTrading(dir + f1, 0.0f);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, 0.0f);
-        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(false);
         g.setGapSize(gap);
@@ -129,7 +129,7 @@ public class GroupGapPairSwapTradingTest {
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, 0.0f);
         Trading t4 = new GapTrading(dir + f4, 0.0f);
-        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(false);
         g.setGapSize(gap);
@@ -158,7 +158,7 @@ public class GroupGapPairSwapTradingTest {
         Trading t2 = new GapTrading(dir + f2, 0.0f);
         t1.setRecordLimit(recordCount);
         t2.setRecordLimit(recordCount);
-        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(true);
         g.setGapSize(gap);

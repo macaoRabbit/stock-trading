@@ -51,7 +51,7 @@ public class PairSwap2Symbols {
     }
 
     private static void run(Trading t1, Trading t2, String num, int index, Float gap, boolean lossMajor, boolean includeSummary) {
-        GroupGapPairSwapTrading g = new GroupGapPairSwapTrading();
+        GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         g.setLossMajor(lossMajor);
         g.setGapSize(gap);
         g.getTradings().add(t1);
@@ -72,7 +72,7 @@ public class PairSwap2Symbols {
         new GroupTradeResult().save(results, saveFile, false);
     }
 
-    private static void creatSymbolList(GroupGapPairSwapTrading g, List<GroupTradeResult> results) {
+    private static void creatSymbolList(GroupTradeDayGapPairSwapTrading g, List<GroupTradeResult> results) {
         GroupTradeResult r = new GroupTradeResult();
         for (Trading t : g.getTradings()) {
             GroupTradeResultItem d = new GroupTradeResultItem("symbols", String.format("%12s", t.getSymbol()), ReturnItemType.StringType);
@@ -81,7 +81,7 @@ public class PairSwap2Symbols {
         results.add(r);
     }
 
-    private static void creatDailyResults(GroupGapRatioTrading g, List<GroupTradeResult> results) {
+    private static void creatDailyResults(GroupTradeDayGapRatioTrading g, List<GroupTradeResult> results) {
         int days = g.getTradings().get(0).getTrades().size();
         for (int i=0; i<days; i++) {
             GroupTradeResult r = new GroupTradeResult();
@@ -92,7 +92,7 @@ public class PairSwap2Symbols {
         }
     }
 
-    private static void addSharesAndEquity(GroupGapRatioTrading g, int i, GroupTradeResult r) {
+    private static void addSharesAndEquity(GroupTradeDayGapRatioTrading g, int i, GroupTradeResult r) {
         Float cEquity = 0.0f;
         Float gEquity = 0.0f;
         for (Trading t : g.getTradings()) {
@@ -114,13 +114,13 @@ public class PairSwap2Symbols {
         r.getResults().add(i2);
     }
 
-    private static void addDate(GroupGapRatioTrading g, int i, GroupTradeResult r) {
+    private static void addDate(GroupTradeDayGapRatioTrading g, int i, GroupTradeResult r) {
         String date = g.getTradings().get(0).getTrades().get(i).getStringDay();
         GroupTradeResultItem d = new GroupTradeResultItem("date", String.format("%12s", date), ReturnItemType.StringType);
         r.getResults().add(d);
     }
 
-    private static void addGapDetails(GroupGapRatioTrading g, int i, GroupTradeResult r) {
+    private static void addGapDetails(GroupTradeDayGapRatioTrading g, int i, GroupTradeResult r) {
         GapDetails d = g.getDailyGaps().get(i);
         OptionalDouble min = d.getMins().stream().mapToDouble(x -> x.getRatio()).min();
         OptionalDouble max = d.getMaxs().stream().mapToDouble(x -> x.getRatio()).max();

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GroupGapRatioTradingTest {
+public class GroupTradeDayGapRatioTradingTest {
 
     @Test
     public void AverageSplitGroupGapTradingAnalyzeTest() {
@@ -19,7 +19,7 @@ public class GroupGapRatioTradingTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
-        GroupGapRatioTrading g = new GroupGapRatioTrading();
+        GroupTradeDayGapRatioTrading g = new GroupTradeDayGapRatioTrading();
         Float gap = 0.05f;
         Float splitRatioPower = 0.0f;
         g.setGapSize(gap);
@@ -46,7 +46,7 @@ public class GroupGapRatioTradingTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
-        GroupGapRatioTrading g = new GroupGapRatioTrading();
+        GroupTradeDayGapRatioTrading g = new GroupTradeDayGapRatioTrading();
         Float gap = 0.05f;
         Float splitRatioPower = 2.0f;
         boolean isLossMajor = true;
@@ -75,7 +75,7 @@ public class GroupGapRatioTradingTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
-        GroupGapRatioTrading g = new GroupGapRatioTrading();
+        GroupTradeDayGapRatioTrading g = new GroupTradeDayGapRatioTrading();
         Float gap = 0.05f;
         Float splitRatioPower = 2.0f;
         boolean isLossMajor = false;
@@ -106,7 +106,7 @@ public class GroupGapRatioTradingTest {
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
         Trading t3 = new GapTrading(dir + f3, seedCost);
-        GroupGapRatioTrading g = new GroupGapRatioTrading();
+        GroupTradeDayGapRatioTrading g = new GroupTradeDayGapRatioTrading();
         t1.setRecordLimit(5);
         t2.setRecordLimit(5);
         t3.setRecordLimit(5);

@@ -3,7 +3,7 @@ package com.tim.experiment;
 import com.tim.result.GroupTradeResult;
 import com.tim.trade.ControlTrading;
 import com.tim.trade.GroupControlTrading;
-import com.tim.trade.GroupGapRatioTrading;
+import com.tim.trade.GroupTradeDayGapRatioTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
 import com.tim.utility.TradingAlogirthm;
@@ -60,7 +60,7 @@ public class FullPairExperiment {
                 c.analyze();
                 Float controlReturn = c.getAnnualizedReturn();
 
-                GroupGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
+                GroupTradeDayGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
                 runExperiment(tradingAlogirthm, g, thisTradingGroup, controlReturn);
                 enforceResultLimit();
                 System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));
@@ -69,7 +69,7 @@ public class FullPairExperiment {
         return results;
     }
 
-    private void runExperiment(TradingAlogirthm tradingAlogirthm, GroupGapRatioTrading g, List<Trading> thisTradingGroup, Float controlReturn) {
+    private void runExperiment(TradingAlogirthm tradingAlogirthm, GroupTradeDayGapRatioTrading g, List<Trading> thisTradingGroup, Float controlReturn) {
         g.getTradings().addAll(thisTradingGroup);
         switch (tradingAlogirthm) {
             case RATIO_SPLIT:
@@ -99,7 +99,7 @@ public class FullPairExperiment {
         }
     }
 
-    public static Float getThisControlReturn(GroupGapRatioTrading g, int index) {
+    public static Float getThisControlReturn(GroupTradeDayGapRatioTrading g, int index) {
         Trading t = g.getTradings().get(index);
         ControlTrading c = new ControlTrading(t.getQuotes(), t.getDailyQuoteDataPath(), t.getSeedCost());
         c.executeTrade();
@@ -108,11 +108,11 @@ public class FullPairExperiment {
         return thisControlReturn;
     }
 
-    private void runNow(GroupGapRatioTrading g, Float controlReturn) {
+    private void runNow(GroupTradeDayGapRatioTrading g, Float controlReturn) {
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
 
-        GroupGapRatioTradingExperiment e = new GroupGapRatioTradingExperiment(g, gapRange, powerRange, controlReturn, results, isLossMajor);
+        GroupTradeDayGapRatioTradingExperiment e = new GroupTradeDayGapRatioTradingExperiment(g, gapRange, powerRange, controlReturn, results, isLossMajor);
         e.setCollect0TradeDayResults(collect0TradeDayResults);
         e.run();
     }
