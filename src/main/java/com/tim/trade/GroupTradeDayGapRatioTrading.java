@@ -72,11 +72,15 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
         if (anyDayGap && day > 0) {
             tradeIndexUpperLimit = day - 1;
         }
-        for (int tradeIndex = lastTradeIndex; tradeIndex <= tradeIndexUpperLimit; tradeIndex++) {
+        boolean found = false;
+        for (int tradeIndex = lastTradeIndex; !found && tradeIndex <= tradeIndexUpperLimit; tradeIndex++) {
             GapDetails gapDetails = findEquityGap(equities, day, tradingMap, isLossMajor, tradeIndex);
             if (gapDetails.getGap() > maxGap) {
                 maxGapDetails = gapDetails;
                 maxGap = maxGapDetails.getGap();
+                if (maxGap >= gapSize) {
+                    found = true;
+                }
             }
         }
         return maxGapDetails;
