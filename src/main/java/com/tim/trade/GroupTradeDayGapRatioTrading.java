@@ -132,9 +132,6 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
             Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount, q.getStringDate());
             List<Trade> trades = t.getTrades();
             Float equityRatio = equityAmount / trades.get(gapDay).getCost();
-//            if (tradingMap.containsKey(equityRatio)) {
-//                equityRatio = addSmallAmount(equityRatio);
-//            }
             if (equityRatio < minEquityRatio) {
                 minEquityRatio = equityRatio;
             }
