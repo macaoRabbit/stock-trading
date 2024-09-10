@@ -42,6 +42,7 @@ public class FullPairExperimentTest {
 
         FullPairExperiment f = new FullPairExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(5000);
+        f.setSeedCost(seedCost);
         List<GroupTradeResult> results = f.run(TradingAlogirthm.RATIO_SPLIT);
         f.processResult();
         f.saveResult(resultDir +  resultFile);

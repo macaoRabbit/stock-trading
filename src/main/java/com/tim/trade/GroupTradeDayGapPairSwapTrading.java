@@ -35,12 +35,7 @@ public class GroupTradeDayGapPairSwapTrading extends GroupTradeDayGapRatioTradin
             }
             Trade trade = new Trade(q.getDate(), "", q.getClose(), shares, equityAmount, q.getStringDate());
             List<Trade> trades = t.getTrades();
-            trades.add(trade);
             Float equityRatio = equityAmount / trades.get(gapDay).getCost();
-            if (tradingMap.containsKey(equityRatio)) {
-                equityRatio = addSmallAmount(equityRatio);
-            }
-            tradingMap.put(equityRatio, t);
             IndexRatio r = new IndexRatio(equity, equityRatio);
             if (isLossMajor) {
                 if (isZeroShare(shares)) {
@@ -117,7 +112,7 @@ public class GroupTradeDayGapPairSwapTrading extends GroupTradeDayGapRatioTradin
     private List<IndexRatio> sortTrades(List<IndexRatio> tTrades, Boolean reverseOrder) {
         TreeMap<Float, IndexRatio> m = new TreeMap<>();
         tTrades.forEach(t -> {
-            m.put(t.getRatio(), t);
+            m.put(addSmallAmount(t.getRatio()), t);
         });
         if (reverseOrder) {
            return m.descendingMap().values().stream().collect(Collectors.toList());
