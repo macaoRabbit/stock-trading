@@ -40,10 +40,10 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         String f4 = "g4.csv";
         String f5 = "g5.csv";
         Float seedCost = 1000.0f;
-        Trading t1 = new GapTrading(dir + f1, seedCost);
-        Trading t2 = new GapTrading(dir + f2, seedCost);
-        Trading t3 = new GapTrading(dir + f3, 0.0f);
-        Trading t4 = new GapTrading(dir + f4, 0.0f);
+        Trading t1 = new GapTrading(dir + f1, 0.0f);
+        Trading t2 = new GapTrading(dir + f2, 0.0f);
+        Trading t3 = new GapTrading(dir + f3, seedCost);
+        Trading t4 = new GapTrading(dir + f4, seedCost);
         Trading t5 = new GapTrading(dir + f5, 0.0f);
         GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
@@ -61,7 +61,7 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         g.report();
         assertEquals(g.getGroupTradeDays().size(), 4);
         assertTrue(g.getAnnualizedReturn() > 0);
-        assertEquals(0.483680784702301, g.getAnnualizedReturn(), 0.01);
+        assertEquals(0.5541146397590637, g.getAnnualizedReturn(), 0.01);
     }
 
     @Test
