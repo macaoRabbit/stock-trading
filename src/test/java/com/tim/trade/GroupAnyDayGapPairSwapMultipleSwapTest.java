@@ -10,10 +10,10 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
     public void groupAnyDapGapPairSwapTradingAnalyzeLossMajorTrue4SymbolsTest() {
 
         String dir = "C:\\GitHubProjects\\testData\\";
-        String f1 = "p1.csv";
-        String f2 = "p2.csv";
-        String f3 = "p3.csv";
-        String f4 = "p4.csv";
+        String f1 = "g1.csv";
+        String f2 = "g2.csv";
+        String f3 = "g3.csv";
+        String f4 = "g4.csv";
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
@@ -22,6 +22,7 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(true);
+        g.setAnyDayGap(true);
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
@@ -39,11 +40,11 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
     public void groupAnyDapGapPairSwapTradingAnalyzeLossMajorTrue5SymbolsIITest() {
 
         String dir = "C:\\GitHubProjects\\testData\\";
-        String f1 = "p1.csv";
-        String f2 = "p2.csv";
-        String f3 = "p3.csv";
-        String f4 = "p4.csv";
-        String f5 = "p5.csv";
+        String f1 = "g1.csv";
+        String f2 = "g2.csv";
+        String f3 = "g3.csv";
+        String f4 = "g4.csv";
+        String f5 = "g5.csv";
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, seedCost);
         Trading t2 = new GapTrading(dir + f2, seedCost);
@@ -53,6 +54,7 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(true);
+        g.setAnyDayGap(true);
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
@@ -72,10 +74,10 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
     public void groupAnyDapGapPairSwapTradingAnalyzeLossMajorFalse4SymbolsTest() {
 
         String dir = "C:\\GitHubProjects\\testData\\";
-        String f1 = "p1.csv";
-        String f2 = "p2.csv";
-        String f3 = "p3.csv";
-        String f4 = "p4.csv";
+        String f1 = "g1.csv";
+        String f2 = "g2.csv";
+        String f3 = "g3.csv";
+        String f4 = "g4.csv";
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, 0.0f);
         Trading t2 = new GapTrading(dir + f2, 0.0f);
@@ -84,6 +86,7 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(false);
+        g.setAnyDayGap(true);
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
@@ -102,11 +105,11 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
     public void groupAnyDapGapPairSwapTradingAnalyzeLossMajorFalse5SymbolsIITest() {
 
         String dir = "C:\\GitHubProjects\\testData\\";
-        String f1 = "p1.csv";
-        String f2 = "p2.csv";
-        String f3 = "p3.csv";
-        String f4 = "p4.csv";
-        String f5 = "p5.csv";
+        String f1 = "g1.csv";
+        String f2 = "g2.csv";
+        String f3 = "g3.csv";
+        String f4 = "g4.csv";
+        String f5 = "g5.csv";
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, 0.0f);
         Trading t2 = new GapTrading(dir + f2, 0.0f);
@@ -116,6 +119,7 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(false);
+        g.setAnyDayGap(true);
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
