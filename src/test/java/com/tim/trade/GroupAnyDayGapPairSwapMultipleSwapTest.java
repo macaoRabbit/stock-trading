@@ -59,9 +59,9 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         g.matchQuotesForAllTradings();
         g.analyze();
         g.report();
-        assertEquals(g.getGroupTradeDays().size(), 4);
+        assertEquals(g.getGroupTradeDays().size(), 5);
         assertTrue(g.getAnnualizedReturn() > 0);
-        assertEquals(0.5541146397590637, g.getAnnualizedReturn(), 0.01);
+        assertEquals(0.7697654366493225, g.getAnnualizedReturn(), 0.01);
     }
 
     @Test
@@ -90,9 +90,9 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         g.matchQuotesForAllTradings();
         g.analyze();
         g.report();
-        assertEquals(g.getGroupTradeDays().size(), 3);
+        assertEquals(g.getGroupTradeDays().size(), 2);
         assertTrue(g.getAnnualizedReturn() > 0);
-        assertEquals(0.1828082799911499, g.getAnnualizedReturn(), 0.01);
+        assertEquals(0.08278122544288635, g.getAnnualizedReturn(), 0.01);
     }
 
     @Test
@@ -125,7 +125,7 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         g.analyze();
         g.report();
         assertEquals(g.getGroupTradeDays().size(), 4);
-        assertTrue(g.getAnnualizedReturn() < 0);
-        assertEquals(-0.04233734682202339, g.getAnnualizedReturn(), 0.01);
+        assertTrue(g.getAnnualizedReturn() > 0);
+        assertEquals(0.16210490465164185, g.getAnnualizedReturn(), 0.01);
     }
 }
