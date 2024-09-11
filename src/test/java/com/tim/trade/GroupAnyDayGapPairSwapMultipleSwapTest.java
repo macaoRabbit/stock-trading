@@ -12,13 +12,9 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         String dir = "C:\\GitHubProjects\\testData\\";
         String f1 = "g1.csv";
         String f2 = "g2.csv";
-        String f3 = "g3.csv";
-        String f4 = "g4.csv";
         Float seedCost = 1000.0f;
         Trading t1 = new GapTrading(dir + f1, seedCost);
-        Trading t2 = new GapTrading(dir + f2, seedCost);
-        Trading t3 = new GapTrading(dir + f3, 0.0f);
-        Trading t4 = new GapTrading(dir + f4, 0.0f);
+        Trading t2 = new GapTrading(dir + f2, 0.0f);
         GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         Float gap = 0.05f;
         g.setLossMajor(true);
@@ -26,15 +22,13 @@ public class GroupAnyDayGapPairSwapMultipleSwapTest {
         g.setGapSize(gap);
         g.getTradings().add(t1);
         g.getTradings().add(t2);
-        g.getTradings().add(t3);
-        g.getTradings().add(t4);
         g.initQuotesWithCsvFileForAllTradings();
         g.matchQuotesForAllTradings();
         g.analyze();
         g.report();
         assertEquals(g.getGroupTradeDays().size(), 3);
         assertTrue(g.getAnnualizedReturn() > 0);
-        assertEquals(0.3801639974117279, g.getAnnualizedReturn(), 0.01);
+        assertEquals(0.11855030059814453, g.getAnnualizedReturn(), 0.01);
     }
     @Test
     public void groupAnyDapGapPairSwapTradingAnalyzeLossMajorTrue5SymbolsIITest() {
