@@ -21,8 +21,9 @@ public class PairSwap2Symbols {
     static String resultFile = "pair_swap_";
     static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     static String fileAppendix = TradingHelper.FILE_TYPE;
-    static boolean includeSummary = true;
+    static boolean includeSummary = false;
     static boolean anyDayGap = true;
+    static Float gap = 0.05f;
 
     public static void main(String[] args) {
         Float seedCost = 1000.0f;
@@ -35,9 +36,7 @@ public class PairSwap2Symbols {
         Trading t2 = new GapTrading(dir + f2, 0.0f);
         String num = "_1_";
         int index = 0;
-        Float gap = 0.05f;
         boolean lossMajor = true;
-        includeSummary = true;
         run(t1, t2, num, index, gap, lossMajor, includeSummary, anyDayGap);
 
         t1 = new GapTrading(dir + f1, 0.0f);
@@ -45,8 +44,6 @@ public class PairSwap2Symbols {
         num = "_2_";
         index = 1;
         lossMajor = true;
-        gap = 0.075f;
-        includeSummary = true;
         run(t1, t2, num, index, gap, lossMajor, includeSummary, anyDayGap);
     }
 
@@ -69,7 +66,17 @@ public class PairSwap2Symbols {
             creatSymbolList(g, results);
         }
         creatDailyResults(g, results);
-        String saveFile = resultDir + resultFile + g.getSymbolList().trim() + num +  date + fileAppendix;
+        String summary = "";
+        if (includeSummary) {
+            summary = "_sum";
+        }
+        String anyDay = "_tradeD";
+        if (anyDayGap) {
+            anyDay = "_anyD";
+
+        }
+        String pGap = String.format("_G%03.0f", gap*1000);
+        String saveFile = resultDir + resultFile + g.getSymbolList().trim() + pGap + anyDay + summary + num +  date + fileAppendix;
         new GroupTradeResult().save(results, saveFile, false);
     }
 

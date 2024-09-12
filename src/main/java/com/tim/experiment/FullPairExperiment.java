@@ -44,6 +44,9 @@ public class FullPairExperiment {
 
     public List<GroupTradeResult> run(TradingAlogirthm tradingAlogirthm) {
         results.clear();
+        List<Boolean> booleans = new ArrayList<>();
+        booleans.add(true);
+        booleans.add(false);
         for (int i = 0; i < tradings.size(); i++) {
             for (int j = i + 1; j < tradings.size(); j++) {
                 List<Trading> thisTradingGroup = new ArrayList<>();
@@ -60,10 +63,13 @@ public class FullPairExperiment {
                 c.analyze();
                 Float controlReturn = c.getAnnualizedReturn();
 
-                GroupTradeDayGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
-                runExperiment(tradingAlogirthm, g, thisTradingGroup, controlReturn);
-                enforceResultLimit();
-                System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));
+                for (Boolean b : booleans) {
+                    GroupTradeDayGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
+                    g.setAnyDayGap(b);
+                    runExperiment(tradingAlogirthm, g, thisTradingGroup, controlReturn);
+                    enforceResultLimit();
+                    System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));
+                }
             }
         }
         return results;

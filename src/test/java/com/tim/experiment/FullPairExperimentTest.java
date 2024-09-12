@@ -46,6 +46,6 @@ public class FullPairExperimentTest {
         List<GroupTradeResult> results = f.run(TradingAlogirthm.RATIO_SPLIT);
         f.processResult();
         f.saveResult(resultDir +  resultFile);
-        assertEquals(results.size(),4200);
+        assertEquals(results.size(),8400);
     }
 }

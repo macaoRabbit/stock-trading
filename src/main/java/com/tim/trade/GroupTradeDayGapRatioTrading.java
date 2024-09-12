@@ -215,12 +215,14 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
                 s.append("--");
             }
         }
-        GroupTradeResultItem i4 = new GroupTradeResultItem("ratio", s.toString(), ReturnItemType.StringType);
+        GroupTradeResultItem i4 = new GroupTradeResultItem("ratio",  " " + s.toString(), ReturnItemType.StringType);
         GroupTradeResultItem i5 = new GroupTradeResultItem("currentGap", String.format("%7.3f", currentGap), ReturnItemType.FloatType);
         GroupTradeResultItem i6 = new GroupTradeResultItem("gapDiff", String.format("%7.3f", gapDiff), ReturnItemType.FloatType);
+        GroupTradeResultItem i7 = new GroupTradeResultItem("anyDayGap", String.format("%6b", anyDayGap), ReturnItemType.BooleanType);
         r.getResults().add(i1);
         r.getResults().add(i2);
         r.getResults().add(i3);
+        r.getResults().add(i7);
         r.getResults().add(i4);
         r.getResults().add(i5);
         r.getResults().add(i6);
