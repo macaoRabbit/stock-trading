@@ -11,7 +11,7 @@ public class PortfolioRun2Symbols {
     static boolean collect0TradeDayResults = true;
 
     public static void main(String[] args) {
-        PortfolioExperiment.setSymbolsFileName(symbols, resultFile, resultLimit);
+        PortfolioExperiment.setSymbolsFileName(symbols, Symbols.getSymbolList(symbols), resultFile, resultLimit);
         PortfolioExperiment.setCollect0TradeDayResults(collect0TradeDayResults);
         PortfolioExperiment.run();
     }

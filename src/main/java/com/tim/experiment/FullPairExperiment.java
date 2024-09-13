@@ -174,6 +174,10 @@ public class FullPairExperiment {
         new GroupTradeResult().save(results, saveFile);
     }
 
+    public void saveResult(String dir, String saveFile) {
+        new GroupTradeResult().save(results, dir, saveFile);
+    }
+
     public boolean isLossMajor() {
         return isLossMajor;
     }

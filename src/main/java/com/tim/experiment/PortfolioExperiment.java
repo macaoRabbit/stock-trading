@@ -9,11 +9,14 @@ import java.time.Instant;
 
 public class PortfolioExperiment {
     static String dir = "C:\\GitHubProjects\\data\\";
+    static String subDir = "iSharesETF";
     static String resultDir = "C:\\GitHubProjects\\result\\";
     static String symbols = "VHT,QQQ,XLK,IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
+    static String myResultDir = getMyResultDir();
 
     static String resultFile = "iSharesETF";
     static String fileAppendix = TradingHelper.FILE_TYPE;
+
 
     static Float seedCost = 1000.0f;
     static int recordCount = 1300;
@@ -21,10 +24,12 @@ public class PortfolioExperiment {
     static int resultLimit = 5000;
     static boolean collect0TradeDayResults = false;
 
-    public static void setSymbolsFileName(String symbols, String resultFile, int resultLimit) {
+    public static void setSymbolsFileName(String symbols, String dir, String resultFile, int resultLimit) {
         PortfolioExperiment.symbols = symbols;
         PortfolioExperiment.resultFile = resultFile;
+        PortfolioExperiment.subDir = dir;
         PortfolioExperiment.resultLimit = resultLimit;
+        PortfolioExperiment.myResultDir = getMyResultDir();
     }
 
     public static void run () {
@@ -48,8 +53,9 @@ public class PortfolioExperiment {
         FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.runControl();
-        f.saveResult(resultDir +  resultFile + runType + fileAppendix);
+        f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
+
 
     private static void equalSplitLossMajorTrue() {
         FloatRange gapRange = new FloatRange(0.025f, 0.11f, 0.025f);
@@ -61,7 +67,7 @@ public class PortfolioExperiment {
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.RATIO_SPLIT);
-        f.saveResult(resultDir +  resultFile + runType + fileAppendix);
+        f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 
     private static void equalSplitLossMajorfalse() {
@@ -74,7 +80,7 @@ public class PortfolioExperiment {
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.RATIO_SPLIT);
-        f.saveResult(resultDir +  resultFile + runType + fileAppendix);
+        f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 
     private static void pairswapLossMajorTrue() {
@@ -87,7 +93,7 @@ public class PortfolioExperiment {
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.PAIR_SWAP);
-        f.saveResult(resultDir +  resultFile + runType + fileAppendix);
+        f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 
     private static void pairswapLossMajorFalse() {
@@ -100,10 +106,14 @@ public class PortfolioExperiment {
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.PAIR_SWAP);
-        f.saveResult(resultDir +  resultFile + runType + fileAppendix);
+        f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 
     public static void setCollect0TradeDayResults(boolean collect0TradeDayResults) {
         PortfolioExperiment.collect0TradeDayResults = collect0TradeDayResults;
+    }
+
+    private static String getMyResultDir() {
+        return resultDir + "\\" + subDir;
     }
 }
