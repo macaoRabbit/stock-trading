@@ -21,7 +21,7 @@ public class PairSwap2Symbols {
     static String resultFile = "pair_swap_";
     static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     static String fileAppendix = TradingHelper.FILE_TYPE;
-    static boolean includeSummary = false;
+    static boolean includeSummary = true;
     static boolean anyDayGap = true;
     static Float gap = 0.05f;
 
