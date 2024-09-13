@@ -1,6 +1,7 @@
 package com.tim.result;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +108,27 @@ public class GroupTradeResult {
 
     public void save(List<GroupTradeResult> results, String saveFile) {
         save(results, saveFile, true);
+    }
+
+    public void save(List<GroupTradeResult> results, String dir, String saveFile) {
+        createDirIfNotExists(dir);
+        save(results, saveFile, true);
+    }
+
+    public void save(List<GroupTradeResult> results, String dir, String saveFile, boolean sortResults) {
+        createDirIfNotExists(dir);
+        save(results, saveFile, sortResults);
+    }
+
+    private void createDirIfNotExists(String dir) {
+        try {
+            File directory = new File(dir);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void save(List<GroupTradeResult> results, String saveFile, boolean sortResults) {

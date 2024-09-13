@@ -76,8 +76,9 @@ public class PairSwap2Symbols {
 
         }
         String pGap = String.format("_G%03.0f", gap*1000);
-        String saveFile = resultDir + resultFile + g.getSymbolList().trim() + pGap + anyDay + summary + num +  date + fileAppendix;
-        new GroupTradeResult().save(results, saveFile, false);
+        String subDir = resultDir + g.getSymbolList().trim();
+        String saveFile = subDir + "\\" + resultFile + g.getSymbolList().trim() + pGap + anyDay + summary + num +  date + fileAppendix;
+        new GroupTradeResult().save(results, subDir, saveFile, false);
     }
 
     private static void creatSymbolList(GroupTradeDayGapPairSwapTrading g, List<GroupTradeResult> results) {
