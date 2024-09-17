@@ -44,9 +44,6 @@ public class FullPairExperiment {
 
     public List<GroupTradeResult> run(TradingAlogirthm tradingAlogirthm) {
         results.clear();
-        List<Boolean> booleans = new ArrayList<>();
-        booleans.add(true);
-        booleans.add(false);
         for (int i = 0; i < tradings.size(); i++) {
             for (int j = i + 1; j < tradings.size(); j++) {
                 List<Trading> thisTradingGroup = new ArrayList<>();
@@ -55,24 +52,32 @@ public class FullPairExperiment {
                 thisTradingGroup.add(t1);
                 thisTradingGroup.add(t2);
 
-                GroupControlTrading c = new GroupControlTrading();
-                c.getTradings().addAll(thisTradingGroup);
-                TradingAlogirthm.manageSeedCost(c.getTradings(), TradingAlogirthm.CONTROL, seedCost);
-                c.initQuotesWithCsvFileForAllTradings();
-                c.matchQuotesForAllTradings();
-                c.analyze();
-                Float controlReturn = c.getAnnualizedReturn();
-
-                for (Boolean b : booleans) {
-                    GroupTradeDayGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
-                    g.setAnyDayGap(b);
-                    runExperiment(tradingAlogirthm, g, thisTradingGroup, controlReturn);
-                    enforceResultLimit();
-                    System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));
-                }
+                runJustOne(tradingAlogirthm, thisTradingGroup);
             }
         }
         return results;
+    }
+
+    public void runJustOne(TradingAlogirthm tradingAlogirthm, List<Trading> thisTradingGroup) {
+        List<Boolean> booleans = new ArrayList<>();
+        booleans.add(true);
+        booleans.add(false);
+
+        GroupControlTrading c = new GroupControlTrading();
+        c.getTradings().addAll(thisTradingGroup);
+        TradingAlogirthm.manageSeedCost(c.getTradings(), TradingAlogirthm.CONTROL, seedCost);
+        c.initQuotesWithCsvFileForAllTradings();
+        c.matchQuotesForAllTradings();
+        c.analyze();
+        Float controlReturn = c.getAnnualizedReturn();
+
+        for (Boolean b : booleans) {
+            GroupTradeDayGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
+            g.setAnyDayGap(b);
+            runExperiment(tradingAlogirthm, g, thisTradingGroup, controlReturn);
+            enforceResultLimit();
+            System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));
+        }
     }
 
     private void runExperiment(TradingAlogirthm tradingAlogirthm, GroupTradeDayGapRatioTrading g, List<Trading> thisTradingGroup, Float controlReturn) {
