@@ -18,7 +18,7 @@ public class FullPairExperimentTest {
 
         String dir = "C:\\GitHubProjects\\data\\";
         String resultDir = "C:\\GitHubProjects\\result\\";
-        String resultFile = "threeQuotesTest.csv";
+        String resultFile = "fullPairExperimentTest.csv";
         String f1 = "AMD.csv";
         String f2 = "NOW.csv";
         String f3 = "PAYC.csv";
