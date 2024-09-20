@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PairSwap2Symbols {
+public class PairSwapMultiSymbols {
     static String dir = "C:\\GitHubProjects\\data\\";
     static String resultDir = "C:\\GitHubProjects\\result\\";
     //    static String stockList = "CEG,LLY";
@@ -152,6 +152,6 @@ public class PairSwap2Symbols {
     }
 
     public static void setTradeGroupSize(Integer tradeGroupSize) {
-        PairSwap2Symbols.tradeGroupSize = tradeGroupSize;
+        PairSwapMultiSymbols.tradeGroupSize = tradeGroupSize;
     }
 }
