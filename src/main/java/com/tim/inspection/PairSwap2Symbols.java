@@ -16,7 +16,7 @@ import java.util.List;
 public class PairSwap2Symbols {
     static String dir = "C:\\GitHubProjects\\data\\";
     static String resultDir = "C:\\GitHubProjects\\result\\";
-//    static String stockList = "CEG,LLY";
+    //    static String stockList = "CEG,LLY";
     static String stockList = "IJS,VHT";
     static String resultFile = "pair_swap_";
     static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
@@ -24,36 +24,36 @@ public class PairSwap2Symbols {
     static boolean includeSummary = true;
     static boolean anyDayGap = true;
     static Float gap = 0.05f;
+    static Integer tradeGroupSize = 2;
 
     public static void main(String[] args) {
         Float seedCost = 1000.0f;
         String stocks[] = stockList.split(",");
-
-        String f1 = stocks[0].trim() + fileAppendix;
-        String f2 = stocks[1].trim() + fileAppendix;
-
-        Trading t1 = new GapTrading(dir + f1, seedCost);
-        Trading t2 = new GapTrading(dir + f2, 0.0f);
-        String num = "_1_";
-        int index = 0;
+        tradeGroupSize = stocks.length;
         boolean lossMajor = true;
-        run(t1, t2, num, index, gap, lossMajor, includeSummary, anyDayGap);
 
-        t1 = new GapTrading(dir + f1, 0.0f);
-        t2 = new GapTrading(dir + f2, seedCost);
-        num = "_2_";
-        index = 1;
-        lossMajor = true;
-        run(t1, t2, num, index, gap, lossMajor, includeSummary, anyDayGap);
+        for (int index = 0; index < tradeGroupSize; index++) {
+            List<Trading> tradings = new ArrayList<>();
+            for (int i = 0; i < getTradeGroupSize(); i++) {
+                String filiName = stocks[i].trim() + fileAppendix;
+                Trading t = new GapTrading(dir + filiName, 0.0f);
+                if (i == index) {
+                    t = new GapTrading(dir + filiName, seedCost);
+                }
+                tradings.add(t);
+            }
+            run(tradings, index, gap, lossMajor, includeSummary, anyDayGap);
+
+        }
     }
 
-    private static void run(Trading t1, Trading t2, String num, int index, Float gap, boolean lossMajor, boolean includeSummary, boolean anyDayGap) {
+    private static void run(List<Trading> tradings, int index, Float gap, boolean lossMajor, boolean includeSummary, boolean anyDayGap) {
+        String num = "_" + String.format("%1d", index) + "_";
         GroupTradeDayGapPairSwapTrading g = new GroupTradeDayGapPairSwapTrading();
         g.setLossMajor(lossMajor);
         g.setGapSize(gap);
         g.setAnyDayGap(anyDayGap);
-        g.getTradings().add(t1);
-        g.getTradings().add(t2);
+        g.getTradings().addAll(tradings);
         Float controlReturn = FullPairExperiment.getThisControlReturn(g, index);
         g.setControlReturn(controlReturn);
         g.initQuotesWithCsvFileForAllTradings();
@@ -75,9 +75,10 @@ public class PairSwap2Symbols {
             anyDay = "_anyD";
 
         }
-        String pGap = String.format("_G%03.0f", gap*1000);
+        String pGap = String.format("_G%03.0f", gap * 1000);
         String subDir = resultDir + g.getSymbolList().trim();
-        String saveFile = subDir + "\\" + resultFile + g.getSymbolList().trim() + pGap + anyDay + summary + num +  date + fileAppendix;
+        String lossOrNot = "_" + String.format("%b", lossMajor);
+        String saveFile = subDir + "\\" + resultFile + g.getSymbolList().trim() + pGap + anyDay + lossOrNot + summary + num + date + fileAppendix;
         new GroupTradeResult().save(results, subDir, saveFile, false);
     }
 
@@ -92,7 +93,7 @@ public class PairSwap2Symbols {
 
     private static void creatDailyResults(GroupTradeDayGapRatioTrading g, List<GroupTradeResult> results) {
         int days = g.getTradings().get(0).getTrades().size();
-        for (int i=0; i<days; i++) {
+        for (int i = 0; i < days; i++) {
             GroupTradeResult r = new GroupTradeResult();
             addDate(g, i, r);
             addSharesAndEquity(g, i, r);
@@ -144,5 +145,13 @@ public class PairSwap2Symbols {
         r.getResults().add(i3);
         r.getResults().add(i4);
         r.getResults().add(i5);
+    }
+
+    public static Integer getTradeGroupSize() {
+        return tradeGroupSize;
+    }
+
+    public static void setTradeGroupSize(Integer tradeGroupSize) {
+        PairSwap2Symbols.tradeGroupSize = tradeGroupSize;
     }
 }
