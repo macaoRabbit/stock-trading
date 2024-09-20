@@ -1,6 +1,7 @@
 package com.tim.experiment;
 
 import com.tim.utility.FloatRange;
+import com.tim.utility.FullExperiment;
 import com.tim.utility.TradingAlogirthm;
 import com.tim.utility.TradingHelper;
 
@@ -17,7 +18,7 @@ public class PortfolioExperiment {
     static String resultFile = "iSharesETF";
     static String fileAppendix = TradingHelper.FILE_TYPE;
 
-
+    static FullExperiment experiment = FullExperiment.Pair;
     static Float seedCost = 1000.0f;
     static int recordCount = 1300;
     static int minRecordCount = 300;
@@ -50,7 +51,7 @@ public class PortfolioExperiment {
         boolean isLossMajor = true;
         String runType = "_control";
 
-        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.runControl();
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
@@ -63,7 +64,7 @@ public class PortfolioExperiment {
         boolean isLossMajor = true;
         String runType = "_equalSplit_" + isLossMajor;
 
-        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.RATIO_SPLIT);
@@ -76,7 +77,7 @@ public class PortfolioExperiment {
         boolean isLossMajor = false;
         String runType = "_equalSplit_" + isLossMajor;
 
-        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.RATIO_SPLIT);
@@ -89,7 +90,7 @@ public class PortfolioExperiment {
         boolean isLossMajor = true;
         String runType = "_pairswap_" + isLossMajor;
 
-        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.PAIR_SWAP);
@@ -102,11 +103,23 @@ public class PortfolioExperiment {
         boolean isLossMajor = false;
         String runType = "_pairswap_" + isLossMajor;
 
-        FullPairExperiment f = new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlogirthm.PAIR_SWAP);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
+    }
+
+    private static FullPairExperiment getFullExperiment(FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
+        switch(experiment) {
+            case Pair:
+                return new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+            case Trio:
+                return new FullTrioExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+            case Quad:
+                return new FullQuadExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        }
+        return new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
     }
 
     public static void setCollect0TradeDayResults(boolean collect0TradeDayResults) {
@@ -115,5 +128,14 @@ public class PortfolioExperiment {
 
     private static String getMyResultDir() {
         return resultDir + "\\" + subDir;
+    }
+
+
+    public static FullExperiment getExperiment() {
+        return experiment;
+    }
+
+    public static void setExperiment(FullExperiment experiment) {
+        PortfolioExperiment.experiment = experiment;
     }
 }
