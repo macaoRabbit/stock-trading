@@ -17,7 +17,7 @@ public class PairSwapMultiSymbols {
     static String dir = "C:\\GitHubProjects\\data\\";
     static String resultDir = "C:\\GitHubProjects\\result\\";
     //    static String stockList = "CEG,LLY";
-    static String stockList = "IJS,VHT";
+    static String stockList = "IJS,VHT,IVW";
     static String resultFile = "pair_swap_";
     static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     static String fileAppendix = TradingHelper.FILE_TYPE;
