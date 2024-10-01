@@ -6,8 +6,9 @@ import com.tim.utility.Symbols;
 
 public class PortfolioRunMultiSymbols {
 //    static String symbols = "IJS,VHT";
-    static String symbols = "CEG,LLY";
-    static FullExperiment experiment = FullExperiment.Pair;
+    static String symbols = "CEG,LLY,IBM";
+//    static FullExperiment experiment = FullExperiment.Pair;
+    static FullExperiment experiment = FullExperiment.Trio;
     static String resultFile = "portfolio_" + Symbols.getSymbolList(symbols) + "_" + experiment.toString() + "_" + Symbols.getStringDate();
     static Integer resultLimit = 10000;
     static boolean collect0TradeDayResults = true;

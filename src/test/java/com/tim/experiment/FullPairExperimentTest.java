@@ -4,6 +4,7 @@ import com.tim.result.GroupTradeResult;
 import com.tim.trade.GapTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
+import com.tim.utility.Symbols;
 import com.tim.utility.TradingAlogirthm;
 import org.junit.jupiter.api.Test;
 
@@ -13,12 +14,14 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class FullPairExperimentTest {
+    static TradingAlogirthm tradingAlogirthm = TradingAlogirthm.RATIO_SPLIT;
     @Test
     public void groupGapExperimentTest() {
 
         String dir = "C:\\GitHubProjects\\data\\";
         String resultDir = "C:\\GitHubProjects\\result\\";
-        String resultFile = "fullPairExperimentTest.csv";
+        String subDir = resultDir + "fullExperiment";
+        String resultFile = subDir + "\\" + this.getClass().getSimpleName() + "_" + Symbols.getStringDate() + ".csv";
         String f1 = "AMD.csv";
         String f2 = "NOW.csv";
         String f3 = "PAYC.csv";
@@ -45,7 +48,7 @@ public class FullPairExperimentTest {
         f.setSeedCost(seedCost);
         List<GroupTradeResult> results = f.run(TradingAlogirthm.RATIO_SPLIT);
         f.processResult();
-        f.saveResult(resultDir +  resultFile);
+        f.saveResult(subDir, resultFile);
         assertEquals(results.size(),8400);
     }
 }
