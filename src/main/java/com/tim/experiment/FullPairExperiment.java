@@ -6,7 +6,7 @@ import com.tim.trade.GroupControlTrading;
 import com.tim.trade.GroupTradeDayGapRatioTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
-import com.tim.utility.TradingAlogirthm;
+import com.tim.utility.TradingAlgorithm;
 import com.tim.utility.TradingHelper;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class FullPairExperiment {
         this.seedCost = seedCost;
     }
 
-    public List<GroupTradeResult> run(TradingAlogirthm tradingAlogirthm) {
+    public List<GroupTradeResult> run(TradingAlgorithm tradingAlgorithm) {
         results.clear();
         for (int i = 0; i < tradings.size(); i++) {
             for (int j = i + 1; j < tradings.size(); j++) {
@@ -52,44 +52,44 @@ public class FullPairExperiment {
                 thisTradingGroup.add(t1);
                 thisTradingGroup.add(t2);
 
-                runJustOne(tradingAlogirthm, thisTradingGroup);
+                runJustOne(tradingAlgorithm, thisTradingGroup);
             }
         }
         return results;
     }
 
-    public void runJustOne(TradingAlogirthm tradingAlogirthm, List<Trading> thisTradingGroup) {
+    public void runJustOne(TradingAlgorithm tradingAlgorithm, List<Trading> thisTradingGroup) {
         List<Boolean> booleans = new ArrayList<>();
         booleans.add(true);
         booleans.add(false);
 
         GroupControlTrading c = new GroupControlTrading();
         c.getTradings().addAll(thisTradingGroup);
-        TradingAlogirthm.manageSeedCost(c.getTradings(), TradingAlogirthm.CONTROL, seedCost);
+        TradingAlgorithm.manageSeedCost(c.getTradings(), TradingAlgorithm.CONTROL, seedCost);
         c.initQuotesWithCsvFileForAllTradings();
         c.matchQuotesForAllTradings();
         c.analyze();
         Float controlReturn = c.getAnnualizedReturn();
 
         for (Boolean b : booleans) {
-            GroupTradeDayGapRatioTrading g = TradingAlogirthm.getAlgorithm(tradingAlogirthm);
+            GroupTradeDayGapRatioTrading g = TradingAlgorithm.getAlgorithm(tradingAlgorithm);
             g.setAnyDayGap(b);
-            runExperiment(tradingAlogirthm, g, thisTradingGroup, controlReturn);
+            runExperiment(tradingAlgorithm, g, thisTradingGroup, controlReturn);
             enforceResultLimit();
             System.out.println("Finished processing " + g.getSymbolList() + " " + " results=" + String.format("%8d", results.size()));
         }
     }
 
-    private void runExperiment(TradingAlogirthm tradingAlogirthm, GroupTradeDayGapRatioTrading g, List<Trading> thisTradingGroup, Float controlReturn) {
+    private void runExperiment(TradingAlgorithm tradingAlgorithm, GroupTradeDayGapRatioTrading g, List<Trading> thisTradingGroup, Float controlReturn) {
         g.getTradings().addAll(thisTradingGroup);
-        switch (tradingAlogirthm) {
+        switch (tradingAlgorithm) {
             case RATIO_SPLIT:
-                TradingAlogirthm.manageSeedCost(g.getTradings(), tradingAlogirthm, seedCost);
+                TradingAlgorithm.manageSeedCost(g.getTradings(), tradingAlgorithm, seedCost);
                 runNow(g, controlReturn);
                 break;
             case PAIR_SWAP:
                 for (int index = 0; index < thisTradingGroup.size(); index++) {
-                    TradingAlogirthm.manageSeedCost(index, g.getTradings(), tradingAlogirthm, seedCost);
+                    TradingAlgorithm.manageSeedCost(index, g.getTradings(), tradingAlgorithm, seedCost);
                     Float thisControlReturn = getThisControlReturn(g, index);
                     runNow(g, thisControlReturn);
                 }

@@ -5,7 +5,7 @@ import com.tim.trade.GapTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
 import com.tim.utility.Symbols;
-import com.tim.utility.TradingAlogirthm;
+import com.tim.utility.TradingAlgorithm;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class FullPairExperimentTest {
-    static TradingAlogirthm tradingAlogirthm = TradingAlogirthm.RATIO_SPLIT;
+    static TradingAlgorithm tradingAlgorithm = TradingAlgorithm.RATIO_SPLIT;
     @Test
     public void groupGapExperimentTest() {
 
@@ -46,7 +46,7 @@ public class FullPairExperimentTest {
         FullPairExperiment f = new FullPairExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(5000);
         f.setSeedCost(seedCost);
-        List<GroupTradeResult> results = f.run(TradingAlogirthm.RATIO_SPLIT);
+        List<GroupTradeResult> results = f.run(TradingAlgorithm.RATIO_SPLIT);
         f.processResult();
         f.saveResult(subDir, resultFile);
         assertEquals(results.size(),8400);

@@ -3,7 +3,7 @@ package com.tim.experiment;
 import com.tim.result.GroupTradeResult;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
-import com.tim.utility.TradingAlogirthm;
+import com.tim.utility.TradingAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class FullTrioExperiment extends FullPairExperiment {
     }
 
     @Override
-    public List<GroupTradeResult> run(TradingAlogirthm tradingAlogirthm) {
+    public List<GroupTradeResult> run(TradingAlgorithm tradingAlgorithm) {
         results.clear();
         int tradingsSize = tradings.size();
         for (int i = 0; i < tradingsSize; i++) {
@@ -33,7 +33,7 @@ public class FullTrioExperiment extends FullPairExperiment {
                     thisTradingGroup.add(t2);
                     thisTradingGroup.add(t3);
 
-                    runJustOne(tradingAlogirthm, thisTradingGroup);
+                    runJustOne(tradingAlgorithm, thisTradingGroup);
                 }
             }
         }

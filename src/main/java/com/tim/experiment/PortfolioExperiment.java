@@ -2,7 +2,7 @@ package com.tim.experiment;
 
 import com.tim.utility.FloatRange;
 import com.tim.utility.FullExperiment;
-import com.tim.utility.TradingAlogirthm;
+import com.tim.utility.TradingAlgorithm;
 import com.tim.utility.TradingHelper;
 
 import java.time.Duration;
@@ -67,7 +67,7 @@ public class PortfolioExperiment {
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
-        f.run(TradingAlogirthm.RATIO_SPLIT);
+        f.run(TradingAlgorithm.RATIO_SPLIT);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 
@@ -80,7 +80,7 @@ public class PortfolioExperiment {
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
-        f.run(TradingAlogirthm.RATIO_SPLIT);
+        f.run(TradingAlgorithm.RATIO_SPLIT);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 
@@ -93,7 +93,7 @@ public class PortfolioExperiment {
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
-        f.run(TradingAlogirthm.PAIR_SWAP);
+        f.run(TradingAlgorithm.PAIR_SWAP);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 
@@ -106,7 +106,7 @@ public class PortfolioExperiment {
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
-        f.run(TradingAlogirthm.PAIR_SWAP);
+        f.run(TradingAlgorithm.PAIR_SWAP);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 

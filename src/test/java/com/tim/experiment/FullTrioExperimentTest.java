@@ -5,7 +5,7 @@ import com.tim.trade.GapTrading;
 import com.tim.trade.Trading;
 import com.tim.utility.FloatRange;
 import com.tim.utility.Symbols;
-import com.tim.utility.TradingAlogirthm;
+import com.tim.utility.TradingAlgorithm;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class FullTrioExperimentTest {
         FullPairExperiment f = new FullTrioExperiment(tradings, gapRange, powerRange, isLossMajor);
         f.setResultLimit(5000);
         f.setSeedCost(seedCost);
-        List<GroupTradeResult> results = f.run(TradingAlogirthm.RATIO_SPLIT);
+        List<GroupTradeResult> results = f.run(TradingAlgorithm.RATIO_SPLIT);
         f.processResult();
         f.saveResult(subDir, resultFile);
         assertEquals(results.size(),2800);
