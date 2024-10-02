@@ -36,8 +36,8 @@ public class PortfolioExperiment {
     public static void run () {
         Instant start = Instant.now();
         runControl();
-        equalSplitLossMajorTrue();
-        equalSplitLossMajorfalse();
+        ratioSplitLossMajorTrue();
+        ratioSplitLossMajorfalse();
         pairswapLossMajorTrue();
         pairswapLossMajorFalse();
         Instant end = Instant.now();
@@ -58,11 +58,11 @@ public class PortfolioExperiment {
     }
 
 
-    private static void equalSplitLossMajorTrue() {
+    private static void ratioSplitLossMajorTrue() {
         FloatRange gapRange = new FloatRange(0.025f, 0.11f, 0.025f);
-        FloatRange powerRange = new FloatRange(0.0f, 1.1f, 4.0f);
+        FloatRange powerRange = new FloatRange(0.0f, 5.1f, 4.0f);
         boolean isLossMajor = true;
-        String runType = "_equalSplit_" + isLossMajor;
+        String runType = "_ratioSplit_" + isLossMajor;
 
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
@@ -71,11 +71,11 @@ public class PortfolioExperiment {
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
 
-    private static void equalSplitLossMajorfalse() {
+    private static void ratioSplitLossMajorfalse() {
         FloatRange gapRange = new FloatRange(0.025f, 0.11f, 0.025f);
-        FloatRange powerRange = new FloatRange(0.0f, 1.1f, 4.0f);
+        FloatRange powerRange = new FloatRange(0.0f, 5.1f, 4.0f);
         boolean isLossMajor = false;
-        String runType = "_equalSplit_" + isLossMajor;
+        String runType = "_ratioSplit_" + isLossMajor;
 
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
@@ -86,7 +86,7 @@ public class PortfolioExperiment {
 
     private static void pairswapLossMajorTrue() {
         FloatRange gapRange = new FloatRange(0.025f, 0.11f, 0.025f);
-        FloatRange powerRange = new FloatRange(0.0f, 1.1f, 4.0f);
+        FloatRange powerRange = new FloatRange(0.0f, 5.1f, 4.0f);
         boolean isLossMajor = true;
         String runType = "_pairswap_" + isLossMajor;
 
@@ -99,7 +99,7 @@ public class PortfolioExperiment {
 
     private static void pairswapLossMajorFalse() {
         FloatRange gapRange = new FloatRange(0.025f, 0.11f, 0.025f);
-        FloatRange powerRange = new FloatRange(0.0f, 1.1f, 4.0f);
+        FloatRange powerRange = new FloatRange(0.0f, 5.1f, 4.0f);
         boolean isLossMajor = false;
         String runType = "_pairswap_" + isLossMajor;
 

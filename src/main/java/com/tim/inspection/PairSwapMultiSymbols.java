@@ -6,11 +6,10 @@ import com.tim.result.GroupTradeResultItem;
 import com.tim.result.ReturnItemType;
 import com.tim.trade.*;
 import com.tim.utility.GapDetails;
+import com.tim.utility.Symbols;
 import com.tim.utility.TradingHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PairSwapMultiSymbols {
@@ -19,7 +18,7 @@ public class PairSwapMultiSymbols {
     //    static String stockList = "CEG,LLY";
     static String stockList = "IJS,VHT,IVW";
     static String resultFile = "pair_swap_";
-    static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
+    static String date = Symbols.getStringDate();
     static String fileAppendix = TradingHelper.FILE_TYPE;
     static boolean includeSummary = true;
     static boolean anyDayGap = true;
