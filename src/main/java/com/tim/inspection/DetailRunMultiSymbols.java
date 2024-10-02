@@ -28,10 +28,6 @@ public class DetailRunMultiSymbols {
     static TradingAlgorithm algorithm = TradingAlgorithm.PAIR_SWAP;
     static String resultFile = algorithm.name() + "_";
 
-    public static void main(String[] args) {
-        run(algorithm, stockList, gap, splitRatioPower);
-    }
-
     public static void run(TradingAlgorithm algorithm, String stockList, Float gap, Float splitRatioPower) {
         DetailRunMultiSymbols.algorithm = algorithm;
         DetailRunMultiSymbols.stockList = stockList;
