@@ -59,6 +59,7 @@ public class DetailRunMultiSymbols {
         g.setLossMajor(lossMajor);
         g.setAnyDayGap(anyDayGap);
         g.getTradings().addAll(tradings);
+        g.setupSplitRatio();
         Float controlReturn = FullPairExperiment.getThisControlReturn(g, index);
         g.setControlReturn(controlReturn);
         g.initQuotesWithCsvFileForAllTradings();
@@ -138,8 +139,8 @@ public class DetailRunMultiSymbols {
     private static void addGapDetails(GroupTradeDayGapRatioTrading g, int i, GroupTradeResult r) {
         if (i >= g.getDailyGaps().size()) return;
         GapDetails d = g.getDailyGaps().get(i);
-        Double min = d.getMins().stream().mapToDouble(x -> x.getRatio()).min().orElse(-1.0f);
-        Double max = d.getMaxs().stream().mapToDouble(x -> x.getRatio()).max().orElse(-1.0f);
+        Double min = d.getMins() != null ? d.getMins().stream().mapToDouble(x -> x.getRatio()).min().orElse(-1.0f) : 0.0d;
+        Double max = d.getMaxs() != null ? d.getMaxs().stream().mapToDouble(x -> x.getRatio()).max().orElse(-1.0f) : 0.0d;
         GroupTradeResultItem i1 = new GroupTradeResultItem("gap", String.format("%9.3f", d.getGap()), ReturnItemType.FloatType);
         GroupTradeResultItem i2 = new GroupTradeResultItem("min", String.format("%9.3f", min), ReturnItemType.FloatType);
         GroupTradeResultItem i3 = new GroupTradeResultItem("max", String.format("%9.3f", max), ReturnItemType.FloatType);
