@@ -7,16 +7,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class IsharesETFTest {
-//    static String symbols = "VHT,QQQ,XLK,IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
+    static String symbols = "VHT,QQQ,XLK,IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
 //    static String resultFile = "iSharesETF_2024_09_12";
-    static String symbols = "IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
-    static FullExperiment experiment = FullExperiment.Pair;
+//    static String symbols = "IVV,IJH,IJR,IVW,IJK,IJT,IVE,IJJ,IJS";
     static String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
+    static FullExperiment experiment = FullExperiment.Quad;
     static String resultFile = "iSharesETF_" + experiment.toString() + "_" + date ;
     static Integer resultLimit = 10000;
     static String subDir = "iShares";
 
     public static void main(String[] args) {
+        run(FullExperiment.Pair);
+        run(FullExperiment.Trio);
+        run(FullExperiment.Quad);
+    }
+
+    private static void run(FullExperiment e) {
+        experiment = e;
+        resultFile = "iSharesETF_" + experiment.toString() + "_" + date ;
         PortfolioExperiment.setSymbolsFileName(symbols, subDir, resultFile, resultLimit);
         PortfolioExperiment.setExperiment(experiment);
         PortfolioExperiment.run();

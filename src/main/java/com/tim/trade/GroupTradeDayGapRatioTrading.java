@@ -97,7 +97,7 @@ public class GroupTradeDayGapRatioTrading extends GroupTrading {
 
     public void splitRatioEquityAllocation(int day, TreeMap<Float, Trading> tradingMap, int equities, List<Float> mySplitRatioList) {
         int aDay = day;
-        Float totalEquity = (float) tradings.stream().mapToDouble(i -> i.getTrades().get(aDay).getCost()).sum();
+        Float totalEquity = (float) tradings.stream().mapToDouble(i -> i.getTrades().get(aDay).getShares() * i.getTrades().get(aDay).getSharePrice()).sum();
         int ratioIndex = 0;
         for (Trading t : tradingMap.values()) {
             int myRatioIndex = ratioIndex;
