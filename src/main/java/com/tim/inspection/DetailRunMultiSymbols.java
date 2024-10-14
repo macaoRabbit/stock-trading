@@ -33,6 +33,7 @@ public class DetailRunMultiSymbols {
         DetailRunMultiSymbols.stockList = stockList;
         DetailRunMultiSymbols.gap = gap;
         DetailRunMultiSymbols.splitRatioPower = splitRatioPower;
+        resultFile = DetailRunMultiSymbols.algorithm.name() + "_";
         Float seedCost = 1000.0f;
         String stocks[] = stockList.split(",");
         tradeGroupSize = stocks.length;
