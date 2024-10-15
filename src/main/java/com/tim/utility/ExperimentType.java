@@ -1,6 +1,6 @@
 package com.tim.utility;
 
-public enum FullExperiment {
+public enum ExperimentType {
     Pair,
     Trio,
     Quad;

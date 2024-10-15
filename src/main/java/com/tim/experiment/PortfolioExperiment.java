@@ -1,7 +1,7 @@
 package com.tim.experiment;
 
 import com.tim.utility.FloatRange;
-import com.tim.utility.FullExperiment;
+import com.tim.utility.ExperimentType;
 import com.tim.utility.TradingAlgorithm;
 import com.tim.utility.TradingHelper;
 
@@ -18,7 +18,7 @@ public class PortfolioExperiment {
     static String resultFile = "iSharesETF";
     static String fileAppendix = TradingHelper.FILE_TYPE;
 
-    static FullExperiment experiment = FullExperiment.Pair;
+    static ExperimentType experiment = ExperimentType.Pair;
     static Float seedCost = 1000.0f;
     static int recordCount = 1300;
     static int minRecordCount = 300;
@@ -131,11 +131,11 @@ public class PortfolioExperiment {
     }
 
 
-    public static FullExperiment getExperiment() {
+    public static ExperimentType getExperiment() {
         return experiment;
     }
 
-    public static void setExperiment(FullExperiment experiment) {
+    public static void setExperiment(ExperimentType experiment) {
         PortfolioExperiment.experiment = experiment;
     }
 }

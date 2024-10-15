@@ -1,14 +1,14 @@
 package com.tim.inspection;
 
 import com.tim.experiment.PortfolioExperiment;
-import com.tim.utility.FullExperiment;
+import com.tim.utility.ExperimentType;
 import com.tim.utility.Symbols;
 
 public class PortfolioRunMultiSymbols {
 //    static String symbols = "IJS,VHT";
     static String symbols = "CEG,LLY,IBM";
 //    static FullExperiment experiment = FullExperiment.Pair;
-    static FullExperiment experiment = FullExperiment.Trio;
+    static ExperimentType experiment = ExperimentType.Trio;
     static String resultFile = "portfolio_" + Symbols.getSymbolList(symbols) + "_" + experiment.toString() + "_" + Symbols.getStringDate();
     static Integer resultLimit = 10000;
     static boolean collect0TradeDayResults = true;
