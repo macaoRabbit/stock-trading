@@ -20,7 +20,10 @@ public class FullPairExperiment {
     Integer resultLimit = 1000;
     boolean isLossMajor = true;
     Float seedCost = 0.0f;
+
     boolean collect0TradeDayResults = false;
+    String resultDir = null;
+    String resultFile = null;
 
     public FullPairExperiment(List<Trading> tradings) {
         this.tradings = tradings;
@@ -129,7 +132,10 @@ public class FullPairExperiment {
     }
 
     private void enforceResultLimit() {
-        new GroupTradeResult().setLimit(results, resultLimit);
+        boolean truncated = new GroupTradeResult().setLimit(results, resultLimit);
+        if (truncated && resultDir != null && resultFile != null) {
+            saveResult(resultDir, resultFile);
+        }
     }
 
     public void processResult() {
@@ -201,5 +207,21 @@ public class FullPairExperiment {
 
     public void setCollect0TradeDayResults(boolean collect0TradeDayResults) {
         this.collect0TradeDayResults = collect0TradeDayResults;
+    }
+
+    public String getResultDir() {
+        return resultDir;
+    }
+
+    public void setResultDir(String resultDir) {
+        this.resultDir = resultDir;
+    }
+
+    public String getResultFile() {
+        return resultFile;
+    }
+
+    public void setResultFile(String resultFile) {
+        this.resultFile = resultFile;
     }
 }

@@ -89,9 +89,9 @@ public class GroupTradeResult {
         return l;
     }
 
-    public void setLimit(List<GroupTradeResult> results, Integer resultLimit) {
+    public boolean setLimit(List<GroupTradeResult> results, Integer resultLimit) {
         if (results.size() < resultLimit * 2) {
-            return;
+            return false;
         }
         List<GroupTradeResult> l = getSortedResults(results);
         results.clear();
@@ -104,6 +104,7 @@ public class GroupTradeResult {
                 break;
             }
         }
+        return true;
     }
 
     public void save(List<GroupTradeResult> results, String saveFile) {

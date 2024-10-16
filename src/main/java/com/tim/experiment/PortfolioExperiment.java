@@ -53,6 +53,8 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setResultDir(myResultDir);
+        f.setResultFile(myResultDir + "\\" + resultFile + runType + fileAppendix);
         f.runControl();
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
     }
@@ -66,6 +68,8 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setResultDir(myResultDir);
+        f.setResultFile(myResultDir + "\\" + resultFile + runType + fileAppendix);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlgorithm.RATIO_SPLIT);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
@@ -79,6 +83,8 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setResultDir(myResultDir);
+        f.setResultFile(myResultDir + "\\" + resultFile + runType + fileAppendix);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlgorithm.RATIO_SPLIT);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
@@ -92,6 +98,8 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setResultDir(myResultDir);
+        f.setResultFile(myResultDir + "\\" + resultFile + runType + fileAppendix);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlgorithm.PAIR_SWAP);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
@@ -105,6 +113,8 @@ public class PortfolioExperiment {
 
         FullPairExperiment f = getFullExperiment(gapRange, powerRange, isLossMajor);
         f.setResultLimit(resultLimit);
+        f.setResultDir(myResultDir);
+        f.setResultFile(myResultDir + "\\" + resultFile + runType + fileAppendix);
         f.setCollect0TradeDayResults(collect0TradeDayResults);
         f.run(TradingAlgorithm.PAIR_SWAP);
         f.saveResult(myResultDir, myResultDir + "\\" + resultFile + runType + fileAppendix);
