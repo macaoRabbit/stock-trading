@@ -18,7 +18,7 @@ public class PortfolioExperiment {
     static String resultFile = "iSharesETF";
     static String fileAppendix = TradingHelper.FILE_TYPE;
 
-    static ExperimentType experiment = ExperimentType.Pair;
+    static ExperimentType experiment = ExperimentType.FullPair;
     static Float seedCost = 1000.0f;
     static int recordCount = 1300;
     static int minRecordCount = 300;
@@ -122,11 +122,11 @@ public class PortfolioExperiment {
 
     private static FullPairExperiment getFullExperiment(FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
         switch(experiment) {
-            case Pair:
+            case FullPair:
                 return new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
-            case Trio:
+            case FullTrio:
                 return new FullTrioExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
-            case Quad:
+            case FullQuad:
                 return new FullQuadExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         }
         return new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);

@@ -8,7 +8,7 @@ public class PortfolioRunMultiSymbols {
 //    static String symbols = "IJS,VHT";
     static String symbols = "CEG,LLY,IBM";
 //    static FullExperiment experiment = FullExperiment.Pair;
-    static ExperimentType experiment = ExperimentType.Trio;
+    static ExperimentType experiment = ExperimentType.FullTrio;
     static String resultFile = "portfolio_" + Symbols.getSymbolList(symbols) + "_" + experiment.toString() + "_" + Symbols.getStringDate();
     static Integer resultLimit = 10000;
     static boolean collect0TradeDayResults = true;
