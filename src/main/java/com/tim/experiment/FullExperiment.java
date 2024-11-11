@@ -23,7 +23,7 @@ public class FullExperiment {
         runOnseSet(ExperimentType.FullQuad);
     }
 
-    private void runOnseSet(ExperimentType e) {
+    public void runOnseSet(ExperimentType e) {
         String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
         ExperimentType experiment = e;
         String resultFile = filePrefix + experiment.toString() + "_" + date ;
