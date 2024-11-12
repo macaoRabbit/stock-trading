@@ -128,8 +128,14 @@ public class PortfolioExperiment {
                 return new FullTrioExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
             case FullQuad:
                 return new FullQuadExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+            case RandomPair:
+                return new RandomPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+            case RandomTrio:
+                return new RandomTrioExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+            case RandomQuad:
+                return new RandomQuadExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
         }
-        return new FullPairExperiment(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
+        return null;
     }
 
     public static void setCollect0TradeDayResults(boolean collect0TradeDayResults) {

@@ -38,6 +38,7 @@ public class RandomPairExperiment extends FullPairExperiment {
 
             runJustOne(tradingAlgorithm, thisTradingGroup);
             currentCount++;
+            System.out.println("runCount=" + runCount + " currentCount=" + currentCount);
         }
         return results;
     }
