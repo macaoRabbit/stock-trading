@@ -24,6 +24,7 @@ public class FullPairExperiment {
     boolean collect0TradeDayResults = false;
     String resultDir = null;
     String resultFile = null;
+    Integer runCount = 0;
 
     public FullPairExperiment(List<Trading> tradings) {
         this.tradings = tradings;
@@ -223,5 +224,13 @@ public class FullPairExperiment {
 
     public void setResultFile(String resultFile) {
         this.resultFile = resultFile;
+    }
+
+    public Integer getRunCount() {
+        return runCount;
+    }
+
+    public void setRunCount(Integer runCount) {
+        this.runCount = runCount;
     }
 }

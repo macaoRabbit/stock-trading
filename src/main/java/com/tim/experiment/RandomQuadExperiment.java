@@ -9,16 +9,16 @@ import com.tim.utility.TradingAlgorithm;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandoQuadExperiment extends RandomTrioExperiment{
-    public RandoQuadExperiment(List<Trading> tradings) {
+public class RandomQuadExperiment extends RandomTrioExperiment{
+    public RandomQuadExperiment(List<Trading> tradings) {
         super(tradings);
     }
 
-    public RandoQuadExperiment(List<Trading> tradings, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
+    public RandomQuadExperiment(List<Trading> tradings, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
         super(tradings, gapRange, powerRange, isLossMajor);
     }
 
-    public RandoQuadExperiment(String dir, String symbols, Float seedCost, int recordCount, int minRecordCount, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
+    public RandomQuadExperiment(String dir, String symbols, Float seedCost, int recordCount, int minRecordCount, FloatRange gapRange, FloatRange powerRange, boolean isLossMajor) {
         super(dir, symbols, seedCost, recordCount, minRecordCount, gapRange, powerRange, isLossMajor);
     }
 
@@ -27,7 +27,8 @@ public class RandoQuadExperiment extends RandomTrioExperiment{
         results.clear();
         int currentCount = 0;
         ExperimentType e = ExperimentType.RandomQuad;
-        while (currentCount < e.runCount()) {
+        int runCount = this.getRunCount() > 0? this.getRunCount() : e.runCount();
+        while (currentCount < runCount) {
             List<Trading> thisTradingGroup = new ArrayList<>();
             List<Integer> index = getExperimentIndex(e, tradings.size());
             Trading t1 = tradings.get(index.get(0));
@@ -40,6 +41,7 @@ public class RandoQuadExperiment extends RandomTrioExperiment{
             thisTradingGroup.add(t4);
 
             runJustOne(tradingAlgorithm, thisTradingGroup);
+            currentCount++;
         }
         return results;
     }

@@ -27,7 +27,8 @@ public class RandomPairExperiment extends FullPairExperiment {
         results.clear();
         int currentCount = 0;
         ExperimentType e = ExperimentType.RandomPair;
-        while (currentCount < e.runCount()) {
+        int runCount = this.getRunCount() > 0? this.getRunCount() : e.runCount();
+        while (currentCount < runCount) {
             List<Trading> thisTradingGroup = new ArrayList<>();
             List<Integer> index = getExperimentIndex(e, tradings.size());
             Trading t1 = tradings.get(index.get(0));
@@ -36,6 +37,7 @@ public class RandomPairExperiment extends FullPairExperiment {
             thisTradingGroup.add(t2);
 
             runJustOne(tradingAlgorithm, thisTradingGroup);
+            currentCount++;
         }
         return results;
     }

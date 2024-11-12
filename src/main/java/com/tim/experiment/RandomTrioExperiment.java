@@ -27,7 +27,8 @@ public class RandomTrioExperiment extends RandomPairExperiment {
         results.clear();
         int currentCount = 0;
         ExperimentType e = ExperimentType.RandomTrio;
-        while (currentCount < e.runCount()) {
+        int runCount = this.getRunCount() > 0? this.getRunCount() : e.runCount();
+        while (currentCount < runCount) {
             List<Trading> thisTradingGroup = new ArrayList<>();
             List<Integer> index = getExperimentIndex(e, tradings.size());
             Trading t1 = tradings.get(index.get(0));
@@ -38,6 +39,7 @@ public class RandomTrioExperiment extends RandomPairExperiment {
             thisTradingGroup.add(t3);
 
             runJustOne(tradingAlgorithm, thisTradingGroup);
+            currentCount++;
         }
         return results;
     }
