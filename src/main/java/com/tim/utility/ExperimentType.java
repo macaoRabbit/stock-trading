@@ -5,8 +5,8 @@ public enum ExperimentType {
     FullTrio(0),
     FullQuad(0),
     RandomPair(100),
-    RandomTrio(100),
-    RandomQuad(150);
+    RandomTrio(500),
+    RandomQuad(1000);
 
     private final int runCount;
     ExperimentType(int runCount) {
