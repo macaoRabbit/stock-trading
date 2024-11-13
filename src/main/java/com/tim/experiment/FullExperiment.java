@@ -24,7 +24,7 @@ public class FullExperiment {
     }
 
     public void runOnseSet(ExperimentType e) {
-        String date = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
+        String date = (new SimpleDateFormat("yyyy-MM-dd-HH")).format(new Date());
         ExperimentType experiment = e;
         String resultFile = filePrefix + experiment.toString() + "_" + date ;
         PortfolioExperiment.setSymbolsFileName(symbols, subDir, resultFile, resultLimit);
