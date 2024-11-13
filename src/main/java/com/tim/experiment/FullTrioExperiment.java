@@ -2,6 +2,7 @@ package com.tim.experiment;
 
 import com.tim.result.GroupTradeResult;
 import com.tim.trade.Trading;
+import com.tim.utility.ExperimentType;
 import com.tim.utility.FloatRange;
 import com.tim.utility.TradingAlgorithm;
 
@@ -20,6 +21,9 @@ public class FullTrioExperiment extends FullPairExperiment {
     @Override
     public List<GroupTradeResult> run(TradingAlgorithm tradingAlgorithm) {
         results.clear();
+        int currentCount = 0;
+        ExperimentType e = ExperimentType.FullTrio;
+        int runCount = this.getRunCount() > 0? this.getRunCount() : e.runCount();
         int tradingsSize = tradings.size();
         for (int i = 0; i < tradingsSize; i++) {
             for (int j = i + 1; j < tradingsSize; j++) {
@@ -34,6 +38,10 @@ public class FullTrioExperiment extends FullPairExperiment {
                     thisTradingGroup.add(t3);
 
                     runJustOne(tradingAlgorithm, thisTradingGroup);
+                    currentCount++;
+                    if (currentCount >= runCount) {
+                        return results;
+                    }
                 }
             }
         }

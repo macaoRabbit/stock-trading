@@ -2,11 +2,11 @@ package com.tim.utility;
 
 public enum ExperimentType {
     FullPair(0),
-    FullTrio(0),
-    FullQuad(0),
-    RandomPair(100),
-    RandomTrio(500),
-    RandomQuad(1000);
+    FullTrio(1000),
+    FullQuad(2000),
+    RandomPair(500),
+    RandomTrio(1000),
+    RandomQuad(2000);
 
     private final int runCount;
     ExperimentType(int runCount) {
