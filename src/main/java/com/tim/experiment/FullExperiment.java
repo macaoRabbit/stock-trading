@@ -19,8 +19,8 @@ public class FullExperiment {
 
     public void run() {
         runOnseSet(ExperimentType.FullPair);
-        runOnseSet(ExperimentType.FullTrio);
-        runOnseSet(ExperimentType.FullQuad);
+//        runOnseSet(ExperimentType.FullTrio);
+//        runOnseSet(ExperimentType.FullQuad);
     }
 
     public void runOnseSet(ExperimentType e) {

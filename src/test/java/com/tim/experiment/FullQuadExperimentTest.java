@@ -19,7 +19,7 @@ public class FullQuadExperimentTest {
 
         String dir = "C:\\GitHubProjects\\data\\";
         String resultDir = "C:\\GitHubProjects\\result\\";
-        String subDir = resultDir + "fullExperiment";
+        String subDir = resultDir + "fullExperimentTest";
         String resultFile = subDir + "\\" + this.getClass().getSimpleName() + "_" + Symbols.getStringDate() + ".csv";
         String f1 = "AMD.csv";
         String f2 = "NOW.csv";

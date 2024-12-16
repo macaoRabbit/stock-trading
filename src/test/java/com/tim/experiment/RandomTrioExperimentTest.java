@@ -20,7 +20,7 @@ public class RandomTrioExperimentTest {
 
         String dir = "C:\\GitHubProjects\\data\\";
         String resultDir = "C:\\GitHubProjects\\result\\";
-        String subDir = resultDir + "randomExperiment";
+        String subDir = resultDir + "randomExperimentTest";
         String resultFile = subDir + "\\" + this.getClass().getSimpleName() + "_" + Symbols.getStringDate() + ".csv";
         String f1 = "AMD.csv";
         String f2 = "NOW.csv";

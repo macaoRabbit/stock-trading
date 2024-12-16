@@ -36,8 +36,8 @@ public class PortfolioExperiment {
     public static void run () {
         Instant start = Instant.now();
         runControl();
-        ratioSplitLossMajorTrue();
-        ratioSplitLossMajorfalse();
+//        ratioSplitLossMajorTrue();
+//        ratioSplitLossMajorfalse();
         pairswapLossMajorTrue();
         pairswapLossMajorFalse();
         Instant end = Instant.now();
